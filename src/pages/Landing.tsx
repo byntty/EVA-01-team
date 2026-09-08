@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { MapPin, Mountain, Info, Compass, Phone } from 'lucide-react'
+import { MapPin, Mountain, Compass, Phone } from 'lucide-react'
 import { Navbar } from '../components/Navbar'
 import { useLanguage } from '../lib/language'
 import { peaksData, type Peak } from '../data/peaksData'
@@ -19,6 +19,7 @@ export default function Landing() {
   const [filterLevel, setFilterLevel] = useState<number | null>(null)
   const [hoveredPeak, setHoveredPeak] = useState<string | null>(null)
 
+
   function displayName(peak: Peak): string {
     if (lang === 'en') return peak.nameEn
     if (lang === 'kz') return peak.nameKz
@@ -29,12 +30,10 @@ export default function Landing() {
     setFilterLevel(filterLevel === level ? null : level)
   }
 
-  const filteredPeaks = filterLevel
-    ? peaksData.filter((p) => p.difficultyLevel === filterLevel)
-    : peaksData
-
   const routesCountByLevel = (level: number) =>
     peaksData.filter((p) => p.difficultyLevel === level).length
+
+
 
   return (
     <div style={{ minHeight: '100vh', background: '#fdf6e3' }}>
@@ -47,133 +46,31 @@ export default function Landing() {
           <div className="retro-divider">
             <span>✦ {t.mapTitle} ✦</span>
           </div>
-        </div>
+        </div>        <div
+          className="retro-card overflow-hidden relative"
+          style={{ aspectRatio: '1500 / 517' }}
+        >
+          {/* Panorama image */}
+          <img
+            src="/alataupeaks/map-panorama.jpg"
+            alt="Заилийский Алатау — интерактивная карта"
+            className="w-full h-full object-cover"
+            style={{ display: 'block' }}
+          />
 
-        <div className="retro-card overflow-hidden relative" style={{ minHeight: 520 }}>
           {/* Noise overlay */}
           <div className="retro-noise absolute inset-0 pointer-events-none" />
 
+          {/* Peak markers overlay — SVG aligned to image aspect ratio */}
           <svg
-            viewBox="0 0 1000 600"
-            className="w-full h-full retro-map-area"
-            style={{ minHeight: 520 }}
+            viewBox="0 0 1500 517"
+            className="absolute inset-0 w-full h-full"
+            style={{ pointerEvents: 'none' }}
           >
-            {/* Parchment background */}
-            <rect width="1000" height="600" fill="#f0e1c4" />
-
-            {/* Vintage grid — like old map coordinates */}
-            {Array.from({ length: 21 }).map((_, i) => (
-              <line
-                key={`vgrid-${i}`}
-                x1={i * 50}
-                y1={0}
-                x2={i * 50}
-                y2={600}
-                stroke="#c4b49a"
-                strokeWidth={0.4}
-                strokeDasharray="2 6"
-              />
-            ))}
-            {Array.from({ length: 13 }).map((_, i) => (
-              <line
-                key={`hgrid-${i}`}
-                x1={0}
-                y1={i * 50}
-                x2={1000}
-                y2={600}
-                stroke="#c4b49a"
-                strokeWidth={0.4}
-                strokeDasharray="2 6"
-              />
-            ))}
-
-            {/* Coordinate labels */}
-            {Array.from({ length: 21 }).map((_, i) => (
-              <text
-                key={`vlabel-${i}`}
-                x={i * 50}
-                y={595}
-                textAnchor="middle"
-                fill="#b0a080"
-                fontSize={6}
-                fontFamily="'Special Elite', monospace"
-              >
-                {i > 0 ? `${77}.${String(i).padStart(2, '0')}` : ''}
-              </text>
-            ))}
-            {Array.from({ length: 13 }).map((_, i) => (
-              <text
-                key={`hlabel-${i}`}
-                x={5}
-                y={i * 50 + 4}
-                fill="#b0a080"
-                fontSize={6}
-                fontFamily="'Special Elite', monospace"
-              >
-                {i > 0 ? `${43}.${String(i).padStart(2, '0')}` : ''}
-              </text>
-            ))}
-
-            {/* Topographic contour lines — thick contour style */}
-            <path
-              d="M0,420 Q120,350 250,380 T500,330 T750,360 T1000,300"
-              fill="none"
-              stroke="#a89474"
-              strokeWidth={1.5}
-              opacity={0.5}
-            />
-            <path
-              d="M0,400 Q100,330 230,360 T480,310 T730,340 T1000,280"
-              fill="none"
-              stroke="#a89474"
-              strokeWidth={1.2}
-              opacity={0.4}
-            />
-            <path
-              d="M0,380 Q80,310 210,340 T460,290 T710,320 T1000,260"
-              fill="none"
-              stroke="#a89474"
-              strokeWidth={1}
-              opacity={0.35}
-            />
-            <path
-              d="M0,360 Q60,290 190,320 T440,270 T690,300 T1000,240"
-              fill="none"
-              stroke="#c4b49a"
-              strokeWidth={0.8}
-              opacity={0.3}
-            />
-            <path
-              d="M0,340 Q40,270 170,300 T420,250 T670,280 T1000,220"
-              fill="none"
-              stroke="#c4b49a"
-              strokeWidth={0.6}
-              opacity={0.25}
-            />
-
-            {/* Mountain range silhouettes — vintage brown tones */}
-            <path
-              d="M0,440 L60,380 L130,400 L200,350 L300,380 L380,320 L480,360 L560,290 L660,340 L740,270 L840,310 L920,250 L1000,330 L1000,600 L0,600 Z"
-              fill="#b8a88e"
-              opacity={0.35}
-            />
-            <path
-              d="M0,470 L70,410 L160,430 L250,380 L350,410 L450,350 L540,390 L640,330 L720,370 L820,300 L900,340 L1000,280 L1000,600 L0,600 Z"
-              fill="#a09078"
-              opacity={0.4}
-            />
-            {/* Closest range — darker */}
-            <path
-              d="M0,500 L80,450 L170,470 L280,420 L380,450 L480,400 L580,430 L680,380 L780,410 L880,360 L1000,400 L1000,600 L0,600 Z"
-              fill="#8b7355"
-              opacity={0.3}
-            />
-
-            {/* Peak markers */}
             {peaksData.map((peak) => {
               const isVisible = filterLevel === null || peak.difficultyLevel === filterLevel
-              const top = (parseFloat(peak.mapPosition.top) / 100) * 600
-              const left = (parseFloat(peak.mapPosition.left) / 100) * 1000
+              const top = (parseFloat(peak.mapPosition.top) / 100) * 517
+              const left = (parseFloat(peak.mapPosition.left) / 100) * 1500
               const isHovered = hoveredPeak === peak.id
 
               const markerColors: Record<number, string> = {
@@ -191,6 +88,7 @@ export default function Landing() {
                     cursor: 'pointer',
                     opacity: isVisible ? 1 : 0.12,
                     transition: 'opacity 0.3s ease',
+                    pointerEvents: 'all',
                   }}
                   onClick={() => navigate(`/peak/${peak.id}`)}
                   onMouseEnter={() => setHoveredPeak(peak.id)}
@@ -200,36 +98,25 @@ export default function Landing() {
                   <circle
                     cx={left}
                     cy={top}
-                    r={isHovered ? 22 : 16}
+                    r={isHovered ? 28 : 18}
                     fill="none"
                     stroke={mColor}
                     strokeWidth={2}
-                    opacity={isHovered ? 0.5 : 0.25}
-                    strokeDasharray="4 3"
-                    style={{ transition: 'all 0.2s ease' }}
+                    opacity={isHovered ? 0.6 : 0.3}
+                    strokeDasharray="5 3"
                   >
-                    <animate
-                      attributeName="r"
-                      values="16;24;16"
-                      dur="2.5s"
-                      repeatCount="indefinite"
-                    />
-                    <animate
-                      attributeName="opacity"
-                      values="0.25;0.08;0.25"
-                      dur="2.5s"
-                      repeatCount="indefinite"
-                    />
+                    <animate attributeName="r" values="18;28;18" dur="2.5s" repeatCount="indefinite" />
+                    <animate attributeName="opacity" values="0.3;0.08;0.3" dur="2.5s" repeatCount="indefinite" />
                   </circle>
 
-                  {/* Main marker — retro stamp style */}
+                  {/* Main marker */}
                   <circle
                     cx={left}
                     cy={top}
-                    r={isHovered ? 10 : 7}
+                    r={isHovered ? 12 : 8}
                     fill={mColor}
                     stroke="#3d2b1f"
-                    strokeWidth={2.5}
+                    strokeWidth={3}
                     style={{ transition: 'r 0.2s ease' }}
                   />
 
@@ -237,7 +124,7 @@ export default function Landing() {
                   <circle
                     cx={left}
                     cy={top}
-                    r={isHovered ? 4 : 2.5}
+                    r={isHovered ? 5 : 3}
                     fill="#fdf6e3"
                   />
 
@@ -245,54 +132,21 @@ export default function Landing() {
                   {isHovered && (
                     <>
                       <rect
-                        x={left - 95}
-                        y={top - 65}
-                        width={190}
-                        height={50}
+                        x={left - 120}
+                        y={top - 75}
+                        width={240}
+                        height={55}
                         rx={4}
                         fill="#f5e6c8"
                         stroke="#3d2b1f"
-                        strokeWidth={2}
-                      />
-                      {/* Corner accents */}
-                      <line
-                        x1={left - 93}
-                        y1={top - 63}
-                        x2={left - 83}
-                        y2={top - 63}
-                        stroke={mColor}
-                        strokeWidth={2}
-                      />
-                      <line
-                        x1={left - 93}
-                        y1={top - 63}
-                        x2={left - 93}
-                        y2={top - 53}
-                        stroke={mColor}
-                        strokeWidth={2}
-                      />
-                      <line
-                        x1={left + 93}
-                        y1={top - 15}
-                        x2={left + 83}
-                        y2={top - 15}
-                        stroke={mColor}
-                        strokeWidth={2}
-                      />
-                      <line
-                        x1={left + 93}
-                        y1={top - 15}
-                        x2={left + 93}
-                        y2={top - 25}
-                        stroke={mColor}
-                        strokeWidth={2}
+                        strokeWidth={2.5}
                       />
                       <text
                         x={left}
-                        y={top - 43}
+                        y={top - 50}
                         textAnchor="middle"
                         fill="#3d2b1f"
-                        fontSize={12}
+                        fontSize={13}
                         fontWeight={700}
                         fontFamily="'Playfair Display', Georgia, serif"
                       >
@@ -300,10 +154,10 @@ export default function Landing() {
                       </text>
                       <text
                         x={left}
-                        y={top - 26}
+                        y={top - 30}
                         textAnchor="middle"
                         fill="#8b7355"
-                        fontSize={9}
+                        fontSize={10}
                         fontFamily="'Special Elite', monospace"
                       >
                         {peak.elevation}м · {peak.difficulty}
@@ -313,56 +167,12 @@ export default function Landing() {
                 </g>
               )
             })}
-
-            {/* Compass rose decoration */}
-            <g transform="translate(920, 80)" opacity={0.25}>
-              <circle cx={0} cy={0} r={30} fill="none" stroke="#3d2b1f" strokeWidth={1.5} />
-              <circle cx={0} cy={0} r={22} fill="none" stroke="#3d2b1f" strokeWidth={0.8} />
-              {/* N */}
-              <line x1={0} y1={-28} x2={0} y2={-18} stroke="#3d2b1f" strokeWidth={2} />
-              <text x={0} y={-32} textAnchor="middle" fill="#3d2b1f" fontSize={10} fontWeight={700} fontFamily="'Special Elite', serif">N</text>
-              {/* S */}
-              <line x1={0} y1={28} x2={0} y2={18} stroke="#3d2b1f" strokeWidth={1} />
-              <text x={0} y={40} textAnchor="middle" fill="#3d2b1f" fontSize={8} fontFamily="'Special Elite', serif">S</text>
-              {/* E */}
-              <line x1={28} y1={0} x2={18} y2={0} stroke="#3d2b1f" strokeWidth={1} />
-              <text x={38} y={4} textAnchor="middle" fill="#3d2b1f" fontSize={8} fontFamily="'Special Elite', serif">E</text>
-              {/* W */}
-              <line x1={-28} y1={0} x2={-18} y2={0} stroke="#3d2b1f" strokeWidth={1} />
-              <text x={-38} y={4} textAnchor="middle" fill="#3d2b1f" fontSize={8} fontFamily="'Special Elite', serif">W</text>
-              {/* Diagonal lines */}
-              <line x1={-20} y1={-20} x2={-14} y2={-14} stroke="#3d2b1f" strokeWidth={0.6} />
-              <line x1={20} y1={-20} x2={14} y2={-14} stroke="#3d2b1f" strokeWidth={0.6} />
-              <line x1={-20} y1={20} x2={-14} y2={14} stroke="#3d2b1f" strokeWidth={0.6} />
-              <line x1={20} y1={20} x2={14} y2={14} stroke="#3d2b1f" strokeWidth={0.6} />
-              {/* Center star */}
-              <text x={0} y={5} textAnchor="middle" fill="#c44d2c" fontSize={14}>✦</text>
-            </g>
-
-            {/* Scale bar */}
-            <g transform="translate(30, 570)">
-              <line x1={0} y1={0} x2={100} y2={0} stroke="#3d2b1f" strokeWidth={1.5} />
-              <line x1={0} y1={-4} x2={0} y2={4} stroke="#3d2b1f" strokeWidth={1.5} />
-              <line x1={50} y1={-3} x2={50} y2={3} stroke="#3d2b1f" strokeWidth={1} />
-              <line x1={100} y1={-4} x2={100} y2={4} stroke="#3d2b1f" strokeWidth={1.5} />
-              <text x={0} y={14} textAnchor="middle" fill="#3d2b1f" fontSize={7} fontFamily="'Special Elite', serif">0</text>
-              <text x={50} y={14} textAnchor="middle" fill="#3d2b1f" fontSize={7} fontFamily="'Special Elite', serif">5</text>
-              <text x={100} y={14} textAnchor="middle" fill="#3d2b1f" fontSize={7} fontFamily="'Special Elite', serif">10 km</text>
-            </g>
-
-            {/* Title cartouche */}
-            <g transform="translate(30, 40)">
-              <rect x={-5} y={-5} width={260} height={42} rx={3} fill="#f5e6c8" stroke="#3d2b1f" strokeWidth={2} />
-              <text x={0} y={8} fill="#8b7355" fontSize={7} fontFamily="'Special Elite', monospace" letterSpacing="0.15em">ZAĬLĬYSKY ALATAU</text>
-              <text x={0} y={24} fill="#3d2b1f" fontSize={14} fontWeight={700} fontFamily="'Playfair Display', Georgia, serif">Заилийский Алатау</text>
-              <text x={250} y={24} fill="#c44d2c" fontSize={11}>✦</text>
-            </g>
           </svg>
 
           {/* Map hint badge */}
           <div
             className="absolute bottom-4 right-4 retro-badge text-xs flex items-center gap-1"
-            style={{ color: '#8b7355', borderColor: '#8b7355' }}
+            style={{ color: '#8b7355', borderColor: '#8b7355', background: 'rgba(245,230,200,0.85)' }}
           >
             <Compass className="w-3 h-3" />
             {t.mapHint}

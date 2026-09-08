@@ -69,6 +69,8 @@ export interface RouteStats {
   duration: string
 }
 
+export type PeakCategory = "peak" | "traverse" | "mountain"
+
 export interface Peak {
   id: string
   name: string
@@ -88,6 +90,7 @@ export interface Peak {
   equipment: EquipmentCategory[]
   safety: Safety
   photos: string[]
+  category: PeakCategory
 }
 
 export function getPeakById(id: string): Peak | undefined {
@@ -255,141 +258,12 @@ export const peaksData: Peak[] = [
         'Носите свисток для экстренной сигнализации',
       ],
     },
+      category: 'peak',
     photos: [
       'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800&h=500&fit=crop',
       'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=500&fit=crop',
       'https://images.unsplash.com/photo-1519681393784-d120267933ba?w=800&h=500&fit=crop',
       'https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?w=800&h=500&fit=crop',
-    ],
-  },
-  {
-    id: 'sovietov',
-    name: 'Пик Советов',
-    nameKz: 'Советов шыңы',
-    nameEn: 'Pik Sovetov',
-    elevation: 4317,
-    coordinates: { lat: 43.0700, lng: 77.0800 },
-    mapPosition: { top: '35%', left: '52%' },
-    difficulty: 'Средний',
-    difficultyLevel: 2,
-    description:
-      'Пик Советов — один из популярных маршрутов для опытных туристов. Расположен в районе ледника Тургунай, открывая великолепные панорамные виды на южные хребты Алатау.',
-    routeStats: {
-      distance: '16 км',
-      elevationGain: '1500 м',
-      duration: '12 ч',
-    },
-    weather: {
-      temp: -1,
-      feelsLike: -5,
-      humidity: 60,
-      windSpeed: 12,
-      windDirection: 'Ю',
-      tempMax: 4,
-      tempMin: -7,
-      description: 'Переменная облачность',
-      icon: '⛅',
-    },
-    weatherForecast: [
-      { time: 'Ночь', temp: -5, icon: '🌙' },
-      { time: 'Утро', temp: -1, icon: '⛅' },
-      { time: 'День', temp: 4, icon: '☀️' },
-      { time: 'Вечер', temp: 0, icon: '🌤️' },
-    ],
-    hourlyForecast: [
-      { hour: '00:00', temp: -5, icon: '🌙', humidity: 65, wind: 10 },
-      { hour: '03:00', temp: -6, icon: '🌙', humidity: 67, wind: 8 },
-      { hour: '06:00', temp: -3, icon: '🌅', humidity: 62, wind: 9 },
-      { hour: '09:00', temp: 0, icon: '⛅', humidity: 58, wind: 12 },
-      { hour: '12:00', temp: 4, icon: '☀️', humidity: 50, wind: 15 },
-      { hour: '15:00', temp: 3, icon: '⛅', humidity: 53, wind: 14 },
-      { hour: '18:00', temp: 0, icon: '🌤️', humidity: 57, wind: 11 },
-      { hour: '21:00', temp: -3, icon: '🌙', humidity: 62, wind: 9 },
-    ],
-    routes: [
-      {
-        name: 'Основной маршрут',
-        duration: '12 ч',
-        distance: '16 км',
-        elevationGain: '1500 м',
-        difficulty: 'Средний',
-        terrain: 'Тропа → морена → гребень',
-        description:
-          'Стандартный маршрут через долину ледника Тургунай с подъёмом по восточному гребню к вершине.',
-        highlights: [
-          'Ледник Тургунай',
-          'Вид с восточного гребня',
-          'Панорама на южные хребты',
-        ],
-        guruMapsUrl: 'https://maps.guru/peaks/sovietov-main',
-        guruMapsFile: '/guru/sovietov-main.guru',
-      },
-    ],
-    equipment: [
-      {
-        category: 'Одежда',
-        items: [
-          { name: 'Мембранная куртка', essential: true },
-          { name: 'Тёплая куртка', essential: true },
-          { name: 'Трекинговые штаны', essential: true },
-          { name: 'Термобельё', essential: true },
-          { name: 'Шапка и перчатки', essential: true },
-        ],
-      },
-      {
-        category: 'Обувь',
-        items: [
-          { name: 'Трекинговые ботинки', essential: true },
-          { name: 'Трекинговые палки', essential: true },
-        ],
-      },
-      {
-        category: 'Навигация',
-        items: [
-          { name: 'GPS-навигатор', essential: true },
-          { name: 'Компас', essential: true },
-          { name: 'Power bank', essential: true },
-        ],
-      },
-      {
-        category: 'Питание',
-        items: [
-          { name: 'Вода (2 л)', essential: true },
-          { name: 'Энергетические батончики', essential: true },
-          { name: 'Термос', essential: true },
-        ],
-      },
-      {
-        category: 'Безопасность',
-        items: [
-          { name: 'Аптечка', essential: true },
-          { name: 'Солнцезащитный крем', essential: true },
-          { name: 'Каска', essential: false },
-        ],
-      },
-    ],
-    safety: {
-      rules: [
-        'Группа минимум 3 человека',
-        'Зарегистрируйтесь в спасательной службе',
-        'Следите за погодой',
-        'Не выходите без карта GPS',
-      ],
-      emergencyContacts: [
-        { label: 'МЧС Казахстана', number: '112' },
-        { label: 'Служба спасения', number: '+7-727-250-39-39' },
-      ],
-      tips: [
-        'Начинайте рано утром',
-        'Берите запас воды — на маршруте нет источников после 3000 м',
-        'Возвращайтесь по тому же маршруту',
-      ],
-    },
-    photos: [
-      'https://images.unsplash.com/photo-1454496522488-7a8e488e8606?w=800&h=500&fit=crop',
-      'https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?w=800&h=500&fit=crop',
-      'https://images.unsplash.com/photo-1464278533981-50106e6176b1?w=800&h=500&fit=crop',
-      'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=800&h=500&fit=crop',
     ],
   },
   {
@@ -399,9 +273,9 @@ export const peaksData: Peak[] = [
     nameEn: 'Pik Turistov',
     elevation: 3974,
     coordinates: { lat: 43.0800, lng: 77.0500 },
-    mapPosition: { top: '45%', left: '30%' },
-    difficulty: 'Лёгкий',
-    difficultyLevel: 1,
+    mapPosition: { top: '32%', left: '30%' },
+    difficulty: 'Средний',
+    difficultyLevel: 2,
     description:
       'Идеальный пик для первого высотного маршрута. Хорошая тропа, красивые виды и относительно простой подъём делают его популярным среди начинающих туристов.',
     routeStats: {
@@ -442,7 +316,7 @@ export const peaksData: Peak[] = [
         duration: '6 ч',
         distance: '12 км',
         elevationGain: '900 м',
-        difficulty: 'Лёгкий',
+        difficulty: 'Средний',
         terrain: 'Хорошая тропа → каменистый участок',
         description:
           'Простой маршрут для начинающих. Чёткая тропа от стоянки до вершины с небольшим каменистым участком в финале.',
@@ -500,458 +374,12 @@ export const peaksData: Peak[] = [
         'Вернитесь до 16:00',
       ],
     },
+      category: 'peak',
     photos: [
       'https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800&h=500&fit=crop',
       'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=800&h=500&fit=crop',
       'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&h=500&fit=crop',
       'https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=800&h=500&fit=crop',
-    ],
-  },
-  {
-    id: 'belukha',
-    name: 'Пик Белуха',
-    nameKz: 'Белуха шыңы',
-    nameEn: 'Belukha Peak',
-    elevation: 4062,
-    coordinates: { lat: 43.0500, lng: 77.1000 },
-    mapPosition: { top: '55%', left: '65%' },
-    difficulty: 'Сложный',
-    difficultyLevel: 3,
-    description:
-      'Один из самых требовательных маршрутов в районе. Длинная дистанция, значительный набор высоты и технические участки требуют хорошей физической подготовки и опыта горных походов.',
-    routeStats: {
-      distance: '24 км',
-      elevationGain: '2100 м',
-      duration: '20 ч',
-    },
-    weather: {
-      temp: -5,
-      feelsLike: -12,
-      humidity: 75,
-      windSpeed: 20,
-      windDirection: 'С',
-      tempMax: 0,
-      tempMin: -12,
-      description: 'Снег, ветер',
-      icon: '❄️',
-    },
-    weatherForecast: [
-      { time: 'Ночь', temp: -10, icon: '🌙' },
-      { time: 'Утро', temp: -5, icon: '🌨️' },
-      { time: 'День', temp: 0, icon: '⛅' },
-      { time: 'Вечер', temp: -4, icon: '❄️' },
-    ],
-    hourlyForecast: [
-      { hour: '00:00', temp: -10, icon: '🌙', humidity: 80, wind: 18 },
-      { hour: '03:00', temp: -11, icon: '🌙', humidity: 82, wind: 16 },
-      { hour: '06:00', temp: -8, icon: '🌨️', humidity: 78, wind: 17 },
-      { hour: '09:00', temp: -4, icon: '🌨️', humidity: 73, wind: 20 },
-      { hour: '12:00', temp: 0, icon: '⛅', humidity: 68, wind: 24 },
-      { hour: '15:00', temp: -1, icon: '⛅', humidity: 70, wind: 22 },
-      { hour: '18:00', temp: -4, icon: '❄️', humidity: 74, wind: 19 },
-      { hour: '21:00', temp: -8, icon: '🌙', humidity: 78, wind: 17 },
-    ],
-    routes: [
-      {
-        name: 'Западный маршрут',
-        duration: '20 ч',
-        distance: '24 км',
-        elevationGain: '2100 м',
-        difficulty: 'Сложный',
-        terrain: 'Тропа → морена → ледник → скалы',
-        description:
-          'Требовательный маршрут через западный подход. Включает прохождение ледникового участка и скального гребня. Необходим альпинистский опыт.',
-        highlights: [
-          'Ледниковое поле',
-          'Скальный гребень V категории',
-          'Вершинная панорама',
-        ],
-        guruMapsUrl: 'https://maps.guru/peaks/belukha-west',
-        guruMapsFile: '/guru/belukha-west.guru',
-      },
-    ],
-    equipment: [
-      {
-        category: 'Одежда',
-        items: [
-          { name: 'Мембранная куртка', essential: true },
-          { name: 'Пуховик', essential: true },
-          { name: 'Альпинистские штаны', essential: true },
-          { name: 'Термобельё (2 слоя)', essential: true },
-          { name: 'Балаклава', essential: true },
-          { name: 'Альпинистские перчатки', essential: true },
-        ],
-      },
-      {
-        category: 'Обувь',
-        items: [
-          { name: 'Альпинистские ботинки', essential: true },
-          { name: 'Кошки', essential: true },
-          { name: 'Гамаши', essential: true },
-        ],
-      },
-      {
-        category: 'Навигация',
-        items: [
-          { name: 'GPS-навигатор', essential: true },
-          { name: 'Компас', essential: true },
-          { name: 'Топографическая карта', essential: true },
-          { name: 'Power bank (2 шт)', essential: true },
-        ],
-      },
-      {
-        category: 'Альпинистское снаряжение',
-        items: [
-          { name: 'Каска', essential: true },
-          { name: 'Страховочная система', essential: true },
-          { name: 'Верёвка (50 м)', essential: true },
-          { name: 'Гропрессоры', essential: true },
-          { name: 'Карабины (4 шт)', essential: true },
-        ],
-      },
-      {
-        category: 'Питание',
-        items: [
-          { name: 'Вода (3 л)', essential: true },
-          { name: 'Энергетические батончики', essential: true },
-          { name: 'Термос', essential: true },
-          { name: 'Горячее питание', essential: true },
-        ],
-      },
-      {
-        category: 'Безопасность',
-        items: [
-          { name: 'Аптечка (расширенная)', essential: true },
-          { name: 'Солнцезащитный крем SPF 50', essential: true },
-          { name: 'Спасательное одеяло', essential: true },
-          { name: 'Свисток', essential: true },
-        ],
-      },
-    ],
-    safety: {
-      rules: [
-        'Минимальный опыт: 3 высотных маршрута',
-        'Группа минимум 4 человека',
-        'Обязательна регистрация в спасательной службе',
-        'Обязательное альпинистское снаряжение',
-        'Не начинайте при угрозе шторма',
-        'Всегда берите запас времени на спуск',
-      ],
-      emergencyContacts: [
-        { label: 'МЧС Казахстана', number: '112' },
-        { label: 'Служба спасения Алматы', number: '+7-727-250-39-39' },
-        { label: 'Горная служба спасения', number: '+7-727-272-25-45' },
-      ],
-      tips: [
-        'Тренируйтесь на более простых пиках перед этим маршрутом',
-        'Выходите в 4:00-5:00 утра',
-        'Разворот не позже 12:00',
-        'Носите GPS с записанным маршрутом обратно',
-      ],
-    },
-    photos: [
-      'https://images.unsplash.com/photo-1491002052546-bf38f186af56?w=800&h=500&fit=crop',
-      'https://images.unsplash.com/photo-1485470733090-0aae1788d668?w=800&h=500&fit=crop',
-      'https://images.unsplash.com/photo-1517483000871-1dbf64a6e1c6?w=800&h=500&fit=crop',
-      'https://images.unsplash.com/photo-1494500764479-0c8f2919a3d8?w=800&h=500&fit=crop',
-    ],
-  },
-  {
-    id: 'tuyuksu',
-    name: 'Пик Туюксу',
-    nameKz: 'Түйүксу шыңы',
-    nameEn: 'Pik Tuyuksu',
-    elevation: 4156,
-    coordinates: { lat: 43.0600, lng: 77.0700 },
-    mapPosition: { top: '38%', left: '48%' },
-    difficulty: 'Средний',
-    difficultyLevel: 2,
-    description:
-      'Классический маршрут среди ледников и скал. Пик Туюксу расположен в живописном районе с видом на массив Туюксу и окрестные ледники.',
-    routeStats: {
-      distance: '14 км',
-      elevationGain: '1300 м',
-      duration: '10 ч',
-    },
-    weather: {
-      temp: 0,
-      feelsLike: -4,
-      humidity: 62,
-      windSpeed: 14,
-      windDirection: 'ЮЗ',
-      tempMax: 5,
-      tempMin: -6,
-      description: 'Облачно',
-      icon: '☁️',
-    },
-    weatherForecast: [
-      { time: 'Ночь', temp: -4, icon: '🌙' },
-      { time: 'Утро', temp: 0, icon: '☁️' },
-      { time: 'День', temp: 5, icon: '⛅' },
-      { time: 'Вечер', temp: 1, icon: '☁️' },
-    ],
-    hourlyForecast: [
-      { hour: '00:00', temp: -4, icon: '🌙', humidity: 65, wind: 12 },
-      { hour: '03:00', temp: -5, icon: '🌙', humidity: 67, wind: 10 },
-      { hour: '06:00', temp: -2, icon: '🌅', humidity: 63, wind: 11 },
-      { hour: '09:00', temp: 2, icon: '☁️', humidity: 58, wind: 13 },
-      { hour: '12:00', temp: 5, icon: '⛅', humidity: 52, wind: 16 },
-      { hour: '15:00', temp: 4, icon: '☁️', humidity: 55, wind: 15 },
-      { hour: '18:00', temp: 1, icon: '☁️', humidity: 60, wind: 12 },
-      { hour: '21:00', temp: -1, icon: '🌙', humidity: 63, wind: 11 },
-    ],
-    routes: [
-      {
-        name: 'Ледниковый маршрут',
-        duration: '10 ч',
-        distance: '14 км',
-        elevationGain: '1300 м',
-        difficulty: 'Средний',
-        terrain: 'Тропа → морена → ледник → гребень',
-        description:
-          'Основной маршрут через ледник Туюксу. Проходит мимо одноимённого ледника с подъёмом по восточному гребню.',
-        highlights: [
-          'Ледник Туюксу',
-          'Вид на массив Актау',
-          'Подъём по гребню',
-        ],
-        guruMapsUrl: 'https://maps.guru/peaks/tuyuksu-glacier',
-        guruMapsFile: '/guru/tuyuksu-glacier.guru',
-      },
-    ],
-    equipment: [
-      {
-        category: 'Одежда',
-        items: [
-          { name: 'Мембранная куртка', essential: true },
-          { name: 'Тёплая куртка', essential: true },
-          { name: 'Трекинговые штаны', essential: true },
-          { name: 'Шапка и перчатки', essential: true },
-        ],
-      },
-      {
-        category: 'Обувь',
-        items: [
-          { name: 'Трекинговые ботинки', essential: true },
-          { name: 'Трекинговые палки', essential: true },
-          { name: 'Кошки (опционально)', essential: false, note: 'При наличии льда' },
-        ],
-      },
-      {
-        category: 'Навигация',
-        items: [
-          { name: 'GPS-навигатор', essential: true },
-          { name: 'Компас', essential: true },
-          { name: 'Power bank', essential: true },
-        ],
-      },
-      {
-        category: 'Питание',
-        items: [
-          { name: 'Вода (2 л)', essential: true },
-          { name: 'Энергетические батончики', essential: true },
-          { name: 'Термос', essential: true },
-        ],
-      },
-      {
-        category: 'Безопасность',
-        items: [
-          { name: 'Аптечка', essential: true },
-          { name: 'Солнцезащитный крем', essential: true },
-        ],
-      },
-    ],
-    safety: {
-      rules: [
-        'Группа минимум 3 человека',
-        'Зарегистрируйтесь перед выходом',
-        'Следите за погодой',
-        'На леднике — верёвка обязательна',
-      ],
-      emergencyContacts: [
-        { label: 'МЧС Казахстана', number: '112' },
-        { label: 'Служба спасения', number: '+7-727-250-39-39' },
-      ],
-      tips: [
-        'Начинайте рано — в 6:00',
-        'На леднике соблюдайте дистанцию',
-        'Избегайте ледниковых разломов — идите за проводником',
-      ],
-    },
-    photos: [
-      'https://images.unsplash.com/photo-1482192505345-5655af888cc4?w=800&h=500&fit=crop',
-      'https://images.unsplash.com/photo-1446329813274-7c9036bd9a1f?w=800&h=500&fit=crop',
-      'https://images.unsplash.com/photo-1473773508845-188df298d2d1?w=800&h=500&fit=crop',
-      'https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=800&h=500&fit=crop',
-    ],
-  },
-  {
-    id: 'manas',
-    name: 'Пик Манас',
-    nameKz: 'Манас шыңы',
-    nameEn: 'Pik Manas',
-    elevation: 4482,
-    coordinates: { lat: 43.0400, lng: 77.1200 },
-    mapPosition: { top: '62%', left: '72%' },
-    difficulty: 'Очень сложный',
-    difficultyLevel: 4,
-    description:
-      'Один из самых высоких и технически сложных пиков Заилийского Алатау. Требует серьёзной альпинистской подготовки, хорошей акклиматизации и опыта высотных восхождений. Длинный маршрут с техническими участками.',
-    routeStats: {
-      distance: '28 км',
-      elevationGain: '2400 м',
-      duration: '30 ч',
-    },
-    weather: {
-      temp: -8,
-      feelsLike: -18,
-      humidity: 80,
-      windSpeed: 25,
-      windDirection: 'С',
-      tempMax: -2,
-      tempMin: -15,
-      description: 'Сильный ветер, снег',
-      icon: '🌨️',
-    },
-    weatherForecast: [
-      { time: 'Ночь', temp: -13, icon: '🌙' },
-      { time: 'Утро', temp: -8, icon: '🌨️' },
-      { time: 'День', temp: -2, icon: '❄️' },
-      { time: 'Вечер', temp: -6, icon: '🌨️' },
-    ],
-    hourlyForecast: [
-      { hour: '00:00', temp: -13, icon: '🌙', humidity: 82, wind: 22 },
-      { hour: '03:00', temp: -14, icon: '🌙', humidity: 84, wind: 20 },
-      { hour: '06:00', temp: -11, icon: '🌨️', humidity: 80, wind: 21 },
-      { hour: '09:00', temp: -7, icon: '🌨️', humidity: 76, wind: 24 },
-      { hour: '12:00', temp: -2, icon: '❄️', humidity: 70, wind: 28 },
-      { hour: '15:00', temp: -3, icon: '❄️', humidity: 72, wind: 26 },
-      { hour: '18:00', temp: -6, icon: '🌨️', humidity: 75, wind: 23 },
-      { hour: '21:00', temp: -10, icon: '🌙', humidity: 79, wind: 21 },
-    ],
-    routes: [
-      {
-        name: 'Юго-западный маршрут',
-        duration: '30 ч',
-        distance: '28 км',
-        elevationGain: '2400 м',
-        difficulty: 'Экспертный',
-        terrain: 'Тропа → морена → ледник → скалы → гребень',
-        description:
-          'Экспертный маршрут для опытных альпинистов. Включает прохождение ледника, скального участка VI категории и выход по🔪ножу к вершине. Требуется двухдневное восхождение с промежуточным лагерем.',
-        highlights: [
-          'Вершина — высшая точка маршрута',
-          'Ледниковое поле длиной 1.5 км',
-          'Скальный участок VI категории',
-          'Вершинный гребень',
-        ],
-        guruMapsUrl: 'https://maps.guru/peaks/manas-sw',
-        guruMapsFile: '/guru/manas-sw.guru',
-      },
-    ],
-    equipment: [
-      {
-        category: 'Одежда',
-        items: [
-          { name: 'Экспедиционная куртка', essential: true },
-          { name: 'Пуховик (800+)', essential: true },
-          { name: 'Альпинистские штаны', essential: true },
-          { name: 'Термобельё (3 слоя)', essential: true },
-          { name: 'Балаклава', essential: true },
-          { name: 'Альпинистские перчатки (2 пары)', essential: true },
-          { name: 'Гетры', essential: true },
-        ],
-      },
-      {
-        category: 'Обувь',
-        items: [
-          { name: 'Экспедиционные ботинки', essential: true },
-          { name: 'Кошки (12-зубые)', essential: true },
-          { name: 'Гамаши', essential: true },
-        ],
-      },
-      {
-        category: 'Навигация',
-        items: [
-          { name: 'GPS-навигатор', essential: true },
-          { name: 'Компас', essential: true },
-          { name: 'Топографическая карта', essential: true },
-          { name: 'Power bank (3 шт)', essential: true },
-          { name: 'Солнечная зарядка', essential: false },
-        ],
-      },
-      {
-        category: 'Альпинистское снаряжение',
-        items: [
-          { name: 'Каска', essential: true },
-          { name: 'Страховочная система', essential: true },
-          { name: 'Верёвка (60 м, 2 шт)', essential: true },
-          { name: 'Гропрессоры', essential: true },
-          { name: 'Жумар', essential: true },
-          { name: 'Карабины (8 шт)', essential: true },
-          { name: 'Петли (6 шт)', essential: true },
-          { name: 'Ледоруб', essential: true },
-        ],
-      },
-      {
-        category: 'Лагерь',
-        items: [
-          { name: 'Палатка (4-сезонная)', essential: true },
-          { name: 'Спальный мешок (-15°C)', essential: true },
-          { name: 'Коврик (R-value 5+)', essential: true },
-          { name: 'Горелка + топливо', essential: true },
-        ],
-      },
-      {
-        category: 'Питание',
-        items: [
-          { name: 'Вода (4 л)', essential: true },
-          { name: 'Высококалорийная еда (2 дня)', essential: true },
-          { name: 'Энергетические гели', essential: true },
-          { name: 'Термос', essential: true },
-        ],
-      },
-      {
-        category: 'Безопасность',
-        items: [
-          { name: 'Аптечка (альпинистская)', essential: true },
-          { name: 'Солнцезащитный крем SPF 50+', essential: true },
-          { name: 'Спасательное одеяло', essential: true },
-          { name: 'Свисток', essential: true },
-          { name: 'Сигнальные ракеты', essential: false },
-          { name: 'Кислород (опционально)', essential: false, note: 'Для экстренных случаев' },
-        ],
-      },
-    ],
-    safety: {
-      rules: [
-        'Минимальный опыт: 5 высотных маршрутов (включая технические)',
-        'Группа минимум 4 человека с опытным проводником',
-        'Обязательная регистрация в спасательной службе (24 ч)',
-        'Полное альпинистское снаряжение обязательно',
-        'Двухдневное восхождение с промежуточным лагерем',
-        'Мониторинг погоды каждые 3 часа',
-        'Немедленный спуск при ухудшении погоды',
-      ],
-      emergencyContacts: [
-        { label: 'МЧС Казахстана', number: '112' },
-        { label: 'Служба спасения Алматы', number: '+7-727-250-39-39' },
-        { label: 'Горная служба спасения', number: '+7-727-272-25-45' },
-        { label: 'Центр управления полётами', number: '+7-727-258-38-00' },
-      ],
-      tips: [
-        'Акклиматизация: минимум 3 дня на высоте 3000+ м перед восхождением',
-        'Выход из промежуточного лагеря: 3:00-4:00',
-        'Разворот: не позже 11:00 в любом случае',
-        'Двигайтесь медленно — высота требует адаптации',
-        'Всегда имейте план Б — худший сценарий',
-      ],
-    },
-    photos: [
-      'https://images.unsplash.com/photo-1529914304583-74a0f15d0e1e?w=800&h=500&fit=crop',
-      'https://images.unsplash.com/photo-1485236715568-ddc5ee6ca227?w=800&h=500&fit=crop',
-      'https://images.unsplash.com/photo-1513415756790-2ac1db1297d0?w=800&h=500&fit=crop',
-      'https://images.unsplash.com/photo-1503614472-8c93d56e92ce?w=800&h=500&fit=crop',
     ],
   },
 {
@@ -961,7 +389,7 @@ export const peaksData: Peak[] = [
     nameEn: 'Peak Kumbel',
     elevation: 4482,
     coordinates: { lat: 43.1222, lng: 77.0269 },
-    mapPosition: { top: '', left: '' },
+    mapPosition: { top: '22%', left: '82%' },
     difficulty: 'Лёгкий',
     difficultyLevel: 1,
     description:
@@ -1116,6 +544,7 @@ export const peaksData: Peak[] = [
         'Всегда имейте план Б — худший сценарий',
       ],
     },
+      category: 'peak',
     photos: [
       'https://images.unsplash.com/photo-1529914304583-74a0f15d0e1e?w=800&h=500&fit=crop',
       'https://images.unsplash.com/photo-1485236715568-ddc5ee6ca227?w=800&h=500&fit=crop',
@@ -1130,7 +559,7 @@ export const peaksData: Peak[] = [
     nameEn: 'Bukreev Peak',
     elevation: 3010,
     coordinates: { lat: 43.0400, lng: 77.1200 },
-    mapPosition: { top: '', left: '' },
+    mapPosition: { top: '35%', left: '18%' },
     difficulty: 'Лёгкий',
     difficultyLevel: 1,
     description:
@@ -1170,9 +599,9 @@ export const peaksData: Peak[] = [
     routes: [
       {
         name: 'Юго-западный маршрут',
-        duration: '30 ч',
-        distance: '28 км',
-        elevationGain: '2400 м',
+        duration: '9 ч',
+        distance: '24 км',
+        elevationGain: '1529 м',
         difficulty: 'Экспертный',
         terrain: 'Тропа → морена → ледник → скалы → гребень',
         description:
@@ -1285,6 +714,7 @@ export const peaksData: Peak[] = [
         'Всегда имейте план Б — худший сценарий',
       ],
     },
+      category: 'peak',
     photos: [
       'https://images.unsplash.com/photo-1529914304583-74a0f15d0e1e?w=800&h=500&fit=crop',
       'https://images.unsplash.com/photo-1485236715568-ddc5ee6ca227?w=800&h=500&fit=crop',
@@ -1299,9 +729,9 @@ export const peaksData: Peak[] = [
     nameEn: 'Titov Peak',
     elevation: 3871,
     coordinates: { lat: 43.0400, lng: 77.1200 },
-    mapPosition: { top: '', left: '' },
-    difficulty: 'Лёгкий',
-    difficultyLevel: 1,
+    mapPosition: { top: '30%', left: '55%' },
+    difficulty: 'Средний',
+    difficultyLevel: 2,
     description:
       'Один из самых высоких и технически сложных пиков Заилийского Алатау. Требует серьёзной альпинистской подготовки, хорошей акклиматизации и опыта высотных восхождений. Длинный маршрут с техническими участками.',
     routeStats: {
@@ -1339,10 +769,10 @@ export const peaksData: Peak[] = [
     routes: [
       {
         name: 'Юго-западный маршрут',
-        duration: '30 ч',
-        distance: '28 км',
-        elevationGain: '2400 м',
-        difficulty: 'Экспертный',
+        duration: '8 ч',
+        distance: '22 км',
+        elevationGain: '1882 м',
+        difficulty: 'Средний',
         terrain: 'Тропа → морена → ледник → скалы → гребень',
         description:
           'Экспертный маршрут для опытных альпинистов. Включает прохождение ледника, скального участка VI категории и выход по🔪ножу к вершине. Требуется двухдневное восхождение с промежуточным лагерем.',
@@ -1454,6 +884,7 @@ export const peaksData: Peak[] = [
         'Всегда имейте план Б — худший сценарий',
       ],
     },
+      category: 'peak',
     photos: [
       'https://images.unsplash.com/photo-1529914304583-74a0f15d0e1e?w=800&h=500&fit=crop',
       'https://images.unsplash.com/photo-1485236715568-ddc5ee6ca227?w=800&h=500&fit=crop',
@@ -1637,9 +1068,9 @@ export const peaksData: Peak[] = [
     nameEn: 'Amangeldy Peak',
     elevation: 3999,
     coordinates: { lat: 43.0400, lng: 77.1200 },
-    mapPosition: { top: '', left: '' },
-    difficulty: 'Средний',
-    difficultyLevel: 2,
+    mapPosition: { top: '26%', left: '60%' },
+    difficulty: 'Сложный',
+    difficultyLevel: 3,
     description:
       'Один из самых высоких и технически сложных пиков Заилийского Алатау. Требует серьёзной альпинистской подготовки, хорошей акклиматизации и опыта высотных восхождений. Длинный маршрут с техническими участками.',
     routeStats: {
@@ -1677,10 +1108,10 @@ export const peaksData: Peak[] = [
     routes: [
       {
         name: 'Юго-западный маршрут',
-        duration: '30 ч',
-        distance: '28 км',
-        elevationGain: '2400 м',
-        difficulty: 'Экспертный',
+        duration: '10 ч',
+        distance: '20 км',
+        elevationGain: '1739 м',
+        difficulty: 'Сложный',
         terrain: 'Тропа → морена → ледник → скалы → гребень',
         description:
           'Экспертный маршрут для опытных альпинистов. Включает прохождение ледника, скального участка VI категории и выход по🔪ножу к вершине. Требуется двухдневное восхождение с промежуточным лагерем.',
@@ -1792,6 +1223,7 @@ export const peaksData: Peak[] = [
         'Всегда имейте план Б — худший сценарий',
       ],
     },
+      category: 'peak',
     photos: [
       'https://images.unsplash.com/photo-1529914304583-74a0f15d0e1e?w=800&h=500&fit=crop',
       'https://images.unsplash.com/photo-1485236715568-ddc5ee6ca227?w=800&h=500&fit=crop',
@@ -1806,9 +1238,9 @@ export const peaksData: Peak[] = [
     nameEn: 'Nursultan Peak',
     elevation: 4376,
     coordinates: { lat: 43.0400, lng: 77.1200 },
-    mapPosition: { top: '', left: '' },
-    difficulty: 'Сложный',
-    difficultyLevel: 3,
+    mapPosition: { top: '18%', left: '68%' },
+    difficulty: 'Очень сложный',
+    difficultyLevel: 4,
     description:
       'Один из самых высоких и технически сложных пиков Заилийского Алатау. Требует серьёзной альпинистской подготовки, хорошей акклиматизации и опыта высотных восхождений. Длинный маршрут с техническими участками.',
     routeStats: {
@@ -1846,10 +1278,10 @@ export const peaksData: Peak[] = [
     routes: [
       {
         name: 'Юго-западный маршрут',
-        duration: '30 ч',
-        distance: '28 км',
-        elevationGain: '2400 м',
-        difficulty: 'Экспертный',
+        duration: '9 ч',
+        distance: '14 км',
+        elevationGain: '1176 м',
+        difficulty: 'Очень сложный',
         terrain: 'Тропа → морена → ледник → скалы → гребень',
         description:
           'Экспертный маршрут для опытных альпинистов. Включает прохождение ледника, скального участка VI категории и выход по🔪ножу к вершине. Требуется двухдневное восхождение с промежуточным лагерем.',
@@ -1961,6 +1393,7 @@ export const peaksData: Peak[] = [
         'Всегда имейте план Б — худший сценарий',
       ],
     },
+      category: 'peak',
     photos: [
       'https://images.unsplash.com/photo-1529914304583-74a0f15d0e1e?w=800&h=500&fit=crop',
       'https://images.unsplash.com/photo-1485236715568-ddc5ee6ca227?w=800&h=500&fit=crop',
@@ -1975,9 +1408,9 @@ export const peaksData: Peak[] = [
     nameEn: 'Abai Peak',
     elevation: 4010,
     coordinates: { lat: 43.0400, lng: 77.1200 },
-    mapPosition: { top: '', left: '' },
-    difficulty: 'Средний',
-    difficultyLevel: 2,
+    mapPosition: { top: '20%', left: '75%' },
+    difficulty: 'Сложный',
+    difficultyLevel: 3,
     description:
       'Один из самых высоких и технически сложных пиков Заилийского Алатау. Требует серьёзной альпинистской подготовки, хорошей акклиматизации и опыта высотных восхождений. Длинный маршрут с техническими участками.',
     routeStats: {
@@ -2015,10 +1448,10 @@ export const peaksData: Peak[] = [
     routes: [
       {
         name: 'Юго-западный маршрут',
-        duration: '30 ч',
-        distance: '28 км',
-        elevationGain: '2400 м',
-        difficulty: 'Экспертный',
+        duration: '8 ч',
+        distance: '18 км',
+        elevationGain: '1810 м',
+        difficulty: 'Сложный',
         terrain: 'Тропа → морена → ледник → скалы → гребень',
         description:
           'Экспертный маршрут для опытных альпинистов. Включает прохождение ледника, скального участка VI категории и выход по🔪ножу к вершине. Требуется двухдневное восхождение с промежуточным лагерем.',
@@ -2130,6 +1563,7 @@ export const peaksData: Peak[] = [
         'Всегда имейте план Б — худший сценарий',
       ],
     },
+      category: 'peak',
     photos: [
       'https://images.unsplash.com/photo-1529914304583-74a0f15d0e1e?w=800&h=500&fit=crop',
       'https://images.unsplash.com/photo-1485236715568-ddc5ee6ca227?w=800&h=500&fit=crop',
@@ -2144,7 +1578,7 @@ export const peaksData: Peak[] = [
     nameEn: 'Malysh Peak',
     elevation: 3820,
     coordinates: { lat: 43.0400, lng: 77.1200 },
-    mapPosition: { top: '', left: '' },
+    mapPosition: { top: '28%', left: '48%' },
     difficulty: 'Средний',
     difficultyLevel: 2,
     description:
@@ -2299,6 +1733,7 @@ export const peaksData: Peak[] = [
         'Всегда имейте план Б — худший сценарий',
       ],
     },
+      category: 'peak',
     photos: [
       'https://images.unsplash.com/photo-1529914304583-74a0f15d0e1e?w=800&h=500&fit=crop',
       'https://images.unsplash.com/photo-1485236715568-ddc5ee6ca227?w=800&h=500&fit=crop',
@@ -2313,9 +1748,9 @@ export const peaksData: Peak[] = [
     nameEn: 'Pogrebetsky Peak',
     elevation: 4231,
     coordinates: { lat: 43.0400, lng: 77.1200 },
-    mapPosition: { top: '', left: '' },
-    difficulty: 'Сложный',
-    difficultyLevel: 3,
+    mapPosition: { top: '22%', left: '38%' },
+    difficulty: 'Очень сложный',
+    difficultyLevel: 4,
     description:
       'Один из самых высоких и технически сложных пиков Заилийского Алатау. Требует серьёзной альпинистской подготовки, хорошей акклиматизации и опыта высотных восхождений. Длинный маршрут с техническими участками.',
     routeStats: {
@@ -2468,6 +1903,7 @@ export const peaksData: Peak[] = [
         'Всегда имейте план Б — худший сценарий',
       ],
     },
+      category: 'peak',
     photos: [
       'https://images.unsplash.com/photo-1529914304583-74a0f15d0e1e?w=800&h=500&fit=crop',
       'https://images.unsplash.com/photo-1485236715568-ddc5ee6ca227?w=800&h=500&fit=crop',
@@ -2475,173 +1911,16 @@ export const peaksData: Peak[] = [
       'https://images.unsplash.com/photo-1503614472-8c93d56e92ce?w=800&h=500&fit=crop',
     ],
   },
-  {
-    id: 'Manshuk-Mametovoi', 
-    name: 'Пик Маншук Маметовой',
-    nameKz: 'Мәншүк Мәметованың шыңы',
-    nameEn: 'Manshuk Mametova Peak',
-    elevation: 4194,
-    coordinates: { lat: 43.0400, lng: 77.1200 },
-    mapPosition: { top: '', left: '' },
-    difficulty: 'Сложный',
-    difficultyLevel: 3,
-    description:
-      'Один из самых высоких и технически сложных пиков Заилийского Алатау. Требует серьёзной альпинистской подготовки, хорошей акклиматизации и опыта высотных восхождений. Длинный маршрут с техническими участками.',
-    routeStats: {
-      distance: '24 км',
-      elevationGain: '1996 м', //начиная с 2200 м(шымбулака) до 4194 м
-      duration: '10 ч',
-    },
-    weather: {
-      temp: -8,
-      feelsLike: -18,
-      humidity: 80,
-      windSpeed: 25,
-      windDirection: 'С',
-      tempMax: -2,
-      tempMin: -15,
-      description: 'Сильный ветер, снег',
-      icon: '🌨️',
-    },
-    weatherForecast: [
-      { time: 'Ночь', temp: -13, icon: '🌙' },
-      { time: 'Утро', temp: -8, icon: '🌨️' },
-      { time: 'День', temp: -2, icon: '❄️' },
-      { time: 'Вечер', temp: -6, icon: '🌨️' },
-    ],
-    hourlyForecast: [
-      { hour: '00:00', temp: -13, icon: '🌙', humidity: 82, wind: 22 },
-      { hour: '03:00', temp: -14, icon: '🌙', humidity: 84, wind: 20 },
-      { hour: '06:00', temp: -11, icon: '🌨️', humidity: 80, wind: 21 },
-      { hour: '09:00', temp: -7, icon: '🌨️', humidity: 76, wind: 24 },
-      { hour: '12:00', temp: -2, icon: '❄️', humidity: 70, wind: 28 },
-      { hour: '15:00', temp: -3, icon: '❄️', humidity: 72, wind: 26 },
-      { hour: '18:00', temp: -6, icon: '🌨️', humidity: 75, wind: 23 },
-      { hour: '21:00', temp: -10, icon: '🌙', humidity: 79, wind: 21 },
-    ],
-    routes: [
-      {
-        name: 'Юго-западный маршрут',
-        duration: '30 ч',
-        distance: '28 км',
-        elevationGain: '2400 м',
-        difficulty: 'Экспертный',
-        terrain: 'Тропа → морена → ледник → скалы → гребень',
-        description:
-          'Экспертный маршрут для опытных альпинистов. Включает прохождение ледника, скального участка VI категории и выход по🔪ножу к вершине. Требуется двухдневное восхождение с промежуточным лагерем.',
-        highlights: [
-          'Вершина — высшая точка маршрута',
-          'Ледниковое поле длиной 1.5 км',
-          'Скальный участок VI категории',
-          'Вершинный гребень',
-        ],
-        guruMapsUrl: 'https://maps.guru/peaks/manas-sw',
-        guruMapsFile: '/guru/manas-sw.guru',
-      },
-    ],
-    equipment: [
-      {
-        category: 'Одежда',
-        items: [
-          { name: 'Экспедиционная куртка', essential: true },
-          { name: 'Пуховик (800+)', essential: true },
-          { name: 'Альпинистские штаны', essential: true },
-          { name: 'Термобельё (3 слоя)', essential: true },
-          { name: 'Балаклава', essential: true },
-          { name: 'Альпинистские перчатки (2 пары)', essential: true },
-          { name: 'Гетры', essential: true },
-        ],
-      },
-      {
-        category: 'Обувь',
-        items: [
-          { name: 'Экспедиционные ботинки', essential: true },
-          { name: 'Кошки (12-зубые)', essential: true },
-          { name: 'Гамаши', essential: true },
-        ],
-      },
-      {
-        category: 'Навигация',
-        items: [
-          { name: 'GPS-навигатор', essential: true },
-          { name: 'Компас', essential: true },
-          { name: 'Топографическая карта', essential: true },
-          { name: 'Power bank (3 шт)', essential: true },
-          { name: 'Солнечная зарядка', essential: false },
-        ],
-      },
-      {
-        category: 'Альпинистское снаряжение',
-        items: [
-          { name: 'Каска', essential: true },
-          { name: 'Страховочная система', essential: true },
-          { name: 'Верёвка (60 м, 2 шт)', essential: true },
-          { name: 'Гропрессоры', essential: true },
-          { name: 'Жумар', essential: true },
-          { name: 'Карабины (8 шт)', essential: true },
-          { name: 'Петли (6 шт)', essential: true },
-          { name: 'Ледоруб', essential: true },
-        ],
-      },
-      {
-        category: 'Лагерь',
-        items: [
-          { name: 'Палатка (4-сезонная)', essential: true },
-          { name: 'Спальный мешок (-15°C)', essential: true },
-          { name: 'Коврик (R-value 5+)', essential: true },
-          { name: 'Горелка + топливо', essential: true },
-        ],
-      },
-      {
-        category: 'Питание',
-        items: [
-          { name: 'Вода (4 л)', essential: true },
-          { name: 'Высококалорийная еда (2 дня)', essential: true },
-          { name: 'Энергетические гели', essential: true },
-          { name: 'Термос', essential: true },
-        ],
-      },
-      {
-        category: 'Безопасность',
-        items: [
-          { name: 'Аптечка (альпинистская)', essential: true },
-          { name: 'Солнцезащитный крем SPF 50+', essential: true },
-          { name: 'Спасательное одеяло', essential: true },
-          { name: 'Свисток', essential: true },
-          { name: 'Сигнальные ракеты', essential: false },
-          { name: 'Кислород (опционально)', essential: false, note: 'Для экстренных случаев' },
-        ],
-      },
-    ],
-    safety: {
-      rules: [
-        'Минимальный опыт: 5 высотных маршрутов (включая технические)',
-        'Группа минимум 4 человека с опытным проводником',
-        'Обязательная регистрация в спасательной службе (24 ч)',
-        'Полное альпинистское снаряжение обязательно',
-        'Двухдневное восхождение с промежуточным лагерем',
-        'Мониторинг погоды каждые 3 часа',
-        'Немедленный спуск при ухудшении погоды',
-      ],
-      emergencyContacts: [
-        { label: 'МЧС Казахстана', number: '112' },
-        { label: 'Служба спасения Алматы', number: '+7-727-250-39-39' },
-        { label: 'Горная служба спасения', number: '+7-727-272-25-45' },
-        { label: 'Центр управления полётами', number: '+7-727-258-38-00' },
-      ],
-      tips: [
-        'Акклиматизация: минимум 3 дня на высоте 3000+ м перед восхождением',
-        'Выход из промежуточного лагеря: 3:00-4:00',
-        'Разворот: не позже 11:00 в любом случае',
-        'Двигайтесь медленно — высота требует адаптации',
-        'Всегда имейте план Б — худший сценарий',
-      ],
-    },
-    photos: [
-      'https://images.unsplash.com/photo-1529914304583-74a0f15d0e1e?w=800&h=500&fit=crop',
-      'https://images.unsplash.com/photo-1485236715568-ddc5ee6ca227?w=800&h=500&fit=crop',
-      'https://images.unsplash.com/photo-1513415756790-2ac1db1297d0?w=800&h=500&fit=crop',
-      'https://images.unsplash.com/photo-1503614472-8c93d56e92ce?w=800&h=500&fit=crop',
-    ],
-  },
+    // ========== PEAKS FROM PANORAMA PHOTO ==========
+    { id: 'yubileynaya', name: 'Пик Юбилейная', nameKz: 'Юбилейная шыңы', nameEn: 'Jubilee Peak', elevation: 3929, coordinates: { lat: 43.180, lng: 76.890 }, mapPosition: { top: '25%', left: '6%' }, difficulty: 'Сложный', difficultyLevel: 3, description: 'Пик Юбилейная — красивейший пик Заилийского Алатау на западной стороне хребта.', routeStats: { distance: '22 км', elevationGain: '1729 м', duration: '12 ч' }, weather: { temp: -2, feelsLike: -6, humidity: 55, windSpeed: 15, windDirection: 'СЗ', tempMax: 3, tempMin: -8, description: 'Облачно, без осадков', icon: 'cloud' }, weatherForecast: [{ time: 'Ночь', temp: -8, icon: '🌙' }, { time: 'Утро', temp: -2, icon: '⛅' }, { time: 'День', temp: 3, icon: '🌤️' }, { time: 'Вечер', temp: -1, icon: '🌙' }], hourlyForecast: [{ hour: '06:00', temp: -5, icon: '🌙', humidity: 60, wind: 10 }, { hour: '09:00', temp: -2, icon: '⛅', humidity: 55, wind: 12 }, { hour: '12:00', temp: 2, icon: '🌤️', humidity: 50, wind: 15 }, { hour: '15:00', temp: 3, icon: '☀️', humidity: 45, wind: 15 }, { hour: '18:00', temp: 0, icon: '⛅', humidity: 55, wind: 12 }, { hour: '21:00', temp: -3, icon: '🌙', humidity: 60, wind: 10 }, { hour: '00:00', temp: -6, icon: '🌙', humidity: 65, wind: 8 }, { hour: '03:00', temp: -7, icon: '🌙', humidity: 65, wind: 8 }], routes: [{ name: 'Основной маршрут', duration: '12 ч', distance: '22 км', elevationGain: '1729 м', difficulty: 'Сложный', terrain: 'Тропа, осыпь, скалы', description: 'Маршрут от Шымбулака через альпийские луга.', highlights: ['Альпийские луга', 'Вид на Алмату'], guruMapsUrl: '' }], equipment: [{ category: 'ОДЕЖДА', items: [{ name: 'Ботинки', essential: true }, { name: 'Штаны', essential: true }, { name: 'Куртка', essential: true }, { name: 'Утеплённая куртка', essential: true }] }, { category: 'СНАРЯЖЕНИЕ', items: [{ name: 'Рюкзак 40-50 л', essential: true }, { name: 'Палки', essential: true }, { name: 'Навигатор', essential: true }, { name: 'Фонарик', essential: true }] }, { category: 'ПРОДУКТЫ', items: [{ name: 'Вода 2 л', essential: true }, { name: 'Батончики', essential: true }] }, { category: 'МЕДИЦИНА', items: [{ name: 'Аптечка', essential: true }] }], safety: { rules: ['Изучите маршрут', 'Возьмите телефон', 'Начинайте рано'], emergencyContacts: [{ label: 'МЧС', number: '112' }], tips: ['Возьмите воду'] }, photos: [], category: 'peak' },
+    { id: 'talgar', name: 'Пик Талгар', nameKz: 'Талғар шыңы', nameEn: 'Talgar Peak', elevation: 5017, coordinates: { lat: 43.150, lng: 77.050 }, mapPosition: { top: '12%', left: '10%' }, difficulty: 'Очень сложный', difficultyLevel: 4, description: 'Пик Талгар — высочайший пик Заилийского Алатау (5017 м). Альпинистское восхождение.', routeStats: { distance: '26 км', elevationGain: '2817 м', duration: '18 ч' }, weather: { temp: -15, feelsLike: -25, humidity: 70, windSpeed: 25, windDirection: 'С', tempMax: -10, tempMin: -22, description: 'Снег, сильный ветер', icon: 'snow' }, weatherForecast: [{ time: 'Ночь', temp: -22, icon: '❄️' }, { time: 'Утро', temp: -18, icon: '🌨️' }, { time: 'День', temp: -10, icon: '⛅' }, { time: 'Вечер', temp: -15, icon: '❄️' }], hourlyForecast: [{ hour: '06:00', temp: -20, icon: '❄️', humidity: 75, wind: 20 }, { hour: '09:00', temp: -16, icon: '🌨️', humidity: 70, wind: 22 }, { hour: '12:00', temp: -12, icon: '⛅', humidity: 65, wind: 25 }, { hour: '15:00', temp: -10, icon: '☀️', humidity: 60, wind: 25 }, { hour: '18:00', temp: -14, icon: '🌨️', humidity: 70, wind: 20 }, { hour: '21:00', temp: -18, icon: '❄️', humidity: 75, wind: 18 }, { hour: '00:00', temp: -21, icon: '❄️', humidity: 78, wind: 15 }, { hour: '03:00', temp: -22, icon: '❄️', humidity: 80, wind: 15 }], routes: [{ name: 'Южный маршрут', duration: '18 ч', distance: '26 км', elevationGain: '2817 м', difficulty: 'Очень сложный', terrain: 'Ледник, скалы, снег', description: 'Альпинистский маршрут через ледник Талгар.', highlights: ['Ледник Талгар', 'Вершина 5017 м'], guruMapsUrl: '' }], equipment: [{ category: 'АЛЬПИНИСТСКОЕ', items: [{ name: 'Каска', essential: true }, { name: 'Верёвка', essential: true }, { name: 'Ледоруб', essential: true }, { name: 'Кошки', essential: true }] }, { category: 'ОДЕЖДА', items: [{ name: 'Альпинистские ботинки', essential: true }, { name: 'Утеплённая куртка', essential: true }, { name: 'Балаклава', essential: true }] }, { category: 'СНАРЯЖЕНИЕ', items: [{ name: 'Рюкзак 60-70 л', essential: true }, { name: 'Навигатор', essential: true }, { name: 'Термос', essential: true }] }, { category: 'МЕДИЦИНА', items: [{ name: 'Аптечка', essential: true }] }], safety: { rules: ['Только для опытных альпинистов', 'Обязательно верёвка и кошки'], emergencyContacts: [{ label: 'МЧС', number: '112' }], tips: ['Берите термос'] }, photos: [], category: 'peak' },
+    { id: 'furmanova', name: 'Пик Фурманова', nameKz: 'Фурманов шыңы', nameEn: 'Furmanov Peak', elevation: 3053, coordinates: { lat: 43.130, lng: 76.980 }, mapPosition: { top: '30%', left: '24%' }, difficulty: 'Лёгкий', difficultyLevel: 1, description: 'Пик Фурманова — доступный пик для начинающих. Высота 3053 м.', routeStats: { distance: '14 км', elevationGain: '853 м', duration: '6 ч' }, weather: { temp: 2, feelsLike: -2, humidity: 50, windSpeed: 10, windDirection: 'ЮЗ', tempMax: 8, tempMin: -2, description: 'Облачно, без осадков', icon: 'cloud' }, weatherForecast: [{ time: 'Ночь', temp: -2, icon: '🌙' }, { time: 'Утро', temp: 2, icon: '⛅' }, { time: 'День', temp: 8, icon: '🌤️' }, { time: 'Вечер', temp: 3, icon: '🌙' }], hourlyForecast: [{ hour: '06:00', temp: 0, icon: '🌙', humidity: 55, wind: 8 }, { hour: '09:00', temp: 3, icon: '⛅', humidity: 50, wind: 10 }, { hour: '12:00', temp: 7, icon: '🌤️', humidity: 45, wind: 10 }, { hour: '15:00', temp: 8, icon: '☀️', humidity: 40, wind: 10 }, { hour: '18:00', temp: 4, icon: '⛅', humidity: 50, wind: 8 }, { hour: '21:00', temp: 1, icon: '🌙', humidity: 55, wind: 6 }, { hour: '00:00', temp: -1, icon: '🌙', humidity: 60, wind: 5 }, { hour: '03:00', temp: -2, icon: '🌙', humidity: 60, wind: 5 }], routes: [{ name: 'Основной маршрут', duration: '6 ч', distance: '14 км', elevationGain: '853 м', difficulty: 'Лёгкий', terrain: 'Тропа, лес', description: 'Маршрут от Шымбулака через лес и луга.', highlights: ['Лесная зона', 'Альпийские луга'], guruMapsUrl: '' }], equipment: [{ category: 'ОДЕЖДА', items: [{ name: 'Ветровка', essential: true }, { name: 'Куртка', essential: true }, { name: 'Штаны', essential: true }, { name: 'Ботинки', essential: true }] }, { category: 'СНАРЯЖЕНИЕ', items: [{ name: 'Рюкзак 30-40 л', essential: true }, { name: 'Навигатор', essential: true }] }, { category: 'ПРОДУКТЫ', items: [{ name: 'Вода 1.5 л', essential: true }] }, { category: 'МЕДИЦИНА', items: [{ name: 'Аптечка', essential: true }] }], safety: { rules: ['Изучите маршрут', 'Возьмите телефон'], emergencyContacts: [{ label: 'МЧС', number: '112' }], tips: ['Возьмите воду'] }, photos: [], category: 'peak' },
+    { id: 'panorama', name: 'Пик Панорама', nameKz: 'Панорама шыңы', nameEn: 'Panorama Peak', elevation: 3053, coordinates: { lat: 43.135, lng: 76.990 }, mapPosition: { top: '28%', left: '32%' }, difficulty: 'Лёгкий', difficultyLevel: 1, description: 'Пик Панорама — панорамные виды на Алмату.', routeStats: { distance: '14 км', elevationGain: '853 м', duration: '6 ч' }, weather: { temp: 2, feelsLike: -2, humidity: 50, windSpeed: 10, windDirection: 'ЮЗ', tempMax: 8, tempMin: -2, description: 'Облачно', icon: 'cloud' }, weatherForecast: [{ time: 'Ночь', temp: -2, icon: '🌙' }, { time: 'Утро', temp: 2, icon: '⛅' }, { time: 'День', temp: 8, icon: '🌤️' }, { time: 'Вечер', temp: 3, icon: '🌙' }], hourlyForecast: [{ hour: '06:00', temp: 0, icon: '🌙', humidity: 55, wind: 8 }, { hour: '09:00', temp: 3, icon: '⛅', humidity: 50, wind: 10 }, { hour: '12:00', temp: 7, icon: '🌤️', humidity: 45, wind: 10 }, { hour: '15:00', temp: 8, icon: '☀️', humidity: 40, wind: 10 }, { hour: '18:00', temp: 4, icon: '⛅', humidity: 50, wind: 8 }, { hour: '21:00', temp: 1, icon: '🌙', humidity: 55, wind: 6 }, { hour: '00:00', temp: -1, icon: '🌙', humidity: 60, wind: 5 }, { hour: '03:00', temp: -2, icon: '🌙', humidity: 60, wind: 5 }], routes: [{ name: 'Основной маршрут', duration: '6 ч', distance: '14 км', elevationGain: '853 м', difficulty: 'Лёгкий', terrain: 'Тропа, лес', description: 'Маршрут от Шымбулака через лес.', highlights: ['Панорамный вид', 'Альпийские луга'], guruMapsUrl: '' }], equipment: [{ category: 'ОДЕЖДА', items: [{ name: 'Ветровка', essential: true }, { name: 'Куртка', essential: true }, { name: 'Штаны', essential: true }, { name: 'Ботинки', essential: true }] }, { category: 'СНАРЯЖЕНИЕ', items: [{ name: 'Рюкзак 30-40 л', essential: true }, { name: 'Навигатор', essential: true }] }, { category: 'ПРОДУКТЫ', items: [{ name: 'Вода 1.5 л', essential: true }] }, { category: 'МЕДИЦИНА', items: [{ name: 'Аптечка', essential: true }] }], safety: { rules: ['Изучите маршрут', 'Возьмите телефон'], emergencyContacts: [{ label: 'МЧС', number: '112' }], tips: ['Возьмите воду'] }, photos: [], category: 'peak' },
+    { id: 'bashuta', name: 'Пик Башута', nameKz: 'Бәшүта шыңы', nameEn: 'Bashuta Peak', elevation: 3355, coordinates: { lat: 43.140, lng: 77.000 }, mapPosition: { top: '25%', left: '37%' }, difficulty: 'Средний', difficultyLevel: 2, description: 'Пик Башута — средней сложности, высота 3355 м.', routeStats: { distance: '16 км', elevationGain: '1155 м', duration: '8 ч' }, weather: { temp: 0, feelsLike: -4, humidity: 55, windSpeed: 12, windDirection: 'С', tempMax: 5, tempMin: -5, description: 'Облачно, ветер', icon: 'cloud' }, weatherForecast: [{ time: 'Ночь', temp: -5, icon: '🌙' }, { time: 'Утро', temp: 0, icon: '⛅' }, { time: 'День', temp: 5, icon: '🌤️' }, { time: 'Вечер', temp: 1, icon: '🌙' }], hourlyForecast: [{ hour: '06:00', temp: -3, icon: '🌙', humidity: 60, wind: 10 }, { hour: '09:00', temp: 1, icon: '⛅', humidity: 55, wind: 12 }, { hour: '12:00', temp: 4, icon: '🌤️', humidity: 50, wind: 12 }, { hour: '15:00', temp: 5, icon: '☀️', humidity: 45, wind: 12 }, { hour: '18:00', temp: 2, icon: '⛅', humidity: 55, wind: 10 }, { hour: '21:00', temp: -1, icon: '🌙', humidity: 60, wind: 8 }, { hour: '00:00', temp: -3, icon: '🌙', humidity: 65, wind: 6 }, { hour: '03:00', temp: -4, icon: '🌙', humidity: 65, wind: 6 }], routes: [{ name: 'Основной маршрут', duration: '8 ч', distance: '16 км', elevationGain: '1155 м', difficulty: 'Средний', terrain: 'Тропа, осыпь', description: 'Маршрут от Шымбулака через лес и осыпь.', highlights: ['Лесная зона', 'Осыпь'], guruMapsUrl: '' }], equipment: [{ category: 'ОДЕЖДА', items: [{ name: 'Ботинки', essential: true }, { name: 'Штаны', essential: true }, { name: 'Куртка', essential: true }, { name: 'Утеплённая куртка', essential: true }] }, { category: 'СНАРЯЖЕНИЕ', items: [{ name: 'Рюкзак 40-50 л', essential: true }, { name: 'Палки', essential: true }, { name: 'Навигатор', essential: true }, { name: 'Фонарик', essential: true }] }, { category: 'ПРОДУКТЫ', items: [{ name: 'Вода 2 л', essential: true }, { name: 'Батончики', essential: true }] }, { category: 'МЕДИЦИНА', items: [{ name: 'Аптечка', essential: true }] }], safety: { rules: ['Изучите маршрут', 'Возьмите телефон', 'Начинайте рано'], emergencyContacts: [{ label: 'МЧС', number: '112' }], tips: ['Возьмите воду'] }, photos: [], category: 'peak' },
+    { id: 'chimbulaka', name: 'Пик Чимбулака', nameKz: 'Шымбылақ шыңы', nameEn: 'Chimbulak Peak', elevation: 3458, coordinates: { lat: 43.145, lng: 77.010 }, mapPosition: { top: '24%', left: '43%' }, difficulty: 'Средний', difficultyLevel: 2, description: 'Пик Чимбулака высотой 3458 м.', routeStats: { distance: '16 км', elevationGain: '1258 м', duration: '8 ч' }, weather: { temp: 0, feelsLike: -4, humidity: 55, windSpeed: 12, windDirection: 'С', tempMax: 5, tempMin: -5, description: 'Облачно', icon: 'cloud' }, weatherForecast: [{ time: 'Ночь', temp: -5, icon: '🌙' }, { time: 'Утро', temp: 0, icon: '⛅' }, { time: 'День', temp: 5, icon: '🌤️' }, { time: 'Вечер', temp: 1, icon: '🌙' }], hourlyForecast: [{ hour: '06:00', temp: -3, icon: '🌙', humidity: 60, wind: 10 }, { hour: '09:00', temp: 1, icon: '⛅', humidity: 55, wind: 12 }, { hour: '12:00', temp: 4, icon: '🌤️', humidity: 50, wind: 12 }, { hour: '15:00', temp: 5, icon: '☀️', humidity: 45, wind: 12 }, { hour: '18:00', temp: 2, icon: '⛅', humidity: 55, wind: 10 }, { hour: '21:00', temp: -1, icon: '🌙', humidity: 60, wind: 8 }, { hour: '00:00', temp: -3, icon: '🌙', humidity: 65, wind: 6 }, { hour: '03:00', temp: -4, icon: '🌙', humidity: 65, wind: 6 }], routes: [{ name: 'Основной маршрут', duration: '8 ч', distance: '16 км', elevationGain: '1258 м', difficulty: 'Средний', terrain: 'Тропа, осыпь', description: 'Маршрут от Чимбулака.', highlights: ['Курорт', 'Лес'], guruMapsUrl: '' }], equipment: [{ category: 'ОДЕЖДА', items: [{ name: 'Ботинки', essential: true }, { name: 'Штаны', essential: true }, { name: 'Куртка', essential: true }] }, { category: 'СНАРЯЖЕНИЕ', items: [{ name: 'Рюкзак 40-50 л', essential: true }, { name: 'Палки', essential: true }, { name: 'Навигатор', essential: true }] }, { category: 'ПРОДУКТЫ', items: [{ name: 'Вода 2 л', essential: true }] }, { category: 'МЕДИЦИНА', items: [{ name: 'Аптечка', essential: true }] }], safety: { rules: ['Изучите маршрут', 'Возьмите телефон'], emergencyContacts: [{ label: 'МЧС', number: '112' }], tips: ['Возьмите воду'] }, photos: [], category: 'peak' },
+    { id: 'chkalova', name: 'Пик Чкалова', nameKz: 'Чкалов шыңы', nameEn: 'Chkalov Peak', elevation: 3892, coordinates: { lat: 43.155, lng: 77.030 }, mapPosition: { top: '20%', left: '50%' }, difficulty: 'Средний', difficultyLevel: 2, description: 'Пик Чкалова высотой 3892 м.', routeStats: { distance: '18 км', elevationGain: '1692 м', duration: '10 ч' }, weather: { temp: -3, feelsLike: -8, humidity: 55, windSpeed: 15, windDirection: 'С', tempMax: 2, tempMin: -10, description: 'Облачно, ветер', icon: 'cloud' }, weatherForecast: [{ time: 'Ночь', temp: -10, icon: '❄️' }, { time: 'Утро', temp: -3, icon: '⛅' }, { time: 'День', temp: 2, icon: '🌤️' }, { time: 'Вечер', temp: -2, icon: '🌙' }], hourlyForecast: [{ hour: '06:00', temp: -7, icon: '🌙', humidity: 60, wind: 12 }, { hour: '09:00', temp: -2, icon: '⛅', humidity: 55, wind: 14 }, { hour: '12:00', temp: 1, icon: '🌤️', humidity: 50, wind: 15 }, { hour: '15:00', temp: 2, icon: '☀️', humidity: 45, wind: 15 }, { hour: '18:00', temp: -1, icon: '⛅', humidity: 55, wind: 12 }, { hour: '21:00', temp: -4, icon: '🌙', humidity: 60, wind: 10 }, { hour: '00:00', temp: -6, icon: '🌙', humidity: 65, wind: 8 }, { hour: '03:00', temp: -8, icon: '🌙', humidity: 68, wind: 8 }], routes: [{ name: 'Основной маршрут', duration: '10 ч', distance: '18 км', elevationGain: '1692 м', difficulty: 'Средний', terrain: 'Тропа, осыпь, снег', description: 'Маршрут от Шымбулака.', highlights: ['Луга', 'Осыпи'], guruMapsUrl: '' }], equipment: [{ category: 'ОДЕЖДА', items: [{ name: 'Ботинки', essential: true }, { name: 'Штаны', essential: true }, { name: 'Куртка', essential: true }, { name: 'Утеплённая куртка', essential: true }] }, { category: 'СНАРЯЖЕНИЕ', items: [{ name: 'Рюкзак 40-50 л', essential: true }, { name: 'Палки', essential: true }, { name: 'Навигатор', essential: true }, { name: 'Фонарик', essential: true }] }, { category: 'ПРОДУКТЫ', items: [{ name: 'Вода 2 л', essential: true }, { name: 'Батончики', essential: true }] }, { category: 'МЕДИЦИНА', items: [{ name: 'Аптечка', essential: true }] }], safety: { rules: ['Изучите маршрут', 'Возьмите телефон', 'Начинайте рано'], emergencyContacts: [{ label: 'МЧС', number: '112' }], tips: ['Возьмите воду'] }, photos: [], category: 'peak' },
+    { id: 'fizkulturnik', name: 'Пик Физкультурник', nameKz: 'Физкультурник шыңы', nameEn: 'Fizkulturnik Peak', elevation: 4068, coordinates: { lat: 43.160, lng: 77.040 }, mapPosition: { top: '16%', left: '56%' }, difficulty: 'Сложный', difficultyLevel: 3, description: 'Пик Физкультурник высотой 4068 м.', routeStats: { distance: '20 км', elevationGain: '1868 м', duration: '12 ч' }, weather: { temp: -8, feelsLike: -15, humidity: 60, windSpeed: 18, windDirection: 'С', tempMax: -2, tempMin: -15, description: 'Снег, ветер', icon: 'snow' }, weatherForecast: [{ time: 'Ночь', temp: -15, icon: '❄️' }, { time: 'Утро', temp: -8, icon: '🌨️' }, { time: 'День', temp: -2, icon: '⛅' }, { time: 'Вечер', temp: -6, icon: '❄️' }], hourlyForecast: [{ hour: '06:00', temp: -12, icon: '❄️', humidity: 65, wind: 15 }, { hour: '09:00', temp: -7, icon: '🌨️', humidity: 60, wind: 17 }, { hour: '12:00', temp: -3, icon: '⛅', humidity: 55, wind: 18 }, { hour: '15:00', temp: -2, icon: '☀️', humidity: 50, wind: 18 }, { hour: '18:00', temp: -5, icon: '🌨️', humidity: 60, wind: 15 }, { hour: '21:00', temp: -9, icon: '❄️', humidity: 65, wind: 12 }, { hour: '00:00', temp: -12, icon: '❄️', humidity: 70, wind: 10 }, { hour: '03:00', temp: -14, icon: '❄️', humidity: 72, wind: 10 }], routes: [{ name: 'Основной маршрут', duration: '12 ч', distance: '20 км', elevationGain: '1868 м', difficulty: 'Сложный', terrain: 'Тропа, осыпь, снег', description: 'Маршрут от Шымбулака.', highlights: ['Осыпи', 'Снежные поля'], guruMapsUrl: '' }], equipment: [{ category: 'ОДЕЖДА', items: [{ name: 'Ботинки', essential: true }, { name: 'Штаны', essential: true }, { name: 'Куртка', essential: true }, { name: 'Утеплённая куртка', essential: true }, { name: 'Балаклава', essential: true }, { name: 'Перчатки', essential: true }] }, { category: 'СНАРЯЖЕНИЕ', items: [{ name: 'Рюкзак 50-60 л', essential: true }, { name: 'Палки', essential: true }, { name: 'Навигатор', essential: true }, { name: 'Термос', essential: true }] }, { category: 'ПРОДУКТЫ', items: [{ name: 'Вода 2 л', essential: true }, { name: 'Батончики', essential: true }] }, { category: 'МЕДИЦИНА', items: [{ name: 'Аптечка', essential: true }] }], safety: { rules: ['Изучите маршрут', 'Возьмите телефон', 'Начинайте рано', 'Следите за погодой'], emergencyContacts: [{ label: 'МЧС', number: '112' }], tips: ['Возьмите воду', 'Берите термос'] }, photos: [], category: 'peak' },
+    { id: 'khalysau', name: 'Пик Халыtau', nameKz: 'Халыtau шыңы', nameEn: 'Khalysau Peak', elevation: 4150, coordinates: { lat: 43.165, lng: 77.055 }, mapPosition: { top: '15%', left: '62%' }, difficulty: 'Сложный', difficultyLevel: 3, description: 'Пик Халыtau высотой 4150 м.', routeStats: { distance: '20 км', elevationGain: '1950 м', duration: '12 ч' }, weather: { temp: -10, feelsLike: -18, humidity: 60, windSpeed: 20, windDirection: 'С', tempMax: -4, tempMin: -18, description: 'Снег, сильный ветер', icon: 'snow' }, weatherForecast: [{ time: 'Ночь', temp: -18, icon: '❄️' }, { time: 'Утро', temp: -10, icon: '🌨️' }, { time: 'День', temp: -4, icon: '⛅' }, { time: 'Вечер', temp: -8, icon: '❄️' }], hourlyForecast: [{ hour: '06:00', temp: -15, icon: '❄️', humidity: 65, wind: 17 }, { hour: '09:00', temp: -9, icon: '🌨️', humidity: 60, wind: 19 }, { hour: '12:00', temp: -5, icon: '⛅', humidity: 55, wind: 20 }, { hour: '15:00', temp: -4, icon: '☀️', humidity: 50, wind: 20 }, { hour: '18:00', temp: -7, icon: '🌨️', humidity: 60, wind: 17 }, { hour: '21:00', temp: -11, icon: '❄️', humidity: 65, wind: 14 }, { hour: '00:00', temp: -14, icon: '❄️', humidity: 70, wind: 12 }, { hour: '03:00', temp: -16, icon: '❄️', humidity: 72, wind: 12 }], routes: [{ name: 'Основной маршрут', duration: '12 ч', distance: '20 км', elevationGain: '1950 м', difficulty: 'Сложный', terrain: 'Тропа, осыпь, снег', description: 'Маршрут от Шымбулака.', highlights: ['Осыпи', 'Снежные поля'], guruMapsUrl: '' }], equipment: [{ category: 'ОДЕЖДА', items: [{ name: 'Ботинки', essential: true }, { name: 'Штаны', essential: true }, { name: 'Куртка', essential: true }, { name: 'Утеплённая куртка', essential: true }, { name: 'Балаклава', essential: true }, { name: 'Перчатки', essential: true }] }, { category: 'СНАРЯЖЕНИЕ', items: [{ name: 'Рюкзак 50-60 л', essential: true }, { name: 'Палки', essential: true }, { name: 'Навигатор', essential: true }, { name: 'Термос', essential: true }] }, { category: 'ПРОДУКТЫ', items: [{ name: 'Вода 2 л', essential: true }, { name: 'Батончики', essential: true }] }, { category: 'МЕДИЦИНА', items: [{ name: 'Аптечка', essential: true }] }], safety: { rules: ['Изучите маршрут', 'Возьмите телефон', 'Начинайте рано', 'Следите за погодой'], emergencyContacts: [{ label: 'МЧС', number: '112' }], tips: ['Возьмите воду', 'Берите термос'] }, photos: [], category: 'peak' },
+    { id: 'tri-brata', name: 'Три Брата', nameKz: 'Үш Ағайын', nameEn: 'Three Brothers', elevation: 2655, coordinates: { lat: 43.170, lng: 77.070 }, mapPosition: { top: '28%', left: '90%' }, difficulty: 'Лёгкий', difficultyLevel: 1, description: 'Три Брата — группа пиков 2655 м. Маршрут для начинающих.', routeStats: { distance: '10 км', elevationGain: '455 м', duration: '4 ч' }, weather: { temp: 5, feelsLike: 0, humidity: 50, windSpeed: 8, windDirection: 'Ю', tempMax: 10, tempMin: 0, description: 'Облачно', icon: 'cloud' }, weatherForecast: [{ time: 'Ночь', temp: 0, icon: '🌙' }, { time: 'Утро', temp: 5, icon: '⛅' }, { time: 'День', temp: 10, icon: '🌤️' }, { time: 'Вечер', temp: 6, icon: '🌙' }], hourlyForecast: [{ hour: '06:00', temp: 2, icon: '🌙', humidity: 55, wind: 6 }, { hour: '09:00', temp: 5, icon: '⛅', humidity: 50, wind: 8 }, { hour: '12:00', temp: 9, icon: '🌤️', humidity: 45, wind: 8 }, { hour: '15:00', temp: 10, icon: '☀️', humidity: 40, wind: 8 }, { hour: '18:00', temp: 7, icon: '⛅', humidity: 50, wind: 6 }, { hour: '21:00', temp: 3, icon: '🌙', humidity: 55, wind: 5 }, { hour: '00:00', temp: 1, icon: '🌙', humidity: 60, wind: 4 }, { hour: '03:00', temp: 0, icon: '🌙', humidity: 60, wind: 4 }], routes: [{ name: 'Основной маршрут', duration: '4 ч', distance: '10 км', elevationGain: '455 м', difficulty: 'Лёгкий', terrain: 'Тропа, лес', description: 'Маршрут от Шымбулака через лес.', highlights: ['Лес', 'Три вершины'], guruMapsUrl: '' }], equipment: [{ category: 'ОДЕЖДА', items: [{ name: 'Ветровка', essential: true }, { name: 'Куртка', essential: true }, { name: 'Штаны', essential: true }, { name: 'Ботинки', essential: true }] }, { category: 'СНАРЯЖЕНИЕ', items: [{ name: 'Рюкзак 30-40 л', essential: true }, { name: 'Навигатор', essential: true }] }, { category: 'ПРОДУКТЫ', items: [{ name: 'Вода 1.5 л', essential: true }] }, { category: 'МЕДИЦИНА', items: [{ name: 'Аптечка', essential: true }] }], safety: { rules: ['Изучите маршрут', 'Возьмите телефон'], emergencyContacts: [{ label: 'МЧС', number: '112' }], tips: ['Возьмите воду'] }, photos: [], category: 'peak' },
+    { id: 'kos-kainu', name: 'Кош-Кайныу', nameKz: 'Қош-Қайныу', nameEn: 'Kosh-Kainu', elevation: 2200, coordinates: { lat: 43.175, lng: 77.080 }, mapPosition: { top: '45%', left: '88%' }, difficulty: 'Лёгкий', difficultyLevel: 1, description: 'Кош-Кайныу — вершина 2200 м. Самый доступный маршрут.', routeStats: { distance: '8 км', elevationGain: '400 м', duration: '3 ч' }, weather: { temp: 8, feelsLike: 3, humidity: 50, windSpeed: 6, windDirection: 'Ю', tempMax: 13, tempMin: 3, description: 'Облачно', icon: 'cloud' }, weatherForecast: [{ time: 'Ночь', temp: 3, icon: '🌙' }, { time: 'Утро', temp: 8, icon: '⛅' }, { time: 'День', temp: 13, icon: '🌤️' }, { time: 'Вечер', temp: 9, icon: '🌙' }], hourlyForecast: [{ hour: '06:00', temp: 5, icon: '🌙', humidity: 55, wind: 5 }, { hour: '09:00', temp: 8, icon: '⛅', humidity: 50, wind: 6 }, { hour: '12:00', temp: 12, icon: '🌤️', humidity: 45, wind: 6 }, { hour: '15:00', temp: 13, icon: '☀️', humidity: 40, wind: 6 }, { hour: '18:00', temp: 10, icon: '⛅', humidity: 50, wind: 5 }, { hour: '21:00', temp: 6, icon: '🌙', humidity: 55, wind: 4 }, { hour: '00:00', temp: 4, icon: '🌙', humidity: 60, wind: 3 }, { hour: '03:00', temp: 3, icon: '🌙', humidity: 60, wind: 3 }], routes: [{ name: 'Основной маршрут', duration: '3 ч', distance: '8 км', elevationGain: '400 м', difficulty: 'Лёгкий', terrain: 'Тропа, лес', description: 'Маршрут от Шымбулака через лес.', highlights: ['Лес', 'Семейный'], guruMapsUrl: '' }], equipment: [{ category: 'ОДЕЖДА', items: [{ name: 'Удобная обувь', essential: true }, { name: 'Куртка', essential: true }] }, { category: 'СНАРЯЖЕНИЕ', items: [{ name: 'Рюкзак 20-30 л', essential: true }] }, { category: 'ПРОДУКТЫ', items: [{ name: 'Вода 1 л', essential: true }] }, { category: 'МЕДИЦИНА', items: [{ name: 'Аптечка', essential: true }] }], safety: { rules: ['Изучите маршрут', 'Возьмите телефон'], emergencyContacts: [{ label: 'МЧС', number: '112' }], tips: ['Возьмите воду'] }, photos: [], category: 'peak' },
 ]

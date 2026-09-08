@@ -13,6 +13,7 @@ import './index.css'
 
 const Landing = lazy(() => import('./pages/Landing'))
 const PeakDetail = lazy(() => import('./pages/PeakDetail'))
+const Catalog = lazy(() => import('./pages/Catalog'))
 const AuthPage = lazy(() => import('./pages/AuthPage'))
 const Dashboard = lazy(() => import('./pages/Dashboard'))
 const NotFound = lazy(() => import('./pages/NotFound'))
@@ -40,6 +41,7 @@ createRoot(document.getElementById('root')!).render(
               <Suspense fallback={<LoadingFallback />}>
                 <Routes>
                   <Route path="/" element={<Landing />} />
+                  <Route path="/catalog" element={<Catalog />} />
                   <Route path="/auth" element={<AuthPage redirectAfterAuth="/dashboard" />} />
                   <Route path="/peak/:id" element={<PeakDetail />} />
                   <Route path="/dashboard" element={<RequireAuth><Dashboard /></RequireAuth>} />

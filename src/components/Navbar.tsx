@@ -91,8 +91,28 @@ export function Navbar() {
           </span>
         </Link>
 
-        {/* Search */}
-        <div ref={searchRef} className="flex-1 relative max-w-md">
+        {/* Spacer */}
+        <div className="flex-1" />
+
+        {/* Catalog link */}
+        <Link
+          to="/catalog"
+          className="hidden md:flex items-center gap-1 px-4 py-1.5 text-xs font-bold uppercase no-underline transition-all"
+          style={{
+            fontFamily: "'Special Elite', Georgia, serif",
+            letterSpacing: '0.1em',
+            border: '2px solid #3d2b1f',
+            borderRadius: '3px',
+            background: '#f5e6c8',
+            color: '#3d2b1f',
+            boxShadow: '2px 2px 0px #3d2b1f',
+          }}
+        >
+          {t.catalog}
+        </Link>
+
+        {/* Search — centered */}
+        <div ref={searchRef} className="relative max-w-md mx-auto flex-shrink-0">
           <div className="relative">
             <Search
               className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4"
@@ -153,8 +173,11 @@ export function Navbar() {
           </AnimatePresence>
         </div>
 
-        {/* Language switcher — desktop */}
-        <div className="hidden md:flex items-center gap-1">
+        {/* Spacer */}
+        <div className="flex-1" />
+
+        {/* Language switcher — always visible, pinned right */}
+        <div className="flex items-center gap-1 shrink-0">
           {(['ru', 'en', 'kz'] as Lang[]).map((l) => (
             <button
               key={l}
@@ -222,6 +245,24 @@ export function Navbar() {
                 className="retro-input w-full pl-10 pr-4 text-sm"
               />
             </div>
+
+            {/* Mobile catalog link */}
+            <Link
+              to="/catalog"
+              onClick={() => setMobileMenuOpen(false)}
+              className="block mb-3 px-4 py-3 text-center text-sm font-bold uppercase no-underline"
+              style={{
+                fontFamily: "'Special Elite', Georgia, serif",
+                letterSpacing: '0.1em',
+                border: '2px solid #3d2b1f',
+                borderRadius: '3px',
+                background: '#c44d2c',
+                color: '#fdf6e3',
+                boxShadow: '2px 2px 0px #3d2b1f',
+              }}
+            >
+              {t.catalog}
+            </Link>
 
             {/* Mobile language switcher */}
             <div className="flex items-center gap-2">

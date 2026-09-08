@@ -79,9 +79,23 @@ interface Translations {
   terrain: string
   highlights: string
 
+  // Map upload
+  uploadMapPhoto: string
+  uploadMapHint: string
+  uploadMapButton: string
+  replaceMap: string
+  resetMap: string
+
   // 404
   notFoundTitle: string
   notFoundBack: string
+
+  // Catalog page
+  catalogPeaks: string
+  catalogTraverses: string
+  catalogMountains: string
+  catalogNoItems: string
+  catalogElevation: string
 }
 
 const ru: Translations = {
@@ -154,7 +168,18 @@ const ru: Translations = {
   highlights: 'Особенности',
 
   notFoundTitle: 'Маршрут не найден',
+  uploadMapPhoto: 'Загрузить фото карты',
+  uploadMapHint: 'Загрузите фотографию горной карты, которая заменит текущую SVG-карту',
+  uploadMapButton: 'Выбрать файл',
+  replaceMap: 'Заменить фото',
+  resetMap: 'Удалить фото',
   notFoundBack: 'На главную',
+
+  catalogPeaks: 'Пики',
+  catalogTraverses: 'Траверсы',
+  catalogMountains: 'Горы',
+  catalogNoItems: 'Пока нет маршрутов в этой категории',
+  catalogElevation: 'Высота',
 }
 
 const en: Translations = {
@@ -226,7 +251,18 @@ const en: Translations = {
   highlights: 'Highlights',
 
   notFoundTitle: 'Route not found',
+  uploadMapPhoto: 'Upload Map Photo',
+  uploadMapHint: 'Upload a mountain map photo to replace the current SVG map',
+  uploadMapButton: 'Choose file',
+  replaceMap: 'Replace photo',
+  resetMap: 'Remove photo',
   notFoundBack: 'Home',
+
+  catalogPeaks: 'Peaks',
+  catalogTraverses: 'Traverses',
+  catalogMountains: 'Mountains',
+  catalogNoItems: 'No routes in this category yet',
+  catalogElevation: 'Elevation',
 }
 
 const kz: Translations = {
@@ -298,7 +334,18 @@ const kz: Translations = {
   highlights: 'Ерекшеліктер',
 
   notFoundTitle: 'Бағыт табылмады',
+  uploadMapPhoto: 'Карта фотоны жүктеу',
+  uploadMapHint: 'SVG картаны ауыстыру үшін тау картасының фотосын жүктеңіз',
+  uploadMapButton: 'Файлды таңдаңыз',
+  replaceMap: 'Фотоны ауыстыру',
+  resetMap: 'Фотоны өшіру',
   notFoundBack: 'Басты бет',
+
+  catalogPeaks: 'Шыңдар',
+  catalogTraverses: 'Траверстер',
+  catalogMountains: 'Таулар',
+  catalogNoItems: 'Бұл категорияда әлі бағыттар жоқ',
+  catalogElevation: 'Биіктік',
 }
 
 const translations: Record<Lang, Translations> = { ru, en, kz }

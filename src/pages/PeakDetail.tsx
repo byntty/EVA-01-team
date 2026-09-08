@@ -33,11 +33,26 @@ const OPENWEATHER_API_KEY = ''
 
 const coordsMap: Record<string, { lat: number; lon: number }> = {
   khreshchatyj: { lat: 43.095, lon: 77.065 },
-  sovietov: { lat: 43.07, lon: 77.08 },
   turist: { lat: 43.08, lon: 77.05 },
-  belukha: { lat: 43.05, lon: 77.1 },
-  tuyuksu: { lat: 43.06, lon: 77.07 },
-  manas: { lat: 43.04, lon: 77.12 },
+  Kumbel: { lat: 43.122, lon: 77.027 },
+  bukreev: { lat: 43.135, lon: 77.085 },
+  titov: { lat: 43.095, lon: 77.115 },
+  Amangeldy: { lat: 43.11, lon: 77.055 },
+  Nursultan: { lat: 43.145, lon: 77.04 },
+  Abai: { lat: 43.078, lon: 77.11 },
+  Malysh: { lat: 43.088, lon: 77.095 },
+  Pogrebeskiy: { lat: 43.055, lon: 77.075 },
+  yubileynaya: { lat: 43.180, lon: 76.890 },
+  talgar: { lat: 43.150, lon: 77.050 },
+  furmanova: { lat: 43.130, lon: 76.980 },
+  panorama: { lat: 43.135, lon: 76.990 },
+  bashuta: { lat: 43.140, lon: 77.000 },
+  chimbulaka: { lat: 43.145, lon: 77.010 },
+  chkalova: { lat: 43.155, lon: 77.030 },
+  fizkulturnik: { lat: 43.160, lon: 77.040 },
+  khalysau: { lat: 43.165, lon: 77.055 },
+  'tri-brata': { lat: 43.170, lon: 77.070 },
+  'kos-kainu': { lat: 43.175, lon: 77.080 },
 }
 
 function weatherIconFromCode(code: string): string {
@@ -194,7 +209,7 @@ export default function PeakDetail() {
                   <div className="flex items-center gap-2">
                     <span
                       className="retro-badge text-xs"
-                      style={{ color: '#fdf6e3', borderColor: '#fdf6e3' }}
+                      style={{ color: '#fdf6e3', borderColor: '#fdf6e3', background: 'rgba(61,43,31,0.5)' }}
                     >
                       {peak.elevation} м
                     </span>
