@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { MapPin, Mountain, Compass, Phone } from 'lucide-react'
+import { MapPin, Compass } from 'lucide-react'
 import { Navbar } from '../components/Navbar'
+import { Footer } from '../components/Footer'
 import { useLanguage } from '../lib/language'
 import { peaksData, type Peak } from '../data/peaksData'
 
@@ -31,7 +32,7 @@ export default function Landing() {
   }
 
   const routesCountByLevel = (level: number) =>
-    peaksData.filter((p) => p.difficultyLevel === level).length
+    peaksData.filter((p) => p.category === 'peak' && p.difficultyLevel === level).length
 
 
 
@@ -67,7 +68,7 @@ export default function Landing() {
             className="absolute inset-0 w-full h-full"
             style={{ pointerEvents: 'none' }}
           >
-            {peaksData.map((peak) => {
+            {peaksData.filter((p) => p.category === 'peak').map((peak) => {
               const isVisible = filterLevel === null || peak.difficultyLevel === filterLevel
               const top = (parseFloat(peak.mapPosition.top) / 100) * 517
               const left = (parseFloat(peak.mapPosition.left) / 100) * 1500
@@ -227,85 +228,7 @@ export default function Landing() {
         </div>
       </main>
 
-      {/* Footer — dark vintage band */}
-      <footer
-        className="mt-12 py-8 px-4"
-        style={{ background: '#2d1b00', borderTop: '4px solid #c44d2c' }}
-      >
-        <div className="max-w-7xl mx-auto">
-          {/* Top row */}
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-6">
-            <div className="flex items-center gap-3">
-              <div
-                className="w-8 h-8 flex items-center justify-center"
-                style={{
-                  background: '#c44d2c',
-                  border: '2px solid #fdf6e3',
-                  borderRadius: '4px',
-                }}
-              >
-                <Mountain className="w-4 h-4" style={{ color: '#fdf6e3' }} />
-              </div>
-              <span
-                style={{
-                  color: '#fdf6e3',
-                  fontFamily: "'Playfair Display', Georgia, serif",
-                  fontWeight: 700,
-                }}
-              >
-                Alatau<span style={{ color: '#c44d2c' }}>Peaks</span>
-              </span>
-            </div>
-            <p
-              className="text-sm text-center"
-              style={{ color: '#a09078', fontFamily: "'Special Elite', Georgia, serif" }}
-            >
-              {t.footerText}
-            </p>
-            <p className="text-xs" style={{ color: '#6b5a3e' }}>
-              © {new Date().getFullYear()} AlatauPeaks
-            </p>
-          </div>
-
-          {/* Divider */}
-          <div className="retro-divider mb-6" style={{ color: '#6b5a3e' }}>✦</div>
-
-          {/* Contact row */}
-          <div className="flex flex-col md:flex-row items-center justify-center gap-6">
-            {/* WhatsApp Nis Climbers */}
-            <a
-              href="https://chat.whatsapp.com/NisClimbers"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 no-underline transition-colors"
-              style={{ color: '#5a6e3c' }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = '#7ab955')}
-              onMouseLeave={(e) => (e.currentTarget.style.color = '#5a6e3c')}
-            >
-              <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-              </svg>
-              <span style={{ fontFamily: "'Special Elite', Georgia, serif", fontWeight: 700, fontSize: '0.9rem' }}>
-                Nis Climbers
-              </span>
-            </a>
-
-            {/* Phone contact */}
-            <a
-              href="tel:+77054102502"
-              className="flex items-center gap-2 no-underline transition-colors"
-              style={{ color: '#fdf6e3' }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = '#c44d2c')}
-              onMouseLeave={(e) => (e.currentTarget.style.color = '#fdf6e3')}
-            >
-              <Phone className="w-4 h-4" />
-              <span style={{ fontFamily: "'Special Elite', Georgia, serif", fontWeight: 700, fontSize: '0.9rem' }}>
-                +7 705 410 2502
-              </span>
-            </a>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   )
 }

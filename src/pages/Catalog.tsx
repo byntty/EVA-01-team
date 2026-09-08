@@ -4,6 +4,7 @@ import { Navbar } from '../components/Navbar'
 import { useLanguage } from '../lib/language'
 import { peaksData, type Peak, type PeakCategory } from '../data/peaksData'
 import { Mountain, TrendingUp, ArrowUpRight } from 'lucide-react'
+import { Footer } from '../components/Footer'
 
 export default function Catalog() {
   const { t, lang } = useLanguage()
@@ -270,59 +271,7 @@ export default function Catalog() {
         )}
       </main>
 
-      {/* Footer */}
-      <footer
-        style={{
-          background: '#3d2b1f',
-          padding: '32px 0',
-          color: '#f5e6c8',
-        }}
-      >
-        <div className="max-w-6xl mx-auto px-4 text-center">
-          <div
-            className="text-sm mb-2"
-            style={{
-              fontFamily: "'Playfair Display', Georgia, serif",
-            }}
-          >
-            {t.footerText}
-          </div>
-          <div className="flex items-center justify-center gap-4 mb-3">
-            <a
-              href="https://chat.whatsapp.com/GZ0LnFK8HyK0fWt6UTBTxS"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm no-underline"
-              style={{ color: '#c44d2c', fontFamily: "'Special Elite', Georgia, serif" }}
-            >
-              📱 WhatsApp — Nis Climbers
-            </a>
-            <span style={{ color: '#8b7355' }}>|</span>
-            <a
-              href="tel:+77054102502"
-              className="text-sm no-underline"
-              style={{ color: '#c44d2c', fontFamily: "'Special Elite', Georgia, serif" }}
-            >
-              📞 +7 705 410 2502
-            </a>
-          </div>
-          <div
-            style={{
-              width: '120px',
-              height: '2px',
-              background: '#8b7355',
-              margin: '0 auto 12px',
-              borderRadius: '1px',
-            }}
-          />
-          <div
-            className="text-xs"
-            style={{ color: '#8b7355', fontFamily: "'Special Elite', Georgia, serif" }}
-          >
-            {t.madeWith} ⛰️
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   )
 }

@@ -28,7 +28,11 @@ interface Translations {
   elevationGain: string
   duration: string
   difficulty: string
-  guruMaps: string
+  friendHike: string
+  appsTitle: string
+  appGuruMaps: string
+  appMapsMe: string
+  appWindy: string
 
   // Difficulty levels
   level1: string
@@ -124,7 +128,11 @@ const ru: Translations = {
   elevationGain: 'Набор высоты',
   duration: 'Длительность',
   difficulty: 'Сложность',
-  guruMaps: 'Guru Maps',
+  friendHike: 'FriendHike',
+  appsTitle: 'Приложения-путеводители',
+  appGuruMaps: 'Guru Maps — офлайн-карты и GPS-треки',
+  appMapsMe: 'MAPS.ME — офлайн-навигация по тропам',
+  appWindy: 'Windy — детальный прогноз погоды и ветра',
 
   level1: 'Лёгкий',
   level2: 'Средний',
@@ -207,7 +215,11 @@ const en: Translations = {
   elevationGain: 'Elevation Gain',
   duration: 'Duration',
   difficulty: 'Difficulty',
-  guruMaps: 'Guru Maps',
+  friendHike: 'FriendHike',
+  appsTitle: 'Guide apps',
+  appGuruMaps: 'Guru Maps — offline maps and GPS tracks',
+  appMapsMe: 'MAPS.ME — offline trail navigation',
+  appWindy: 'Windy — detailed weather and wind forecast',
 
   level1: 'Easy',
   level2: 'Medium',
@@ -290,7 +302,11 @@ const kz: Translations = {
   elevationGain: 'Биіктік өсу',
   duration: 'Ұзақтық',
   difficulty: 'Қиындық',
-  guruMaps: 'Guru Maps',
+  friendHike: 'FriendHike',
+  appsTitle: 'Навигация қосымшалары',
+  appGuruMaps: 'Guru Maps — офлайн карталар және GPS тректері',
+  appMapsMe: 'MAPS.ME — жолдар бойынша офлайн навигация',
+  appWindy: 'Windy — ауа райы мен желдің егжей-тегжейлі болжамы',
 
   level1: 'Оңай',
   level2: 'Орташа',

@@ -26,6 +26,7 @@ import {
   TrendingUp,
 } from 'lucide-react'
 import { Navbar } from '../components/Navbar'
+import { Footer } from '../components/Footer'
 import { useLanguage } from '../lib/language'
 import { getPeakById, type Peak } from '../data/peaksData'
 
@@ -327,18 +328,13 @@ export default function PeakDetail() {
                 </div>
               </div>
 
-              {/* Guru Maps link */}
+              {/* FriendHike link */}
               {peak.routes[selectedRoute] && (
-                <button
-                  onClick={() => {
-                    const route = peak.routes[selectedRoute]
-                    if (route.guruMapsFile) {
-                      window.location.href = `gurumaps://open?url=${encodeURIComponent(window.location.origin + route.guruMapsFile)}`
-                    } else if (route.guruMapsUrl) {
-                      window.open(route.guruMapsUrl, '_blank')
-                    }
-                  }}
-                  className="inline-flex items-center gap-2 mt-4 px-4 py-2 text-sm font-bold"
+                <a
+                  href={peak.routes[selectedRoute].friendHikeUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 mt-4 px-4 py-2 text-sm font-bold no-underline"
                   style={{
                     background: 'rgba(253,246,227,0.15)',
                     border: '2px solid rgba(253,246,227,0.4)',
@@ -354,8 +350,8 @@ export default function PeakDetail() {
                   onMouseLeave={(e) => (e.currentTarget.style.background = 'rgba(253,246,227,0.15)')}
                 >
                   <MapPin className="w-4 h-4" />
-                  {t.guruMaps}
-                </button>
+                  {t.friendHike}
+                </a>
               )}
             </div>
           </div>
@@ -934,6 +930,58 @@ function EquipmentBlock({
             </div>
           </div>
         ))}
+
+        {/* Guide apps recommendation */}
+        <div
+          className="p-4"
+          style={{
+            background: '#eddcbc',
+            border: '2px dashed #8b7355',
+            borderRadius: '4px',
+          }}
+        >
+          <h3
+            className="text-xs font-bold uppercase tracking-wider mb-3"
+            style={{
+              color: '#3d2b1f',
+              fontFamily: "'Special Elite', Georgia, serif",
+              letterSpacing: '0.12em',
+            }}
+          >
+            📱 {t.appsTitle}
+          </h3>
+          <div className="space-y-2">
+            {[
+              { icon: '🗺️', text: t.appGuruMaps, url: 'https://www.gurumaps.app/' },
+              { icon: '🧭', text: t.appMapsMe, url: 'https://maps.me/' },
+              { icon: '🌬️', text: t.appWindy, url: 'https://www.windy.com/' },
+            ].map((app) => (
+              <a
+                key={app.text}
+                href={app.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 p-3 no-underline transition-all"
+                style={{
+                  background: '#f5e6c8',
+                  border: '2px solid #c4b49a',
+                  borderRadius: '4px',
+                  boxShadow: '2px 2px 0px rgba(61,43,31,0.08)',
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.borderColor = '#c44d2c')}
+                onMouseLeave={(e) => (e.currentTarget.style.borderColor = '#c4b49a')}
+              >
+                <span className="text-lg">{app.icon}</span>
+                <span className="text-sm" style={{ color: '#3d2b1f' }}>
+                  {app.text}
+                </span>
+                <span className="ml-auto text-xs" style={{ color: '#8b7355' }}>
+                  ↓
+                </span>
+              </a>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   )
@@ -1076,6 +1124,8 @@ function SafetyBlock({ peak, t }: { peak: Peak; t: any }) {
           </div>
         </div>
       </div>
+
+      <Footer />
     </div>
   )
 }
