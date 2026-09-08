@@ -53,6 +53,8 @@ const coordsMap: Record<string, { lat: number; lon: number }> = {
   khalysau: { lat: 43.165, lon: 77.055 },
   'tri-brata': { lat: 43.170, lon: 77.070 },
   'kos-kainu': { lat: 43.175, lon: 77.080 },
+  'geroi-28': { lat: 43.142, lon: 77.005 },
+  'karinznij': { lat: 43.148, lon: 77.015 },
 }
 
 function weatherIconFromCode(code: string): string {
