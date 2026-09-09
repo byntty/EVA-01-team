@@ -28,8 +28,9 @@ interface Translations {
   elevationGain: string
   duration: string
   difficulty: string
-  friendHike: string
+  viewOnMapsMe: string
   appsTitle: string
+  appFriendHike: string
   appGuruMaps: string
   appMapsMe: string
   appWindy: string
@@ -47,6 +48,13 @@ interface Translations {
   feelsLike: string
   humidity: string
   wind: string
+  uvIndex: string
+  uvLow: string
+  uvModerate: string
+  uvHigh: string
+  uvVeryHigh: string
+  uvExtreme: string
+  precipitationChance: string
   windDirection: string
   tempMax: string
   tempMin: string
@@ -77,6 +85,7 @@ interface Translations {
 
   // Photos
   photosTitle: string
+  photosAttribution: string
 
   // Route selector
   routeInfo: string
@@ -100,6 +109,27 @@ interface Translations {
   catalogMountains: string
   catalogNoItems: string
   catalogElevation: string
+
+  // Legal pages
+  privacyTitle: string
+  privacyUpdated: string
+  cookiesTitle: string
+  cookiesUpdated: string
+  termsTitle: string
+  termsUpdated: string
+  legalPrivacy: string
+  legalCookies: string
+  legalTerms: string
+  consentText: string
+  consentAccept: string
+  inDevelopmentTitle: string
+  inDevelopmentText: string
+  chainPeaks: string
+  signPhotoTitle: string
+  signPhotoHint: string
+  precipWarning: string
+  consentDecline: string
+  consentReadMore: string
 }
 
 const ru: Translations = {
@@ -128,8 +158,9 @@ const ru: Translations = {
   elevationGain: 'Набор высоты',
   duration: 'Длительность',
   difficulty: 'Сложность',
-  friendHike: 'FriendHike',
+  viewOnMapsMe: 'Открыть маршрут в MAPS.ME',
   appsTitle: 'Приложения-путеводители',
+  appFriendHike: 'FriendHike — маршруты, высоты и отчёты с гор',
   appGuruMaps: 'Guru Maps — офлайн-карты и GPS-треки',
   appMapsMe: 'MAPS.ME — офлайн-навигация по тропам',
   appWindy: 'Windy — детальный прогноз погоды и ветра',
@@ -145,6 +176,13 @@ const ru: Translations = {
   feelsLike: 'Ощущается',
   humidity: 'Влажность',
   wind: 'Ветер',
+  uvIndex: 'УФ-индекс',
+  uvLow: 'Низкий',
+  uvModerate: 'Умеренный',
+  uvHigh: 'Высокий',
+  uvVeryHigh: 'Очень высокий',
+  uvExtreme: 'Экстремальный',
+  precipitationChance: 'Вероятность осадков',
   windDirection: 'Направление',
   tempMax: 'Макс.',
   tempMin: 'Мин.',
@@ -170,6 +208,7 @@ const ru: Translations = {
   bestHikingDay: 'Лучший день для похода',
 
   photosTitle: 'Фотографии с маршрута',
+  photosAttribution: 'Фото: сообщество Nis Climbers; превью — Unsplash (демо). Загрузите свои фото в public/photos/<peak-id>/.',
 
   routeInfo: 'О маршруте',
   terrain: 'Рельеф',
@@ -188,6 +227,26 @@ const ru: Translations = {
   catalogMountains: 'Горы',
   catalogNoItems: 'Пока нет маршрутов в этой категории',
   catalogElevation: 'Высота',
+
+  privacyTitle: 'Политика конфиденциальности',
+  privacyUpdated: 'Последнее обновление: 9 сентября 2026 г.',
+  cookiesTitle: 'Политика использования файлов cookie',
+  cookiesUpdated: 'Последнее обновление: 9 сентября 2026 г.',
+  termsTitle: 'Условия использования',
+  termsUpdated: 'Последнее обновление: 9 сентября 2026 г.',
+  legalPrivacy: 'Конфиденциальность',
+  legalCookies: 'Cookie',
+  legalTerms: 'Условия',
+  consentText: 'Мы храним только ваш выбранный язык и суточный кэш погоды в вашем браузере — без аналитики и трекеров.',
+  consentAccept: 'Понятно',
+  consentDecline: 'Отключить',
+  inDevelopmentTitle: 'Страница в разработке',
+  inDevelopmentText: 'Раздел для этого пика ещё готовится. Вся информация появится здесь в ближайшее время.',
+  chainPeaks: 'Пики маршрута',
+  signPhotoTitle: 'Табличка вершины',
+  signPhotoHint: 'Фото таблички вершины — загрузите в public/photos/<peak-id>/sign.jpg и укажите путь в поле signPhoto.',
+  precipWarning: 'Если индекс осадков превышает значения в 0.2 мм, то лучше отложить поход',
+  consentReadMore: 'Подробнее',
 }
 
 const en: Translations = {
@@ -215,8 +274,9 @@ const en: Translations = {
   elevationGain: 'Elevation Gain',
   duration: 'Duration',
   difficulty: 'Difficulty',
-  friendHike: 'FriendHike',
+  viewOnMapsMe: 'View route in MAPS.ME',
   appsTitle: 'Guide apps',
+  appFriendHike: 'FriendHike — routes, elevations and trip reports',
   appGuruMaps: 'Guru Maps — offline maps and GPS tracks',
   appMapsMe: 'MAPS.ME — offline trail navigation',
   appWindy: 'Windy — detailed weather and wind forecast',
@@ -231,6 +291,13 @@ const en: Translations = {
   temperature: 'Temperature',
   feelsLike: 'Feels Like',
   humidity: 'Humidity',
+  uvIndex: 'UV Index',
+  uvLow: 'Low',
+  uvModerate: 'Moderate',
+  uvHigh: 'High',
+  uvVeryHigh: 'Very High',
+  uvExtreme: 'Extreme',
+  precipitationChance: 'Chance of precipitation',
   wind: 'Wind',
   windDirection: 'Direction',
   tempMax: 'Max',
@@ -257,6 +324,7 @@ const en: Translations = {
   bestHikingDay: 'Best Day for Hiking',
 
   photosTitle: 'Route Photos',
+  photosAttribution: 'Photos: Nis Climbers community; previews — Unsplash (demo). Upload your own to public/photos/<peak-id>/.',
 
   routeInfo: 'Route Info',
   terrain: 'Terrain',
@@ -275,6 +343,26 @@ const en: Translations = {
   catalogMountains: 'Mountains',
   catalogNoItems: 'No routes in this category yet',
   catalogElevation: 'Elevation',
+
+  privacyTitle: 'Privacy Policy',
+  privacyUpdated: 'Last updated: September 9, 2026',
+  cookiesTitle: 'Cookies Policy',
+  cookiesUpdated: 'Last updated: September 9, 2026',
+  termsTitle: 'Terms & Conditions',
+  termsUpdated: 'Last updated: September 9, 2026',
+  legalPrivacy: 'Privacy',
+  legalCookies: 'Cookies',
+  legalTerms: 'Terms',
+  consentText: 'We store only your chosen language and a daily weather cache in your browser — no analytics, no trackers.',
+  consentAccept: 'Got it',
+  consentDecline: 'Disable',
+  inDevelopmentTitle: 'Page under development',
+  inDevelopmentText: 'The section for this peak is on its way. All the details will appear here soon.',
+  chainPeaks: 'Route peaks',
+  signPhotoTitle: 'Summit sign photo',
+  signPhotoHint: 'Photo of the summit sign — upload to public/photos/<peak-id>/sign.jpg and set the path in the signPhoto field.',
+  precipWarning: 'If the precipitation index exceeds 0.2 mm, it is better to postpone the hike',
+  consentReadMore: 'Learn more',
 }
 
 const kz: Translations = {
@@ -302,8 +390,9 @@ const kz: Translations = {
   elevationGain: 'Биіктік өсу',
   duration: 'Ұзақтық',
   difficulty: 'Қиындық',
-  friendHike: 'FriendHike',
+  viewOnMapsMe: 'Бағытты MAPS.ME-де көру',
   appsTitle: 'Навигация қосымшалары',
+  appFriendHike: 'FriendHike — бағыттар, биіктіктер және әңгімелер',
   appGuruMaps: 'Guru Maps — офлайн карталар және GPS тректері',
   appMapsMe: 'MAPS.ME — жолдар бойынша офлайн навигация',
   appWindy: 'Windy — ауа райы мен желдің егжей-тегжейлі болжамы',
@@ -318,6 +407,13 @@ const kz: Translations = {
   temperature: 'Температура',
   feelsLike: 'Сезіледі',
   humidity: 'Ылғалдылық',
+  uvIndex: 'УФ индексі',
+  uvLow: 'Төмен',
+  uvModerate: 'Орташа',
+  uvHigh: 'Жоғары',
+  uvVeryHigh: 'Өте жоғары',
+  uvExtreme: 'Аса жоғары',
+  precipitationChance: 'Жауын-шашын ықтималдығы',
   wind: 'Жел',
   windDirection: 'Бағыт',
   tempMax: 'Макс.',
@@ -344,6 +440,7 @@ const kz: Translations = {
   bestHikingDay: 'Серуенге ең жақсы күн',
 
   photosTitle: 'Бағыттағы фотосуреттер',
+  photosAttribution: 'Фото: Nis Climbers қауымдастығы; алдын ала көріністер — Unsplash (демо). Өз фотоңызды public/photos/<peak-id>/ қалтасына жүктеңіз.',
 
   routeInfo: 'Бағыт туралы',
   terrain: 'Жер бедері',
@@ -362,6 +459,26 @@ const kz: Translations = {
   catalogMountains: 'Таулар',
   catalogNoItems: 'Бұл категорияда әлі бағыттар жоқ',
   catalogElevation: 'Биіктік',
+
+  privacyTitle: 'Құпиялық саясаты',
+  privacyUpdated: 'Соңғы жаңарту: 2026 ж. 9 қыркүйек',
+  cookiesTitle: 'Cookie саясаты',
+  cookiesUpdated: 'Соңғы жаңарту: 2026 ж. 9 қыркүйек',
+  termsTitle: 'Қолдану шарттары',
+  termsUpdated: 'Соңғы жаңарту: 2026 ж. 9 қыркүйек',
+  legalPrivacy: 'Құпиялық',
+  legalCookies: 'Cookie',
+  legalTerms: 'Шарттар',
+  consentText: 'Біз тек таңдаған тіліңіз бен тәуліктік ауа-райы кэшін браузеріңізде сақтаймыз — аналитика мен трекерлер жоқ.',
+  consentAccept: 'Түсіндім',
+  consentDecline: 'Өшіру',
+  inDevelopmentTitle: 'Бет әзірленуде',
+  inDevelopmentText: 'Бұл шыңға арналған бөлім әзірленуде. Барлық ақпарат жақын арада осында пайда болады.',
+  chainPeaks: 'Бағыт шыңдары',
+  signPhotoTitle: 'Шың тақтасының фотосы',
+  signPhotoHint: 'Шың тақтасының фотосы — public/photos/<peak-id>/sign.jpg жүктеңіз және signPhoto өрісінде жолын көрсетіңіз.',
+  precipWarning: 'Жауын-шашын индексі 0.2 мм-ден асса, жорықты кейінге қалдырған дұрыс',
+  consentReadMore: 'Толығырақ',
 }
 
 const translations: Record<Lang, Translations> = { ru, en, kz }
@@ -379,7 +496,25 @@ const LanguageContext = createContext<LanguageContextValue>({
 })
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [lang, setLang] = useState<Lang>('ru')
+  // Persist the choice; default stays 'ru'
+  const [lang, setLangState] = useState<Lang>(() => {
+    try {
+      const saved = localStorage.getItem('alataupeaks-lang')
+      if (saved === 'ru' || saved === 'en' || saved === 'kz') return saved
+    } catch {
+      // storage unavailable — default
+    }
+    return 'ru'
+  })
+
+  const setLang = (l: Lang) => {
+    setLangState(l)
+    try {
+      localStorage.setItem('alataupeaks-lang', l)
+    } catch {
+      // storage unavailable — keep in-memory only
+    }
+  }
 
   return (
     <LanguageContext.Provider value={{ lang, setLang, t: translations[lang] }}>

@@ -5,11 +5,12 @@ import { MapPin, Compass } from 'lucide-react'
 import { Navbar } from '../components/Navbar'
 import { Footer } from '../components/Footer'
 import { useLanguage } from '../lib/language'
+import { trData } from '../lib/dataTranslations'
 import { peaksData, type Peak } from '../data/peaksData'
 
 const categoryColors: Record<number, { color: string; bg: string; label: string }> = {
   1: { color: '#5a6e3c', bg: '#5a6e3c20', label: 'categoryEasy' },
-  2: { color: '#d4a520', bg: '#d4a52020', label: 'categoryMedium' },
+  2: { color: '#7a6100', bg: '#d4a52020', label: 'categoryMedium' },
   3: { color: '#c44d2c', bg: '#c44d2c20', label: 'categoryHard' },
   4: { color: '#7b2d8e', bg: '#7b2d8e20', label: 'categoryExtreme' },
 }
@@ -32,7 +33,7 @@ export default function Landing() {
   }
 
   const routesCountByLevel = (level: number) =>
-    peaksData.filter((p) => p.category === 'peak' && p.difficultyLevel === level).length
+    peaksData.filter((p) => p.category === 'peak' && !p.hiddenOnMap && p.difficultyLevel === level).length
 
 
 
@@ -54,7 +55,7 @@ export default function Landing() {
           {/* Panorama image */}
           <img
             src="/alataupeaks/map-panorama.jpg"
-            alt="Заилийский Алатау — интерактивная карта"
+            alt={t.mapTitle}
             className="w-full h-full object-cover"
             style={{ display: 'block' }}
           />
@@ -68,7 +69,7 @@ export default function Landing() {
             className="absolute inset-0 w-full h-full"
             style={{ pointerEvents: 'none' }}
           >
-            {peaksData.filter((p) => p.category === 'peak').map((peak) => {
+            {peaksData.filter((p) => p.category === 'peak' && !p.hiddenOnMap).map((peak) => {
               const isVisible = filterLevel === null || peak.difficultyLevel === filterLevel
               const top = (parseFloat(peak.mapPosition.top) / 100) * 517
               const left = (parseFloat(peak.mapPosition.left) / 100) * 1500
@@ -76,7 +77,7 @@ export default function Landing() {
 
               const markerColors: Record<number, string> = {
                 1: '#5a6e3c',
-                2: '#d4a520',
+                2: '#e07030',
                 3: '#c44d2c',
                 4: '#7b2d8e',
               }
@@ -94,6 +95,13 @@ export default function Landing() {
                   onClick={() => navigate(`/peak/${peak.id}`)}
                   onMouseEnter={() => setHoveredPeak(peak.id)}
                   onMouseLeave={() => setHoveredPeak(null)}
+                  onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') navigate(`/peak/${peak.id}`) }}
+                  onFocus={() => setHoveredPeak(peak.id)}
+                  onBlur={() => setHoveredPeak(null)}
+                  tabIndex={isVisible ? 0 : -1}
+                  role="link"
+                  aria-label={`${displayName(peak)} — ${peak.elevation} м`
+                  }
                 >
                   {/* Pulse ring */}
                   <circle
@@ -157,11 +165,11 @@ export default function Landing() {
                         x={left}
                         y={top - 30}
                         textAnchor="middle"
-                        fill="#8b7355"
+                        fill="#6b5a3e"
                         fontSize={10}
                         fontFamily="'Special Elite', monospace"
                       >
-                        {peak.elevation}м · {peak.difficulty}
+                        {peak.elevation}м · {trData(lang, 'difficulty', peak.difficulty)}
                       </text>
                     </>
                   )}
@@ -219,7 +227,7 @@ export default function Landing() {
                     {t[cat.label as keyof typeof t] as string}
                   </span>
                 </div>
-                <span className="text-xs" style={{ color: '#8b7355' }}>
+                <span className="text-xs" style={{ color: '#6b5a3e' }}>
                   {t.routesCount(routesCountByLevel(level))}
                 </span>
               </motion.button>

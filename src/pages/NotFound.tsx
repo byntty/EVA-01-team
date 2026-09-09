@@ -15,7 +15,7 @@ export default function NotFound() {
         >
           {t.notFoundTitle}
         </h1>
-        <p className="mb-6" style={{ color: '#8b7355', fontFamily: "'Special Elite', Georgia, serif" }}>
+        <p className="mb-6" style={{ color: '#6b5a3e', fontFamily: "'Special Elite', Georgia, serif" }}>
           Эта страница не найдена. Возможно, путь неверный.
         </p>
         <button

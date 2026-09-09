@@ -1,8 +1,49 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Navbar } from '../components/Navbar'
-import { useLanguage } from '../lib/language'
+import { useLanguage, type Lang } from '../lib/language'
+import { trData } from '../lib/dataTranslations'
+import { useWeather, normalizeConditionKey, prefetchWeatherAll } from '../lib/weather'
 import { peaksData, type Peak, type PeakCategory } from '../data/peaksData'
+
+/** Small live-weather chip on catalog cards (shared daily cache) */
+function CatalogWeatherChip({ lang, peak }: { lang: Lang; peak: Peak }) {
+  const { data } = useWeather(peak.coordinates.lat, peak.coordinates.lng)
+  if (!data) {
+    return (
+      <div
+        className="mt-3 flex items-center justify-between"
+        style={{ borderTop: '1px dashed #8b7355', paddingTop: '10px' }}
+      >
+        <span className="text-lg">🌤️</span>
+        <span className="text-xs" style={{ color: '#6b5a3e', fontFamily: "'Special Elite', serif" }}>
+          …
+        </span>
+      </div>
+    )
+  }
+  const condition = normalizeConditionKey(data.current.descriptionKey || data.current.description)
+  return (
+    <div
+      className="mt-3 flex items-center justify-between"
+      style={{ borderTop: '1px dashed #8b7355', paddingTop: '10px' }}
+    >
+      <span className="text-lg">{data.current.icon}</span>
+      <span className="text-sm font-bold" style={{ color: '#3d2b1f' }}>
+        {data.current.temp}°C
+      </span>
+      <span
+        className="text-xs"
+        style={{
+          color: '#6b5a3e',
+          fontFamily: "'Special Elite', Georgia, serif",
+        }}
+      >
+        {trData(lang, 'weather', condition)}
+      </span>
+    </div>
+  )
+}
 import { Mountain, TrendingUp, ArrowUpRight } from 'lucide-react'
 import { Footer } from '../components/Footer'
 
@@ -10,13 +51,32 @@ export default function Catalog() {
   const { t, lang } = useLanguage()
   const [activeTab, setActiveTab] = useState<PeakCategory>('peak')
 
+  // Cold-start warmup: fetch all peak locations in parallel (Promise.all),
+  // honoring the 24h localStorage cache — one API day-load, instant tab switches.
+  useEffect(() => {
+    const seen = new Set<string>()
+    const locations = peaksData
+      .filter((p) => !p.inDevelopment)
+      .map((p) => p.coordinates)
+      .filter((c) => {
+        const k = c.lat.toFixed(4) + ',' + c.lng.toFixed(4)
+        if (seen.has(k)) return false
+        seen.add(k)
+        return true
+      })
+    prefetchWeatherAll(locations.map((c) => ({ lat: c.lat, lon: c.lng })))
+  }, [])
+  const [levelFilter, setLevelFilter] = useState<number | null>(null)
+
   const tabs: { key: PeakCategory; label: string; icon: React.ReactNode }[] = [
     { key: 'peak', label: t.catalogPeaks, icon: <Mountain className="w-4 h-4" /> },
     { key: 'traverse', label: t.catalogTraverses, icon: <TrendingUp className="w-4 h-4" /> },
     { key: 'mountain', label: t.catalogMountains, icon: <ArrowUpRight className="w-4 h-4" /> },
   ]
 
-  const filteredPeaks = peaksData.filter((p) => p.category === activeTab)
+  const filteredPeaks = peaksData.filter(
+    (p) => p.category === activeTab && (levelFilter === null || p.difficultyLevel === levelFilter)
+  )
 
   function displayName(peak: Peak): string {
     if (lang === 'en') return peak.nameEn
@@ -26,7 +86,7 @@ export default function Catalog() {
 
   const difficultyColors: Record<number, string> = {
     1: '#5a6e3c',
-    2: '#d4a520',
+    2: '#e07030',
     3: '#c44d2c',
     4: '#7b2d8e',
   }
@@ -56,7 +116,7 @@ export default function Catalog() {
                 borderRadius: '2px',
               }}
             />
-            <span style={{ color: '#8b7355', fontFamily: "'Special Elite', Georgia, serif", fontSize: '0.8rem' }}>
+            <span style={{ color: '#6b5a3e', fontFamily: "'Special Elite', Georgia, serif", fontSize: '0.8rem' }}>
               Заилийский Алатау
             </span>
             <div
@@ -97,6 +157,38 @@ export default function Catalog() {
           })}
         </div>
 
+        {/* Difficulty filter buttons */}
+        <div className="flex justify-center gap-2 mb-8 flex-wrap">
+          {([
+            { level: null as number | null, label: lang === 'ru' ? 'Все' : lang === 'kz' ? 'Барлығы' : 'All', color: '#6b5a3e' },
+            { level: 1 as number, label: t.level1, color: difficultyColors[1] },
+            { level: 2 as number, label: t.level2, color: difficultyColors[2] },
+            { level: 3 as number, label: t.level3, color: difficultyColors[3] },
+            { level: 4 as number, label: t.level4, color: difficultyColors[4] },
+          ]).map((f) => {
+            const isActive = levelFilter === f.level
+            return (
+              <button
+                key={String(f.level)}
+                onClick={() => setLevelFilter(f.level)}
+                aria-pressed={isActive}
+                className="px-4 py-1.5 text-xs font-bold uppercase transition-all"
+                style={{
+                  fontFamily: "'Special Elite', Georgia, serif",
+                  letterSpacing: '0.08em',
+                  color: isActive ? '#fdf6e3' : f.color,
+                  background: isActive ? f.color : 'transparent',
+                  border: '2px solid ' + f.color,
+                  borderRadius: '4px',
+                  cursor: 'pointer',
+                }}
+              >
+                {f.label}
+              </button>
+            )
+          })}
+        </div>
+
         {/* Cards grid */}
         {filteredPeaks.length === 0 ? (
           <div
@@ -105,7 +197,7 @@ export default function Catalog() {
             <div className="text-4xl mb-4">🏔️</div>
             <p
               style={{
-                color: '#8b7355',
+                color: '#6b5a3e',
                 fontFamily: "'Special Elite', Georgia, serif",
                 fontSize: '1rem',
               }}
@@ -155,7 +247,7 @@ export default function Catalog() {
                       <div
                         className="text-xs"
                         style={{
-                          color: '#8b7355',
+                          color: '#6b5a3e',
                           fontFamily: "'Special Elite', Georgia, serif",
                         }}
                       >
@@ -170,7 +262,7 @@ export default function Catalog() {
                         fontFamily: "'Special Elite', Georgia, serif",
                       }}
                     >
-                      {peak.difficulty}
+                      {trData(lang, 'difficulty', peak.difficulty)}
                     </span>
                   </div>
 
@@ -186,7 +278,7 @@ export default function Catalog() {
                         <div
                           className="text-xs uppercase mb-1"
                           style={{
-                            color: '#8b7355',
+                            color: '#6b5a3e',
                             fontFamily: "'Special Elite', Georgia, serif",
                             letterSpacing: '0.1em',
                           }}
@@ -204,7 +296,7 @@ export default function Catalog() {
                         <div
                           className="text-xs uppercase mb-1"
                           style={{
-                            color: '#8b7355',
+                            color: '#6b5a3e',
                             fontFamily: "'Special Elite', Georgia, serif",
                             letterSpacing: '0.1em',
                           }}
@@ -222,7 +314,7 @@ export default function Catalog() {
                         <div
                           className="text-xs uppercase mb-1"
                           style={{
-                            color: '#8b7355',
+                            color: '#6b5a3e',
                             fontFamily: "'Special Elite', Georgia, serif",
                             letterSpacing: '0.1em',
                           }}
@@ -239,31 +331,8 @@ export default function Catalog() {
                     </div>
                   </div>
 
-                  {/* Weather preview */}
-                  <div
-                    className="mt-3 flex items-center justify-between"
-                    style={{
-                      borderTop: '1px dashed #8b7355',
-                      paddingTop: '10px',
-                    }}
-                  >
-                    <span className="text-lg">{peak.weather.icon}</span>
-                    <span
-                      className="text-sm font-bold"
-                      style={{ color: '#3d2b1f' }}
-                    >
-                      {peak.weather.temp}°C
-                    </span>
-                    <span
-                      className="text-xs"
-                      style={{
-                        color: '#8b7355',
-                        fontFamily: "'Special Elite', Georgia, serif",
-                      }}
-                    >
-                      {peak.weather.description}
-                    </span>
-                  </div>
+                  {/* Weather preview — live via shared hook */}
+                  <CatalogWeatherChip lang={lang} peak={peak} />
                 </div>
               </Link>
             ))}
