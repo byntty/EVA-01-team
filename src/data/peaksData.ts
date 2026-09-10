@@ -348,13 +348,13 @@ export const peaksData: Peak[] = [
     nameKz: 'Құмбел шыңы',
     nameEn: 'Peak Kumbel',
     altNames: ['Kumbel', 'Кумбельтау', 'Кумбелтау'],
-    elevation: 3230,
+    elevation: 3180,
     coordinates: { lat: 43.118277, lng: 77.032442 },
     mapPosition: { top: '31.72%', left: '75%' },
     difficulty: 'Лёгкий',
     difficultyLevel: 1,
     description:
-      'Панорамный пик (3230 м) в гребне Кумбель. Доступный маршрут с широким видом на Заилийский Алатау и Алматы — отличный вариант для первого опыта.', 
+      'Панорамный пик (3180 м) в гребне Кумбель. Доступный маршрут с широким видом на Заилийский Алатау и Алматы — отличный вариант для первого опыта.', 
     routeStats: {
       distance: '20 км',
       elevationGain: '1030 м',
@@ -364,18 +364,16 @@ export const peaksData: Peak[] = [
     
     routes: [
       {
-        name: 'Юго-западный маршрут',
-        duration: '30 ч',
-        distance: '28 км',
-        elevationGain: '2400 м',
-        difficulty: 'Экспертный',
-        terrain: 'Тропа → морена → ледник → скалы → гребень',
+        name: 'Маршрут через плато Кок-Жайляу',
+        duration: '7 ч',
+        distance: '20 км',
+        elevationGain: '1839 м',
+        difficulty: 'Легкий',
+        terrain: 'Тропа → гребень',
         description:
-          'Экспертный маршрут для опытных альпинистов. Включает прохождение ледника, скального участка VI категории и выход по🔪ножу к вершине. Требуется двухдневное восхождение с промежуточным лагерем.',
+          'Доступный маршрут для любителей пешего туризма и треккинга. Включает подъем по грунтовым тропам и выположенным травянисто-осыпным склонам без технического снаряжения.',
         highlights: [
           'Вершина — высшая точка маршрута',
-          'Ледниковое поле длиной 1.5 км',
-          'Скальный участок VI категории',
           'Вершинный гребень',
         ],
 
@@ -385,86 +383,52 @@ export const peaksData: Peak[] = [
     equipment: [
       {
         category: 'Одежда',
-        items: [
-          { name: 'Экспедиционная куртка', essential: true },
-          { name: 'Пуховик (800+)', essential: true },
-          { name: 'Альпинистские штаны', essential: true },
-          { name: 'Термобельё (3 слоя)', essential: true },
-          { name: 'Балаклава', essential: true },
-          { name: 'Альпинистские перчатки (2 пары)', essential: true },
-          { name: 'Гетры', essential: true },
+             {
+        category: 'Одежда',
+        items: [  
+          { name: 'Термобелье', essential: true },
+          { name: 'Ветровка', essential: true },
+         { name: 'Штаны', essential: true },
+         { name: 'Трекинговые ботинки', essential: true },
         ],
       },
-      {
-        category: 'Обувь',
-        items: [
-          { name: 'Экспедиционные ботинки', essential: true },
-          { name: 'Кошки (12-зубые)', essential: true },
-          { name: 'Гамаши', essential: true },
+       {
+        category: 'Экипировка',
+        items: [  
+          { name: 'Рюкзак 30-40 л', essential: true },
+         { name: 'Трекинговые палки', essential: true },
         ],
       },
       {
         category: 'Навигация',
         items: [
-          { name: 'GPS-навигатор', essential: true },
-          { name: 'Компас', essential: true },
-          { name: 'Топографическая карта', essential: true },
-          { name: 'Power bank (3 шт)', essential: true },
-          { name: 'Солнечная зарядка', essential: false },
-        ],
-      },
-      {
-        category: 'Альпинистское снаряжение',
-        items: [
-          { name: 'Каска', essential: true },
-          { name: 'Страховочная система', essential: true },
-          { name: 'Верёвка (60 м, 2 шт)', essential: true },
-          { name: 'Гропрессоры', essential: true },
-          { name: 'Жумар', essential: true },
-          { name: 'Карабины (8 шт)', essential: true },
-          { name: 'Петли (6 шт)', essential: true },
-          { name: 'Ледоруб', essential: true },
-        ],
-      },
-      {
-        category: 'Лагерь',
-        items: [
-          { name: 'Палатка (4-сезонная)', essential: true },
-          { name: 'Спальный мешок (-15°C)', essential: true },
-          { name: 'Коврик (R-value 5+)', essential: true },
-          { name: 'Горелка + топливо', essential: true },
+          { name: 'Установленный GPS-навигатор', essential: true },
+          { name: 'Power bank', essential: true },
         ],
       },
       {
         category: 'Питание',
         items: [
-          { name: 'Вода (4 л)', essential: true },
-          { name: 'Высококалорийная еда (2 дня)', essential: true },
-          { name: 'Энергетические гели', essential: true },
-          { name: 'Термос', essential: true },
+          { name: 'Вода (минимум 2 л)', essential: true },
+          { name: 'Углеводные закуски(фрукты, батончики, конфетки)', essential: true },
+          { name: 'Источники электролитов(при высокой потливости, например регидрон)', essential: false },
+          { name: 'Термос с чаем', essential: false },
         ],
       },
       {
         category: 'Безопасность',
         items: [
-          { name: 'Аптечка (альпинистская)', essential: true },
+          { name: 'Аптечка', essential: true },
           { name: 'Солнцезащитный крем SPF 50+', essential: true },
-          { name: 'Спасательное одеяло', essential: true },
-          { name: 'Свисток', essential: true },
-          { name: 'Сигнальные ракеты', essential: false },
-          { name: 'Кислород (опционально)', essential: false, note: 'Для экстренных случаев' },
         ],
       },
     ],
     safety: {
       rules: [
-        'Минимальный опыт: 5 высотных маршрутов (включая технические)',
-        'Группа минимум 4 человека с опытным проводником',
-        'Обязательная регистрация в спасательной службе (24 ч)',
-        'Полное альпинистское снаряжение обязательно',
-        'Двухдневное восхождение с промежуточным лагерем',
-        'Мониторинг погоды каждые 3 часа',
-        'Немедленный спуск при ухудшении погоды',
+ 'Следуйте лишь по тропе и не сходите с маршрута',
+        'Ориентируйтесь по GPS или ориентирам на маршруте',
+        'Желательно не ходить в одиночку, особенно в плохую погоду',
+        'Заранее проверяйте прогноз погоды',
       ],
       emergencyContacts: [
         { label: 'МЧС Казахстана', number: '112' },
@@ -473,11 +437,8 @@ export const peaksData: Peak[] = [
         { label: 'Центр управления полётами', number: '+7-727-258-38-00' },
       ],
       tips: [
-        'Акклиматизация: минимум 3 дня на высоте 3000+ м перед восхождением',
-        'Выход из промежуточного лагеря: 3:00-4:00',
-        'Разворот: не позже 11:00 в любом случае',
-        'Двигайтесь медленно — высота требует адаптации',
-        'Всегда имейте план Б — худший сценарий',
+ 'Оптимальное время начала маршрута: до 7:30',
+        'Разворот: не позже 14:00 в любом случае',
       ],
     },
       category: 'peak',
