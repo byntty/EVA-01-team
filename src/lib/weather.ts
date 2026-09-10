@@ -57,6 +57,7 @@ export interface DailyPoint {
   uvi: number
   description: string
   descriptionKey: string
+  temp?: number // current temp, set for daily[0] (today) only
 }
 
 export interface WeatherView {
@@ -136,7 +137,7 @@ function dailyPointFromRaw(item: RawDaily): DailyPoint {
   }
 }
 
-/** Filter out past hours and take the nearest window; project daily[1] and daily[2] */
+/** Filter out past hours and take the nearest window; project daily[0..2] (today, +1, +2) */
 function viewFromCache(entry: CacheEntry): WeatherView {
   const nowSec = Date.now() / 1000
   const upcoming = entry.hourly.filter((h) => h.dt >= nowSec - 3600) // keep the running hour
@@ -159,10 +160,15 @@ function viewFromCache(entry: CacheEntry): WeatherView {
     uvi: Math.round((nowHour?.uvi ?? 0) * 10) / 10,
   }
 
+  // Unified 3-day forecast: [0] today (with current temp), [1] tomorrow, [2] day after
+  const dailyList = entry.daily.slice(0, 3).filter(Boolean).map(dailyPointFromRaw)
+  if (dailyList[0]) dailyList[0] = { ...dailyList[0], temp: current.temp }
+
   return {
     current,
     hourly: window.map((h) => ({ ...h, hour: hourLabel(h.dt * 1000) })),
-    daily: [entry.daily[1], entry.daily[2]].filter(Boolean).map(dailyPointFromRaw),
+    // Unified 3-day forecast: [0] today, [1] tomorrow, [2] day after tomorrow
+    daily: dailyList,
   }
 }
 

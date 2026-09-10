@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
@@ -186,27 +186,31 @@ export default function PeakDetail() {
 
               {/* Route content */}
               <div className="retro-inset p-5" style={{ background: 'rgba(61,43,31,0.25)', borderColor: 'rgba(253,246,227,0.2)' }}>
-                <div className="flex flex-col sm:flex-row gap-6">
-                  {/* Summit sign photo (was route schematic) */}
-                  <div className="sm:w-1/3 flex flex-col items-center justify-center gap-2">
+                <div className="flex flex-col sm:flex-row gap-6 items-stretch">
+                  {/* Summit sign photo — square, fills the full height of the route info column */}
+                  <div className="sm:w-1/3 flex items-center justify-center">
                     {peak.signPhoto ? (
                       <img
                         src={peak.signPhoto}
                         alt={t.signPhotoTitle + ' — ' + displayName(peak)}
-                        className="object-cover"
+                        className="object-cover self-stretch"
                         style={{
-                          width: '160px',
-                          height: '160px',
+                          height: '100%',
+                          aspectRatio: '1 / 1',
+                          width: 'auto',
+                          maxWidth: '100%',
                           border: '2px solid rgba(253,246,227,0.4)',
                           borderRadius: '4px',
                         }}
                       />
                     ) : (
                       <div
-                        className="flex flex-col items-center justify-center text-center"
+                        className="flex flex-col items-center justify-center text-center self-stretch"
                         style={{
-                          width: '160px',
-                          height: '160px',
+                          height: '100%',
+                          minHeight: '160px',
+                          aspectRatio: '1 / 1',
+                          maxWidth: '100%',
                           border: '2px dashed rgba(253,246,227,0.45)',
                           borderRadius: '4px',
                           background: 'rgba(253,246,227,0.07)',
@@ -217,7 +221,7 @@ export default function PeakDetail() {
                         }}
                       >
                         <Camera className="w-6 h-6 mb-1" aria-hidden="true" />
-                        <span>{t.signPhotoHint}</span>
+                        <span>{t.signPhotoEmpty}</span>
                       </div>
                     )}
                   </div>
@@ -493,38 +497,9 @@ function WeatherBlock({
         </div>
       )}
 
-      {/* Main temp display */}
+      {/* 2x2+UV current-conditions grid */}
       {!loading && w && (
-        <div className="retro-inset p-4 mb-4">
-          <div className="flex items-center justify-between">
-            <div className="text-center">
-              <div className="text-4xl mb-1">{w.icon}</div>
-              <div
-                className="text-3xl font-bold"
-                style={{ color: '#3d2b1f', fontFamily: "'Playfair Display', Georgia, serif" }}
-              >
-                {w.temp}°C
-              </div>
-              <div className="text-xs mt-1" style={{ color: '#6b5a3e', fontFamily: "'Special Elite', serif" }}>
-                {trData(lang, 'weather', w.descriptionKey)}
-              </div>
-              <div className="text-xs mt-0.5" style={{ color: '#6b5a3e', fontFamily: "'Special Elite', serif" }}>
-                {(() => {
-                  const locale = lang === 'ru' ? 'ru-RU' : lang === 'kz' ? 'kk-KZ' : 'en-US'
-                  return new Date().toLocaleDateString(locale, { weekday: 'short', day: 'numeric', month: 'short' })
-                })()}
-              </div>
-              {weather && weather.hourly.length > 1 && (
-                <div className="text-[10px] mt-0.5" style={{ color: '#6b5a3e', fontFamily: "'Special Elite', serif" }}>
-                  {lang === 'ru' ? 'сейчас' : lang === 'kz' ? 'қазір' : 'now'}: {weather.hourly[0].hour} → {weather.hourly[weather.hourly.length - 1].hour}
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      )}              {/* 2x2+UV data grid */}
-              {!loading && w && (
-                <div className="grid grid-cols-2 gap-3 mb-4">
+        <div className="grid grid-cols-2 gap-3 mb-4">
                   <WeatherMiniBlock
                     icon={<Thermometer className="w-4 h-4" style={{ color: '#c44d2c' }} />}
                     label={t.temperature}
@@ -559,35 +534,9 @@ function WeatherBlock({
                 </div>
               )}
 
-      {/* 2-day forecast (daily[1] = tomorrow, daily[2] = day after) */}
+      {/* Unified 3-day forecast (today / tomorrow / day after) — one carousel block with side arrows */}
       {!loading && weather && weather?.daily && weather.daily.length > 0 && (
-        <div className="grid grid-cols-2 gap-3 mb-4">
-          {weather.daily.map((day, i: number) => (
-            <div
-              key={i}
-              className="p-3 flex flex-col items-center gap-1"
-              style={{
-                background: '#eddcbc',
-                border: '2px solid #3d2b1f',
-                borderRadius: '4px',
-                boxShadow: '2px 2px 0px #3d2b1f',
-              }}
-            >
-              <div className="text-[10px] font-bold uppercase" style={{ color: '#6b5a3e', fontFamily: "'Special Elite', serif", letterSpacing: '0.08em' }}>
-                {i === 0 ? (lang === 'ru' ? 'Завтра' : lang === 'kz' ? 'Ертең' : 'Tomorrow') : lang === 'ru' ? 'Послезавтра' : lang === 'kz' ? 'Арғы күні' : 'In 2 days'}
-              </div>
-              <div className="text-xs" style={{ color: '#8b7355', fontFamily: "'Special Elite', serif" }}>{day.dateLabel}</div>
-              <div className="text-2xl">{day.icon}</div>
-              <div className="text-sm font-bold" style={{ color: '#3d2b1f', fontFamily: "'Playfair Display', Georgia, serif" }}>
-                {day.tempMax}° / {day.tempMin}°
-              </div>
-              <div className="text-[10px] flex items-center gap-2" style={{ color: '#6b5a3e', fontFamily: "'Special Elite', serif" }}>
-                <span title={t.precipitationChance}>💧{day.pop}%</span>
-                <span title={t.uvIndex}>☀️{day.uvi}</span>
-              </div>
-            </div>
-          ))}
-        </div>
+        <ForecastCarousel daily={weather.daily} lang={lang} t={t} />
       )}
       {/* Precipitation warning */}
       {!loading && w && (
@@ -742,9 +691,149 @@ function uvColor(uv: number): string {
 }
 
 
+/* ─── ForecastCarousel: unified 3-day forecast (today / tomorrow / day after) ─── */
+function ForecastCarousel({
+  daily,
+  lang,
+  t,
+}: {
+  daily: { dateLabel: string; icon: string; tempMax: number; tempMin: number; pop: number; uvi: number; descriptionKey?: string; temp?: number }[]
+  lang: Lang
+  t: any
+}) {
+  const [dayIdx, setDayIdx] = useState(0)
+  const dayCount = daily.length
+  if (dayCount === 0) return null
+  const day = daily[Math.min(dayIdx, dayCount - 1)]
+  const isToday = dayIdx === 0
+
+  const dayLabels =
+    lang === 'ru'
+      ? ['Сегодня', 'Завтра', 'Послезавтра']
+      : lang === 'kz'
+      ? ['Бүгін', 'Ертең', 'Арғы күні']
+      : ['Today', 'Tomorrow', 'In 2 days']
+  const dayLabel = dayLabels[Math.min(dayIdx, dayLabels.length - 1)]
+
+  const arrowStyle: React.CSSProperties = {
+    background: '#c44d2c',
+    border: '2px solid #3d2b1f',
+    borderRadius: '4px',
+    color: '#fdf6e3',
+    cursor: 'pointer',
+    boxShadow: '2px 2px 0px #3d2b1f',
+  }
+
+  return (
+    <div className="relative mb-4">
+      {/* Side arrows — only rendered when there is more than one day */}
+      {dayCount > 1 && (
+        <>
+          <button
+            type="button"
+            onClick={() => setDayIdx((dayIdx - 1 + dayCount) % dayCount)}
+            aria-label={dayLabels[(dayIdx - 1 + dayCount) % dayCount]}
+            className="absolute left-1 top-1/2 -translate-y-1/2 w-9 h-9 flex items-center justify-center text-lg z-10"
+            style={arrowStyle}
+          >
+            ‹
+          </button>
+          <button
+            type="button"
+            onClick={() => setDayIdx((dayIdx + 1) % dayCount)}
+            aria-label={dayLabels[(dayIdx + 1) % dayCount]}
+            className="absolute right-1 top-1/2 -translate-y-1/2 w-9 h-9 flex items-center justify-center text-lg z-10"
+            style={arrowStyle}
+          >
+            ›
+          </button>
+        </>
+      )}
+
+      <div
+        className="p-4 flex flex-col items-center gap-1 mx-10"
+        style={{
+          background: '#eddcbc',
+          border: '2px solid #3d2b1f',
+          borderRadius: '4px',
+          boxShadow: '2px 2px 0px #3d2b1f',
+        }}
+      >
+        <div className="text-[10px] font-bold uppercase" style={{ color: '#6b5a3e', fontFamily: "'Special Elite', serif", letterSpacing: '0.08em' }}>
+          {dayLabel}
+        </div>
+        <div className="text-xs" style={{ color: '#8b7355', fontFamily: "'Special Elite', serif" }}>{day.dateLabel}</div>
+        <div className={isToday ? 'text-4xl mb-1' : 'text-2xl'}>{day.icon}</div>
+        {isToday && day.temp !== undefined ? (
+          <>
+            <div className="text-3xl font-bold" style={{ color: '#3d2b1f', fontFamily: "'Playfair Display', Georgia, serif" }}>
+              {day.temp}°C
+            </div>
+            {day.descriptionKey && (
+              <div className="text-xs" style={{ color: '#6b5a3e', fontFamily: "'Special Elite', serif" }}>
+                {trData(lang, 'weather', day.descriptionKey)}
+              </div>
+            )}
+          </>
+        ) : null}
+        <div className="text-sm font-bold" style={{ color: '#3d2b1f', fontFamily: "'Playfair Display', Georgia, serif" }}>
+          {day.tempMax}° / {day.tempMin}°
+        </div>
+        <div className="text-[10px] flex items-center gap-2" style={{ color: '#6b5a3e', fontFamily: "'Special Elite', serif" }}>
+          <span title={t.precipitationChance}>💧{day.pop}%</span>
+          <span title={t.uvIndex}>☀️{day.uvi}</span>
+        </div>
+        {dayCount > 1 && (
+          <div className="flex items-center gap-1.5 mt-0.5" aria-hidden="true">
+            {daily.map((_, i: number) => (
+              <button
+                key={i}
+                type="button"
+                tabIndex={-1}
+                onClick={() => setDayIdx(i)}
+                className="w-1.5 h-1.5 rounded-full"
+                style={{
+                  background: i === dayIdx ? '#c44d2c' : '#8b7355',
+                  cursor: 'pointer',
+                  padding: 0,
+                  border: 'none',
+                }}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+
 /* ─── PhotoGalleryBlock ─── */
 function PhotoGalleryBlock({ peak, t, lang }: { peak: Peak; t: any; lang: Lang }) {
   const [selectedPhoto, setSelectedPhoto] = useState<number | null>(null)
+  const [overflowing, setOverflowing] = useState(false)
+  const [galleryHover, setGalleryHover] = useState(false)
+  const stripRef = useRef<HTMLDivElement | null>(null)
+
+  // Track whether the photo strip actually overflows → show side arrows only then.
+  // Re-checked on resize AND on each image load (width:auto = 0 until the image loads).
+  const recheckOverflow = () => {
+    const el = stripRef.current
+    if (el) setOverflowing(el.scrollWidth > el.clientWidth + 1)
+  }
+  useEffect(() => {
+    recheckOverflow()
+    window.addEventListener('resize', recheckOverflow)
+    return () => window.removeEventListener('resize', recheckOverflow)
+  }, [peak.photos.length])
+
+  function scrollStrip(dir: 1 | -1) {
+    const el = stripRef.current
+    if (!el) return
+    // Instant scroll (no animation): rAF/CSS tweens freeze in background tabs,
+    // and the arrow must always respond.
+    el.scrollBy({ left: dir * Math.round(el.clientWidth * 0.8) })
+  }
 
   function displayName(p: Peak): string {
     if (lang === 'en') return p.nameEn
@@ -779,39 +868,123 @@ function PhotoGalleryBlock({ peak, t, lang }: { peak: Peak; t: any; lang: Lang }
         {t.photosAttribution}
       </p>
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-        {peak.photos.map((photo, idx) => (
-          <button
-            key={idx}
-            onClick={() => setSelectedPhoto(selectedPhoto === idx ? null : idx)}
-            aria-label={`${t.photosTitle}: ${displayName(peak)} — ${idx + 1}/${peak.photos.length}`}
-            className="overflow-hidden transition-all"
-            style={{
-              border: selectedPhoto === idx ? '3px solid #c44d2c' : '3px solid #8b7355',
-              borderRadius: '4px',
-              boxShadow: selectedPhoto === idx ? '3px 3px 0px #c44d2c' : '2px 2px 0px #3d2b1f',
-              background: '#f5e6c8',
-              cursor: 'pointer',
-              padding: 0,
-            }}
-          >
-            <div
-              role="img"
-              aria-label={`${displayName(peak)} — ${t.photosTitle} ${idx + 1}`}
+      {peak.photos.length === 0 ? (
+        <div
+          className="flex items-center justify-center text-center p-8"
+          style={{
+            border: '2px dashed #8b7355',
+            borderRadius: '4px',
+            background: '#f5e6c8',
+            color: '#6b5a3e',
+            fontFamily: "'Special Elite', Georgia, serif",
+            fontSize: '13px',
+          }}
+        >
+          <span>{t.photosEmpty}</span>
+        </div>
+      ) : (
+      <div
+        className="relative"
+        onMouseEnter={() => setGalleryHover(true)}
+        onMouseLeave={() => setGalleryHover(false)}
+      >
+        <div
+          ref={stripRef}
+          className="flex gap-3 overflow-x-auto pb-1"
+          style={{
+            scrollbarWidth: 'none',
+            msOverflowStyle: 'none',
+          }}
+          onWheel={(e) => {
+            // Vertical wheel scrolls the strip horizontally; keep page scroll when at the edge.
+            if (stripRef.current) {
+              const el = stripRef.current
+              const goingLeft = e.deltaY < 0
+              const atStart = el.scrollLeft <= 0
+              const atEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - 1
+              if ((goingLeft && atStart) || (!goingLeft && atEnd)) return
+              e.preventDefault()
+              el.scrollLeft += e.deltaY
+            }
+          }}
+        >
+          {peak.photos.map((photo, idx) => (
+            <button
+              key={idx}
+              onClick={() => setSelectedPhoto(selectedPhoto === idx ? null : idx)}
+              aria-label={`${t.photosTitle}: ${displayName(peak)} — ${idx + 1}/${peak.photos.length}`}
+              className="shrink-0 transition-all"
               style={{
-                width: '100%',
-                paddingBottom: '65%',
-                backgroundImage: `url(${photo})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
+                height: '280px',
+                width: 'auto',
+                border: selectedPhoto === idx ? '3px solid #c44d2c' : '3px solid #8b7355',
+                borderRadius: '4px',
+                boxShadow: selectedPhoto === idx ? '3px 3px 0px #c44d2c' : '2px 2px 0px #3d2b1f',
+                background: '#f5e6c8',
+                cursor: 'pointer',
+                padding: 0,
               }}
-            />
-          </button>
-        ))}
-      </div>
+            >
+              <img
+                src={photo}
+                alt={`${displayName(peak)} — ${t.photosTitle} ${idx + 1}`}
+                loading="lazy"
+                onLoad={recheckOverflow}
+                style={{
+                  height: '274px',
+                  width: 'auto',
+                  maxWidth: '90vw',
+                  display: 'block',
+                  borderRadius: '2px',
+                  objectFit: 'cover',
+                }}
+              />
+            </button>
+          ))}
+        </div>
 
-      {/* Lightbox overlay */}
-      {selectedPhoto !== null && (
+        {/* Side arrows — only when the strip overflows horizontally */}
+        {overflowing && (
+          <>
+            <button
+              onClick={() => scrollStrip(-1)}
+              aria-label={`${t.photosTitle} — назад`}
+              className="absolute left-1 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center transition-opacity"
+              style={{
+                background: '#c44d2c',
+                border: '2px solid #3d2b1f',
+                borderRadius: '4px',
+                color: '#fdf6e3',
+                cursor: 'pointer',
+                boxShadow: '2px 2px 0px #3d2b1f',
+                opacity: galleryHover || stripRef.current?.scrollLeft ? 1 : 0.85,
+              }}
+            >
+              ‹
+            </button>
+            <button
+              onClick={() => scrollStrip(1)}
+                aria-label={`${t.photosTitle} — вперёд`}
+              className="absolute right-1 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center transition-opacity"
+              style={{
+                background: '#c44d2c',
+                border: '2px solid #3d2b1f',
+                borderRadius: '4px',
+                color: '#fdf6e3',
+                cursor: 'pointer',
+                boxShadow: '2px 2px 0px #3d2b1f',
+                opacity: galleryHover || (stripRef.current && stripRef.current.scrollLeft + stripRef.current.clientWidth < stripRef.current.scrollWidth - 1) ? 1 : 0.85,
+              }}
+            >
+              ›
+            </button>
+          </>
+        )}
+      </div>
+      )}
+
+      {/* Lightbox overlay — guarded: close if the current photo is missing (e.g. peak changed while open) */}
+      {selectedPhoto !== null && (selectedPhoto < peak.photos.length ? (
         <div
           className="fixed inset-0 z-[100] flex items-center justify-center"
           style={{ background: 'rgba(45,27,0,0.85)' }}
@@ -854,7 +1027,7 @@ function PhotoGalleryBlock({ peak, t, lang }: { peak: Peak; t: any; lang: Lang }
             </button>
           </div>
         </div>
-      )}
+      ) : null)}
     </div>
   )
 }

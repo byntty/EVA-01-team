@@ -86,6 +86,8 @@ interface Translations {
   // Photos
   photosTitle: string
   photosAttribution: string
+  photosEmpty: string
+  signPhotoEmpty: string
 
   // Route selector
   routeInfo: string
@@ -93,9 +95,6 @@ interface Translations {
   highlights: string
 
   // Map upload
-  uploadMapPhoto: string
-  uploadMapHint: string
-  uploadMapButton: string
   replaceMap: string
   resetMap: string
 
@@ -126,7 +125,6 @@ interface Translations {
   inDevelopmentText: string
   chainPeaks: string
   signPhotoTitle: string
-  signPhotoHint: string
   precipWarning: string
   consentDecline: string
   consentReadMore: string
@@ -208,16 +206,15 @@ const ru: Translations = {
   bestHikingDay: 'Лучший день для похода',
 
   photosTitle: 'Фотографии с маршрута',
-  photosAttribution: 'Фото: сообщество Nis Climbers; превью — Unsplash (демо). Загрузите свои фото в public/photos/<peak-id>/.',
+  photosAttribution: 'Фото: сообщество Nis Climbers',
+  photosEmpty: 'Здесь пока нет фотографий. Хотите добавить фото — напишите нам в Telegram (ссылка внизу страницы).',
+  signPhotoEmpty: 'Фотография таблички вершины скоро появится. Хотите помочь — напишите нам в Telegram (ссылка внизу страницы).',
 
   routeInfo: 'О маршруте',
   terrain: 'Рельеф',
   highlights: 'Особенности',
 
   notFoundTitle: 'Маршрут не найден',
-  uploadMapPhoto: 'Загрузить фото карты',
-  uploadMapHint: 'Загрузите фотографию горной карты, которая заменит текущую SVG-карту',
-  uploadMapButton: 'Выбрать файл',
   replaceMap: 'Заменить фото',
   resetMap: 'Удалить фото',
   notFoundBack: 'На главную',
@@ -244,7 +241,6 @@ const ru: Translations = {
   inDevelopmentText: 'Раздел для этого пика ещё готовится. Вся информация появится здесь в ближайшее время.',
   chainPeaks: 'Пики маршрута',
   signPhotoTitle: 'Табличка вершины',
-  signPhotoHint: 'Фото таблички вершины — загрузите в public/photos/<peak-id>/sign.jpg и укажите путь в поле signPhoto.',
   precipWarning: 'Если индекс осадков превышает значения в 0.2 мм, то лучше отложить поход',
   consentReadMore: 'Подробнее',
 }
@@ -324,16 +320,15 @@ const en: Translations = {
   bestHikingDay: 'Best Day for Hiking',
 
   photosTitle: 'Route Photos',
-  photosAttribution: 'Photos: Nis Climbers community; previews — Unsplash (demo). Upload your own to public/photos/<peak-id>/.',
+  photosAttribution: 'Photos: Nis Climbers community',
+  photosEmpty: '"No photos here yet. If you want to add photos contact us in Telegram" (link in the footer).',
+  signPhotoEmpty: 'Summit sign photo coming soon. Want to help? Contact us in Telegram (link in the footer).',
 
   routeInfo: 'Route Info',
   terrain: 'Terrain',
   highlights: 'Highlights',
 
   notFoundTitle: 'Route not found',
-  uploadMapPhoto: 'Upload Map Photo',
-  uploadMapHint: 'Upload a mountain map photo to replace the current SVG map',
-  uploadMapButton: 'Choose file',
   replaceMap: 'Replace photo',
   resetMap: 'Remove photo',
   notFoundBack: 'Home',
@@ -360,7 +355,6 @@ const en: Translations = {
   inDevelopmentText: 'The section for this peak is on its way. All the details will appear here soon.',
   chainPeaks: 'Route peaks',
   signPhotoTitle: 'Summit sign photo',
-  signPhotoHint: 'Photo of the summit sign — upload to public/photos/<peak-id>/sign.jpg and set the path in the signPhoto field.',
   precipWarning: 'If the precipitation index exceeds 0.2 mm, it is better to postpone the hike',
   consentReadMore: 'Learn more',
 }
@@ -440,16 +434,14 @@ const kz: Translations = {
   bestHikingDay: 'Серуенге ең жақсы күн',
 
   photosTitle: 'Бағыттағы фотосуреттер',
-  photosAttribution: 'Фото: Nis Climbers қауымдастығы; алдын ала көріністер — Unsplash (демо). Өз фотоңызды public/photos/<peak-id>/ қалтасына жүктеңіз.',
-
+  photosAttribution: 'Фото: Nis Climbers қауымдастығы',
+  photosEmpty: 'Мұнда әзірге фотосуреттер жоқ. Фото қосқыңыз келсе — Telegram-ға жазыңыз (сілтеме беттің төменгі жағында).',
+  signPhotoEmpty: 'Шың тақтасының фотосы жақында пайда болады. Көмектескіңіз келсе — Telegram-ға жазыңыз (сілтеме беттің төменгі жағында).',
   routeInfo: 'Бағыт туралы',
   terrain: 'Жер бедері',
   highlights: 'Ерекшеліктер',
 
   notFoundTitle: 'Бағыт табылмады',
-  uploadMapPhoto: 'Карта фотоны жүктеу',
-  uploadMapHint: 'SVG картаны ауыстыру үшін тау картасының фотосын жүктеңіз',
-  uploadMapButton: 'Файлды таңдаңыз',
   replaceMap: 'Фотоны ауыстыру',
   resetMap: 'Фотоны өшіру',
   notFoundBack: 'Басты бет',
@@ -476,7 +468,6 @@ const kz: Translations = {
   inDevelopmentText: 'Бұл шыңға арналған бөлім әзірленуде. Барлық ақпарат жақын арада осында пайда болады.',
   chainPeaks: 'Бағыт шыңдары',
   signPhotoTitle: 'Шың тақтасының фотосы',
-  signPhotoHint: 'Шың тақтасының фотосы — public/photos/<peak-id>/sign.jpg жүктеңіз және signPhoto өрісінде жолын көрсетіңіз.',
   precipWarning: 'Жауын-шашын индексі 0.2 мм-ден асса, жорықты кейінге қалдырған дұрыс',
   consentReadMore: 'Толығырақ',
 }
