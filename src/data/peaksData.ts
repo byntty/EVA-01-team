@@ -341,9 +341,9 @@ export const peaksData: Peak[] = [
       'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&h=500&fit=crop',
       'https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=800&h=500&fit=crop',
     ],
-  },
+  }, 
 {
-    id: 'Kumbel',
+      id: 'Kumbel',
     name: 'Пик Кумбель',
     nameKz: 'Құмбел шыңы',
     nameEn: 'Peak Kumbel',
@@ -382,8 +382,6 @@ export const peaksData: Peak[] = [
     ],
     equipment: [
       {
-        category: 'Одежда',
-             {
         category: 'Одежда',
         items: [  
           { name: 'Термобелье', essential: true },
@@ -449,6 +447,7 @@ export const peaksData: Peak[] = [
       'https://images.unsplash.com/photo-1503614472-8c93d56e92ce?w=800&h=500&fit=crop',
     ],
   },
+
   {
     id: 'bukreev',
     name: 'Пик Букреева',
