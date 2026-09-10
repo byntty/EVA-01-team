@@ -6,8 +6,6 @@ import { ConvexAuthProvider } from './lib/convex-auth'
 import { LanguageProvider } from './lib/language'
 import { RootErrorBoundary } from './components/RootErrorBoundary'
 import { ToolbarErrorBoundary } from './components/ToolbarErrorBoundary'
-import { VlyToolbar } from './components/VlyToolbar'
-import { RouteSyncer } from './components/RouteSyncer'
 import { RequireAuth } from './components/RequireAuth'
 import { CookieConsent } from './components/CookieConsent'
 import './index.css'
@@ -35,11 +33,9 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <RootErrorBoundary>
       <ToolbarErrorBoundary>
-        <VlyToolbar />
         <ConvexAuthProvider>
           <LanguageProvider>
             <HashRouter>
-              <RouteSyncer />
               <Suspense fallback={<LoadingFallback />}>
                 <Routes>
                   <Route path="/" element={<Landing />} />

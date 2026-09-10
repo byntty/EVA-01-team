@@ -30,13 +30,14 @@ import { Footer } from '../components/Footer'
 import { useLanguage, type Lang } from '../lib/language'
 import { trData } from '../lib/dataTranslations'
 import { getWeather, windDirection, type CurrentWeather, type HourlyPoint, type WeatherView } from '../lib/weather'
-import { getPeakById, type Peak } from '../data/peaksData'
+import { difficultyGuidance, getPeakById, peakTimings, routeDurationOverrides, type Peak, type PeakTiming } from '../data/peaksData'
 
 export default function PeakDetail() {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
   const { t, lang } = useLanguage()
   const peak = id ? getPeakById(id) : undefined
+  const [showTimings, setShowTimings] = useState(false)
 
   const [showHourly, setShowHourly] = useState(false)
   const [checkedItems, setCheckedItems] = useState<Record<string, boolean>>({})
@@ -124,6 +125,7 @@ export default function PeakDetail() {
   const chainPeaks: Peak[] = (peak?.traversePeaks ?? [])
     .map((pid) => getPeakById(pid))
     .filter((p): p is Peak => Boolean(p))
+  const displayedDuration = peak ? routeDurationOverrides[peak.id] ?? peak.routes[0]?.duration ?? peak.routeStats.duration : ''
 
   const difficultyColors: Record<number, string> = {
     1: '#5a6e3c',
@@ -246,7 +248,7 @@ export default function PeakDetail() {
                     <RouteStatRow
                       icon={<Clock className="w-4 h-4" />}
                       label={t.duration}
-                      value={peak.routes[0]?.duration || peak.routeStats.duration}
+                      value={displayedDuration}
                     />
                     {peak.routes[0]?.terrain && (
                       <RouteStatRow
@@ -300,30 +302,51 @@ export default function PeakDetail() {
                 </div>
               )}
 
-              {/* MAPS.ME route link */}
-              <a
-                href={`https://maps.me/?sll=${peak.coordinates.lat},${peak.coordinates.lng}&z=15`}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={`${t.viewOnMapsMe}: ${displayName(peak)}`}
-                className="inline-flex items-center gap-2 mt-4 px-4 py-2 text-sm font-bold no-underline"
-                style={{
-                  background: 'rgba(253,246,227,0.15)',
-                  border: '2px solid rgba(253,246,227,0.4)',
-                  borderRadius: '4px',
-                  color: '#fdf6e3',
-                  fontFamily: "'Special Elite', Georgia, serif",
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.08em',
-                  cursor: 'pointer',
-                  transition: 'all 0.15s',
-                }}
-                onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(253,246,227,0.25)')}
-                onMouseLeave={(e) => (e.currentTarget.style.background = 'rgba(253,246,227,0.15)')}
-              >
-                <MapPin className="w-4 h-4" />
-                {t.viewOnMapsMe}
-              </a>
+              <div className="flex flex-wrap items-center gap-2 mt-4">
+                <a
+                  href={`https://maps.me/?sll=${peak.coordinates.lat},${peak.coordinates.lng}&z=15`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${t.viewOnMapsMe}: ${displayName(peak)}`}
+                  className="inline-flex items-center gap-2 px-4 py-2 text-sm font-bold no-underline"
+                  style={{
+                    background: 'rgba(253,246,227,0.15)',
+                    border: '2px solid rgba(253,246,227,0.4)',
+                    borderRadius: '4px',
+                    color: '#fdf6e3',
+                    fontFamily: "'Special Elite', Georgia, serif",
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.08em',
+                    cursor: 'pointer',
+                    transition: 'all 0.15s',
+                  }}
+                >
+                  <MapPin className="w-4 h-4" />
+                  {t.viewOnMapsMe}
+                </a>
+                <button
+                  type="button"
+                  onClick={() => setShowTimings((visible) => !visible)}
+                  aria-expanded={showTimings}
+                  className="inline-flex items-center gap-2 px-4 py-2 text-sm font-bold"
+                  style={{
+                    background: showTimings ? '#fdf6e3' : 'rgba(253,246,227,0.15)',
+                    border: '2px solid rgba(253,246,227,0.4)',
+                    borderRadius: '4px',
+                    color: showTimings ? '#3d2b1f' : '#fdf6e3',
+                    fontFamily: "'Special Elite', Georgia, serif",
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.08em',
+                    cursor: 'pointer',
+                  }}
+                >
+                  <Clock className="w-4 h-4" />
+                  Тайминги
+                </button>
+              </div>
+              {showTimings && (
+                <TimingPanel timing={peakTimings[peak.id]} />
+              )}
             </div>
           </div>
 
@@ -668,6 +691,43 @@ function WeatherMiniBlock({
       <div className="text-sm font-bold" style={{ color: valueColor ?? '#3d2b1f' }}>
         {value}
       </div>
+    </div>
+  )
+}
+
+function TimingPanel({ timing }: { timing?: PeakTiming }) {
+  return (
+    <div
+      className="mt-3 p-4"
+      style={{
+        background: '#f5e6c8',
+        border: '2px solid rgba(253,246,227,0.5)',
+        borderRadius: '4px',
+        color: '#3d2b1f',
+      }}
+    >
+      {timing ? (
+        <>
+          <h3 className="text-sm font-bold mb-3" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
+            Тайминги: {timing.title}
+          </h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1">
+            {timing.points.map((point, index) => (
+              <div key={`${point.time}-${index}`} className="flex gap-3 text-xs py-1">
+                <span className="font-bold min-w-[76px]" style={{ color: '#ad3e1a' }}>{point.time}</span>
+                <span>{point.place}</span>
+              </div>
+            ))}
+          </div>
+          {timing.movingTime && (
+            <p className="mt-3 pt-3 text-xs font-bold" style={{ borderTop: '1px dashed #8b7355' }}>
+              Время без отдыха: {timing.movingTime}
+            </p>
+          )}
+        </>
+      ) : (
+        <p className="text-xs">Тайминги для этого маршрута пока не добавлены.</p>
+      )}
     </div>
   )
 }
@@ -1046,6 +1106,12 @@ function EquipmentBlock({
   checkedItems: Record<string, boolean>
   toggleItem: (key: string) => void
 }) {
+  const guidance = difficultyGuidance[peak.difficultyLevel]
+  const equipment = [{
+    category: 'Рекомендации по уровню',
+    items: guidance.equipment.map((name) => ({ name, essential: true, note: undefined })),
+  }]
+
   return (
     <div className="retro-card p-6 mb-6">
       {/* Decorative stripe accent */}
@@ -1072,7 +1138,7 @@ function EquipmentBlock({
       <div className="retro-divider mb-5">✦</div>
 
       <div className="space-y-6">
-        {peak.equipment.map((cat, catIdx) => (
+        {equipment.map((cat, catIdx) => (
           <div key={catIdx}>
             <h3
               className="text-xs font-bold uppercase tracking-wider mb-3"
@@ -1245,7 +1311,7 @@ function SafetyBlock({ peak, t, lang }: { peak: Peak; t: any; lang: Lang }) {
             {t.rules}
           </h3>
           <div className="space-y-2">
-            {peak.safety.rules.map((rule, i) => (
+            {difficultyGuidance[peak.difficultyLevel].rules.map((rule, i) => (
               <div
                 key={i}
                 className="flex items-start gap-2 text-sm p-2"
@@ -1323,7 +1389,7 @@ function SafetyBlock({ peak, t, lang }: { peak: Peak; t: any; lang: Lang }) {
             {t.tips}
           </h3>
           <div className="space-y-2">
-            {peak.safety.tips.map((tip, i) => (
+            {difficultyGuidance[peak.difficultyLevel].tips.map((tip, i) => (
               <div
                 key={i}
                 className="flex items-start gap-2 text-sm p-2"

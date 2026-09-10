@@ -99,6 +99,231 @@ export interface Peak {
   category: PeakCategory
 }
 
+export interface DifficultyGuidance {
+  equipment: string[]
+  rules: string[]
+  tips: string[]
+}
+
+export interface TimingPoint {
+  time: string
+  place: string
+}
+
+export interface PeakTiming {
+  title: string
+  points: TimingPoint[]
+  movingTime: string
+}
+
+export const peakTimings: Record<string, PeakTiming> = {
+  Kumbel: {
+    title: 'Кумбель',
+    points: [
+      { time: '7:00', place: 'Старт Акбулак' },
+      { time: '8:30', place: 'Кок-Жайляу' },
+      { time: '8:30–9:30', place: 'Отдых' },
+      { time: '11:00', place: 'Три брата' },
+      { time: '12:30', place: 'Кумбель' },
+      { time: '12:30–13:00', place: 'Отдых' },
+      { time: '14:00', place: 'Три брата' },
+      { time: '15:00', place: 'Кок-Жайляу' },
+      { time: '16:30', place: 'Акбулак' },
+    ],
+    movingTime: '8 ч',
+  },
+  bukreev: {
+    title: 'Букреев',
+    points: [
+      { time: '7:30', place: 'Старт, ущелье Бутаковки' },
+      { time: '8:00', place: 'Родник Бутаковки' },
+      { time: '8:30', place: 'Таблички' },
+      { time: '10:00', place: 'Мыс Надежды' },
+      { time: '10:00–10:30', place: 'Отдых' },
+      { time: '12:00', place: 'Букреев' },
+      { time: '12:00–12:30', place: 'Отдых' },
+      { time: '15:00', place: 'Родник Бутаковки' },
+      { time: '15:20', place: 'Ущелье Бутаковки' },
+    ],
+    movingTime: '6 ч 50 мин',
+  },
+  mak: {
+    title: 'МАК',
+    points: [
+      { time: '7:00', place: 'Старт с Медео' },
+      { time: '7:20', place: 'Ущелье Кимасар' },
+      { time: '9:00', place: 'Качели' },
+      { time: '10:30', place: 'Поляна энтузиастов' },
+      { time: '11:00', place: 'Фурманов' },
+      { time: '11:15–11:45', place: 'Отдых в хижине Панорама' },
+      { time: '12:30', place: 'Панорама' },
+      { time: '12:50', place: 'Башута' },
+      { time: '14:00', place: 'Чимбулачка' },
+      { time: '14:30', place: 'Спуск по канатной дороге' },
+    ],
+    movingTime: '7 ч',
+  },
+  'kamenskiy-kargaly': {
+    title: 'Траверс Каменский–Каргалинский',
+    points: [
+      { time: '6:00', place: 'Старт с конца Алма-Арасана' },
+      { time: '7:30', place: 'Поляна Терра' },
+      { time: '7:30–8:00', place: 'Отдых' },
+      { time: '11:30', place: 'Перевал Буркит-Тас' },
+      { time: '11:00', place: 'Каргалинский' },
+      { time: '11:40', place: 'Перевал Близнецов' },
+      { time: '12:00', place: 'Каменский' },
+      { time: '12:00–12:30', place: 'Отдых' },
+      { time: '14:30', place: 'Гора Каскабас' },
+      { time: '17:30', place: 'Алма-Арасан' },
+    ],
+    movingTime: '10 ч 30 мин',
+  },
+  karinznij: {
+    title: 'Карнизный',
+    points: [
+      { time: '4:00', place: 'Старт у Эдельвейса' },
+      { time: '5:30', place: 'БАО' },
+      { time: '6:40', place: 'Беседка по пути до развилки' },
+      { time: '10:00', place: 'АА' },
+      { time: '10:15', place: 'Выход на пик' },
+      { time: '11:45', place: 'Пик' },
+      { time: '13:00', place: 'АА' },
+      { time: '15:50', place: 'БАО' },
+      { time: '17:20', place: 'Эдельвейс' },
+    ],
+    movingTime: '13 ч',
+  },
+  'geroi-28': {
+    title: 'ГП — 23.02.2025',
+    points: [
+      { time: '5:30', place: 'Конец асфальта' },
+      { time: '7:00', place: 'Мынжылкы' },
+      { time: '8:30', place: 'Альпинград' },
+      { time: '9:00', place: 'Озеро Маншук Маметовой' },
+      { time: '9:00–9:30', place: 'Отдых' },
+      { time: '10:30', place: 'Подножье 28 Героев Панфиловцев' },
+      { time: '11:30', place: '28 Героев Панфиловцев' },
+      { time: '11:30–12:30', place: 'Отдых' },
+      { time: '14:00', place: 'Озеро Маншук Маметовой' },
+      { time: '15:30', place: 'Выход с озера ММ' },
+      { time: '16:30', place: 'Конец асфальта' },
+    ],
+    movingTime: '',
+  },
+  turist: {
+    title: 'Пик Туристов — 31.10',
+    points: [
+      { time: '6:00', place: 'Старт с космостанции' },
+      { time: '7:20', place: 'Домик' },
+      { time: '7:50', place: 'Выход из домика' },
+      { time: '9:00', place: 'Пик' },
+      { time: '10:00', place: 'Выход с пика' },
+      { time: '11:30', place: 'Космостанция' },
+      { time: '12:30', place: 'Выход с космостанции' },
+      { time: '13:30', place: 'БАО' },
+      { time: '14:30', place: 'Выход с БАО' },
+      { time: '16:00', place: 'КПП' },
+    ],
+    movingTime: '',
+  },
+}
+
+export const routeDurationOverrides: Record<string, string> = {
+  bukreev: '6 ч 50 мин',
+  mak: '7 ч',
+  'kamenskiy-kargaly': '10 ч 30 мин',
+  karinznij: '13 ч',
+}
+
+export const difficultyGuidance: Record<1 | 2 | 3 | 4, DifficultyGuidance> = {
+  1: {
+    equipment: [
+      'Трекинговые кроссовки или лёгкие ботинки',
+      'Ветровка и флиска',
+      'Трекинговые палки',
+      'Рюкзак 20–30 л',
+      'Обычная аптечка',
+      'Вода 1,5–2 л',
+      'Перекус',
+    ],
+    rules: [
+      'Обязательный разворот не позднее 14:00',
+      'Двигаться только по натоптанным тропам',
+      'Сообщить близким о маршруте',
+    ],
+    tips: [
+      'Старт в 7:00–8:00 утра, чтобы не идти по жаре',
+      'Пользоваться солнцезащитным кремом',
+    ],
+  },
+  2: {
+    equipment: [
+      'Прочные трекинговые ботинки с жёсткой подошвой',
+      'Тёплая куртка',
+      'Шапка и перчатки',
+      'Каска для участков с осыпями',
+      'Очки с защитой от ультрафиолета 3–4 категории',
+      'Вода 2–3 л',
+      'Горячий чай',
+    ],
+    rules: [
+      'Разворот не позднее 13:00–14:00',
+      'При головной боли и других признаках горной болезни — спуск',
+      'Осторожно на «живых» камнях и курумнике',
+    ],
+    tips: [
+      'Держать плавный темп для акклиматизации',
+      'Использовать трекинговые палки на крутых сыпучих спусках',
+      'Старт маршрута не позднее 6:00–7:00 утра',
+    ],
+  },
+  3: {
+    equipment: [
+      'Каска — строго обязательно',
+      'Страховочная система и усы самостраховки',
+      'Карабины',
+      'Верёвка, если её требует маршрут',
+      'Кошки и ледоруб по сезону',
+      'Горные ботинки для альпинизма',
+      'Рюкзак 30–40 л',
+    ],
+    rules: [
+      'Разворот строго до 13:00',
+      'Двигаться в касках с начала скальной или осыпной части',
+      'Соблюдать дистанцию во избежание сброса камней',
+      'Требуются базовые навыки скалолазания',
+    ],
+    tips: [
+      'Ранний штурм: выход в 4:00–5:00 утра',
+      'Идти в группе с опытным лидером, знающим маршрут',
+      'Использовать радиосвязь в группе',
+    ],
+  },
+  4: {
+    equipment: [
+      'Основные верёвки',
+      'Ледобуры',
+      'Закладки или френды',
+      'Жумары и спусковые устройства',
+      'Жёсткие альпинистские ботинки',
+      'Кошки и ледоруб',
+      'Бивачное снаряжение для многодневных маршрутов',
+    ],
+    rules: [
+      'Двигаться в связках на ледниках с закрытыми трещинами',
+      'Организовывать надёжные точки страховки',
+      'Зарегистрировать маршрут в МЧС/РОСО',
+      'Контрольное время разворота устанавливается гидом, обычно до 12:00',
+    ],
+    tips: [
+      'Альпийский старт: выход в 2:00–3:00 ночи',
+      'Пройти ледники и кулуары до начала камнепада и таяния снега',
+      'Требуются отличная физическая форма и акклиматизация на высотах 4000+',
+    ],
+  },
+}
+
 export function getPeakById(id: string): Peak | undefined {
   return peaksData.find((p) => p.id === id)
 }
@@ -442,18 +667,18 @@ export const peaksData: Peak[] = [
     difficulty: 'Лёгкий',
     difficultyLevel: 1,
        description:
-'Живописная панорамная вершина в Заилийском Алатау, названная в честь легендарного казахстанского альпиниста Анатолия Букреева.',    routeStats: {
+'Живописная панорамная вершина в Заилийском Алатау, названная в честь легендарного казахстанского альпиниста Анатолия Букреева.',
     routeStats: {
     distance: '10 км',
       elevationGain: '1180 м',
-      duration: '7 ч',
+      duration: '6 ч 50 мин',
     },
     
     
     routes: [
       {
         name: 'Юго-западный маршрут',
-        duration: '7 ч',
+        duration: '6 ч 50 мин',
         distance: '10.5 км',
         elevationGain: '1180 м',
         difficulty: 'Легкий',
@@ -1385,7 +1610,7 @@ export const peaksData: Peak[] = [
     { id: 'chkalova', name: 'Пик Чкалова', nameKz: 'Чкалов шыңы', nameEn: 'Chkalov Peak', elevation: 3892, coordinates: { lat: 43.104686, lng: 77.126508 }, mapPosition: { top: '30.56%', left: '53.13%' }, difficulty: 'Средний', difficultyLevel: 2, description: 'Пик Чкалова высотой 3892 м.', routeStats: { distance: '18 км', elevationGain: '1692 м', duration: '10 ч' },    routes: [{ name: 'Основной маршрут', duration: '10 ч', distance: '18 км', elevationGain: '1692 м', difficulty: 'Средний', terrain: 'Тропа, осыпь, снег', description: 'Маршрут от Шымбулака.', highlights: ['Луга', 'Осыпи'], }], equipment: [{ category: 'ОДЕЖДА', items: [{ name: 'Ботинки', essential: true }, { name: 'Штаны', essential: true }, { name: 'Куртка', essential: true }, { name: 'Утеплённая куртка', essential: true }] }, { category: 'СНАРЯЖЕНИЕ', items: [{ name: 'Рюкзак 40-50 л', essential: true }, { name: 'Палки', essential: true }, { name: 'Навигатор', essential: true }, { name: 'Фонарик', essential: true }] }, { category: 'ПРОДУКТЫ', items: [{ name: 'Вода 2 л', essential: true }, { name: 'Батончики', essential: true }] }, { category: 'МЕДИЦИНА', items: [{ name: 'Аптечка', essential: true }] }], safety: { rules: ['Изучите маршрут', 'Возьмите телефон', 'Начинайте рано'], emergencyContacts: [{ label: 'МЧС', number: '112' }], tips: ['Возьмите воду'] }, photos: [], category: 'peak' },
     { id: 'fizkulturnik', name: 'Пик Физкультурник', nameKz: 'Физкультурник шыңы', nameEn: 'Fizkulturnik Peak', elevation: 4068, coordinates: { lat: 43.092588, lng: 77.115702 }, mapPosition: { top: '28.43%', left: '60.46%' }, difficulty: 'Сложный', difficultyLevel: 3, description: 'Пик Физкультурник высотой 4068 м.', routeStats: { distance: '20 км', elevationGain: '1868 м', duration: '12 ч' },    routes: [{ name: 'Основной маршрут', duration: '12 ч', distance: '20 км', elevationGain: '1868 м', difficulty: 'Сложный', terrain: 'Тропа, осыпь, снег', description: 'Маршрут от Шымбулака.', highlights: ['Осыпи', 'Снежные поля'], }], equipment: [{ category: 'ОДЕЖДА', items: [{ name: 'Ботинки', essential: true }, { name: 'Штаны', essential: true }, { name: 'Куртка', essential: true }, { name: 'Утеплённая куртка', essential: true }, { name: 'Балаклава', essential: true }, { name: 'Перчатки', essential: true }] }, { category: 'СНАРЯЖЕНИЕ', items: [{ name: 'Рюкзак 50-60 л', essential: true }, { name: 'Палки', essential: true }, { name: 'Навигатор', essential: true }, { name: 'Термос', essential: true }] }, { category: 'ПРОДУКТЫ', items: [{ name: 'Вода 2 л', essential: true }, { name: 'Батончики', essential: true }] }, { category: 'МЕДИЦИНА', items: [{ name: 'Аптечка', essential: true }] }], safety: { rules: ['Изучите маршрут', 'Возьмите телефон', 'Начинайте рано', 'Следите за погодой'], emergencyContacts: [{ label: 'МЧС', number: '112' }], tips: ['Возьмите воду', 'Берите термос'] }, photos: [], category: 'peak' },
        { id: 'tri-brata', name: 'Три Брата', nameKz: 'Үш Ағайын', nameEn: 'Three Brothers', elevation: 2655, coordinates: { lat: 43.170, lng: 77.070 }, mapPosition: { top: '35.58%', left: '79.4%' }, difficulty: 'Лёгкий', difficultyLevel: 1, description: 'Три Брата — группа скал 2655 м. Маршрут для начинающих.', routeStats: { distance: '15 км', elevationGain: '455 м', duration: '5 ч' },    routes: [{ name: 'Основной маршрут', duration: '5 ч', distance: '14 км', elevationGain: '455 м', difficulty: 'Лёгкий', terrain: 'Тропа, лес', description: 'Маршрут от Акбулака через Кок-Жайляу.', highlights: ['Лес', 'Три вершины'], }], equipment: [{ category: 'Одежда', items: [{ name: 'Ветровка', essential: true }, { name: 'Куртка', essential: true }, { name: 'Штаны', essential: true }, { name: 'Ботинки', essential: true }] }, { category: 'Снаряжение', items: [{ name: 'Рюкзак 30-40 л', essential: true }, { name: 'Навигатор', essential: true },{ name: 'Треккинговые палки', essential: false }] }, {category: 'Навигация', items: [{ name: 'Установленный GPS-навигатор', essential: true}]},{ category: 'Продукты', items: [{ name: 'Вода(минимум 1.5 л)', essential: true },{ name: 'Закуски', essential: true }] }, { category: 'Безопасность', items: [{ name: 'Аптечка', essential: true },{ name: 'Солнцезащитный крем SPF 50+', essential: true }] }], safety: { rules: ['Изучите маршрут заранеее', 'Следуйте лишь по тропе и не сходите с маршрута', 'Возьмите телефон'], emergencyContacts: [{ label: 'МЧС', number: '112' }], tips: ['Оптимально начать маршрут утром'] }, photos: [], category: 'mountain' },
-    { id: 'kos-kainu', name: 'Кок-Жайляу', nameKz: 'Көкжайлау', nameEn: 'Kok-Zhailyau', elevation: 2200, coordinates: { lat: 43.175, lng: 77.080 }, mapPosition: { top: '50.48%', left: '78%' }, difficulty: 'Лёгкий', difficultyLevel: 1, description: 'Кок-Жайляу — плато 2230м. Самый доступный маршрут.', routeStats: { distance: '10 км', elevationGain: '596 м', duration: '3 ч' },    routes: [{ name: 'Основной маршрут', duration: '3 ч', distance: '10 км', elevationGain: '596 м', difficulty: 'Лёгкий', terrain: 'Тропа, лес', description: 'Маршрут от Акбулака через лес.', highlights: ['Лес', 'Семейный'], }], equipment: [{ category: 'Одежда', items: [{ name: 'Удобная обувь', essential: true }, { name: 'Куртка', essential: true }{ name: 'Штаны', essential: true }] }, { category: 'Снаряжение', items: [{ name: 'Рюкзак 20-30 л', essential: true }{ name: 'Трекинговые палки', essential: false }] }, { category: 'Продукты', items: [{ name: 'Вода(минимум 1 л)', essential: true }{ name: 'Закуски', essential: true }] }, { category: 'Безопасность', items: [{ name: 'Аптечка', essential: true }{ name: 'Солнцезащитный крем SPF 50+', essential: true }] }], safety: { rules: ['Следуйте лишь по тропе и не сходите с маршрута', 'Заранее проверяйте прогноз погоды', 'Ориентируйтесь по GPS или ориентирам на маршруте', 'Убирайте мусор за собой'], emergencyContacts: [{ label: 'МЧС', number: '112' }], tips: ['Оптимально начать маршрут утром'] }, photos: [], category: 'mountain' }, 
+    { id: 'kos-kainu', name: 'Кок-Жайляу', nameKz: 'Көкжайлау', nameEn: 'Kok-Zhailyau', elevation: 2200, coordinates: { lat: 43.175, lng: 77.080 }, mapPosition: { top: '50.48%', left: '78%' }, difficulty: 'Лёгкий', difficultyLevel: 1, description: 'Кок-Жайляу — плато 2230м. Самый доступный маршрут.', routeStats: { distance: '10 км', elevationGain: '596 м', duration: '3 ч' },    routes: [{ name: 'Основной маршрут', duration: '3 ч', distance: '10 км', elevationGain: '596 м', difficulty: 'Лёгкий', terrain: 'Тропа, лес', description: 'Маршрут от Акбулака через лес.', highlights: ['Лес', 'Семейный'], }], equipment: [{ category: 'Одежда', items: [{ name: 'Удобная обувь', essential: true }, { name: 'Куртка', essential: true }, { name: 'Штаны', essential: true }] }, { category: 'Снаряжение', items: [{ name: 'Рюкзак 20-30 л', essential: true }, { name: 'Трекинговые палки', essential: false }] }, { category: 'Продукты', items: [{ name: 'Вода(минимум 1 л)', essential: true }, { name: 'Закуски', essential: true }] }, { category: 'Безопасность', items: [{ name: 'Аптечка', essential: true }, { name: 'Солнцезащитный крем SPF 50+', essential: true }] }], safety: { rules: ['Следуйте лишь по тропе и не сходите с маршрута', 'Заранее проверяйте прогноз погоды', 'Ориентируйтесь по GPS или ориентирам на маршруте', 'Убирайте мусор за собой'], emergencyContacts: [{ label: 'МЧС', number: '112' }], tips: ['Оптимально начать маршрут утром'] }, photos: [], category: 'mountain' }, 
   { id: 'bao', name: 'Большое Алматинское Озеро (БАО)', nameKz: 'Үлкен Алматы көлі', nameEn: 'Big Almaty Lake (BAL)', elevation: 2511, coordinates: { lat: 43.0625, lng: 76.9775 }, mapPosition: { top: '58%', left: '8%' }, difficulty: 'Лёгкий', difficultyLevel: 1, description: 'Большое Алматинское Озеро (2511 м) — горное озеро в одноимённом ущелье, одна из самых популярных точек Заилийского Алатау. Дорога идёт вдоль реки Большая Алматинка через лес к бирюзовой воде у подножия пиков.', routeStats: { distance: '18 км', elevationGain: '850 м', duration: '6 ч' }, routes: [{ name: 'Основной маршрут', duration: '6 ч', distance: '18 км', elevationGain: '850 м', difficulty: 'Лёгкий', terrain: 'Тропа, лес', description: 'Большое Алматинское Озеро (2511 м) — горное озеро в одноимённом ущелье, одна из самых популярных точек Заилийского Алатау. Дорога идёт вдоль реки Большая Алматинка через лес к бирюзовой воде у подножия пиков.', highlights: ['Панорама', 'Лес'] }], equipment: [{ category: 'ОДЕЖДА', items: [{ name: 'Ветровка', essential: true }, { name: 'Куртка', essential: true }, { name: 'Штаны', essential: true }, { name: 'Ботинки', essential: true }] }, { category: 'СНАРЯЖЕНИЕ', items: [{ name: 'Рюкзак 20-30 л', essential: true }, { name: 'Навигатор', essential: true }] }, { category: 'ПРОДУКТЫ', items: [{ name: 'Вода 1.5 л', essential: true }, { name: 'Перекусы', essential: true }] }, { category: 'МЕДИЦИНА', items: [{ name: 'Аптечка', essential: true }] }], safety: { rules: ['Изучите маршрут', 'Возьмите телефон'], emergencyContacts: [{ label: 'МЧС', number: '112' }], tips: ['Возьмите воду'] }, photos: ['/alataupeaks/photos/bao/1.jpg','/alataupeaks/photos/bao/2.jpg','/alataupeaks/photos/bao/3.jpg','/alataupeaks/photos/bao/4.jpg','/alataupeaks/photos/bao/5.jpg'], category: 'mountain' },
     { id: 'mynzhylky', name: 'Урочище Мынжылкы', nameKz: 'Мынжылқы', nameEn: 'Mynzhylky', elevation: 2511, coordinates: { lat: 43.0736, lng: 77.0297 }, mapPosition: { top: '62%', left: '12%' }, difficulty: 'Лёгкий', difficultyLevel: 1, description: 'Урочище Мынжылкы — конечная точка Малого Алматинского ущелья с гидропостом и метеостанцией, откуда открывается вид на ледники и пики главного хребта. Классический маршрут выходного дня.', routeStats: { distance: '22 км', elevationGain: '900 м', duration: '7 ч' }, routes: [{ name: 'Основной маршрут', duration: '7 ч', distance: '22 км', elevationGain: '900 м', difficulty: 'Лёгкий', terrain: 'Тропа, лес', description: 'Урочище Мынжылкы — конечная точка Малого Алматинского ущелья с гидропостом и метеостанцией, откуда открывается вид на ледники и пики главного хребта. Классический маршрут выходного дня.', highlights: ['Панорама', 'Лес'] }], equipment: [{ category: 'ОДЕЖДА', items: [{ name: 'Ветровка', essential: true }, { name: 'Куртка', essential: true }, { name: 'Штаны', essential: true }, { name: 'Ботинки', essential: true }] }, { category: 'СНАРЯЖЕНИЕ', items: [{ name: 'Рюкзак 20-30 л', essential: true }, { name: 'Навигатор', essential: true }] }, { category: 'ПРОДУКТЫ', items: [{ name: 'Вода 1.5 л', essential: true }, { name: 'Перекусы', essential: true }] }, { category: 'МЕДИЦИНА', items: [{ name: 'Аптечка', essential: true }] }], safety: { rules: ['Изучите маршрут', 'Возьмите телефон'], emergencyContacts: [{ label: 'МЧС', number: '112' }], tips: ['Возьмите воду'] }, photos: ['/alataupeaks/photos/mynzhylky/1.jpg','/alataupeaks/photos/mynzhylky/2.jpg','/alataupeaks/photos/mynzhylky/3.jpg','/alataupeaks/photos/mynzhylky/4.jpg',], category: 'mountain' },
 
@@ -1407,7 +1632,7 @@ export const peaksData: Peak[] = [
 
 
 
-    { id: 'mak', name: 'Траверс Малая Алматинская Кругосветка (МАК)', nameKz: 'Кіші Алматы айналма жорығы (МАҚ)', nameEn: 'Small Almaty Round-the-World Traverse (MAK)', altNames: ['МАК', 'Малая Кругосветка', 'MAK', 'Malaya Almatinskaya Krugosvetka'], elevation: 3450, coordinates: { lat: 43.1375, lng: 76.9975 }, mapPosition: { top: '33%', left: '38%' }, difficulty: 'Лёгкий', difficultyLevel: 1, description: 'Кольцевой траверс хребта над Шымбулаком: Пик Фурманова (3053 м) → Пик Панорама (3053 м) → Пик Башута (3355 м) → Пик Чимбулачка (3458 м). Длинный живописный маршрут с постоянной сменой видов на город, Кунгей и ледники.', routeStats: { distance: '17 км', elevationGain: '1377 м', duration: '9 ч' }, routes: [{ name: 'Кольцо: Фурманова → Панорама → Башута → Чимбулачка', duration: '9 ч', distance: '17 км', elevationGain: '1377 м', difficulty: 'Лёгкий', terrain: 'Тропа, Осыпь, Траверс склонов, Гребень', description: 'Старт от Шымбулака, подъём на Фурманова, далее по хребту через Панораму и Башуту на Чимбулачку и спуск к курорту по канатной дороге. Ранний старт обязателен — маршрут на полный день.', highlights: ['Четыре вершины за один день', 'Виды на Кунгей-Алатау и Талгар'] }], equipment: [{ category: 'Одежда', items: [{ name: 'Термобелье', essential: true }, { name: 'Ветровка' essential: true }, { name: 'Штаны', essential: true }, { name: 'Трекинговые ботинки', essential: true }] }, { category: 'Снаряжение', items: [{ name: 'Рюкзак 30-40 л', essential: true }, { name: 'Трекинговые палки', essential: true }] }, { category: 'Навигация', items: [ { name: 'GPS-навигатор', essential: true }, { name: 'Power bank', essential: true } ] },{ category: 'Продукты', items: [{ name: 'Вода(минимум 2л)', essential: true }, { name: 'Углеводные закуски', essential: true }] }, { category: 'Безопасность', items: [{ name: 'Аптечка', essential: true },{name: 'Солнцезащитный крем SPF 50+', essential: true }] }], safety: { rules: ['Изучите маршрут заранее', 'Следуйте лишь по тропе и не сходите с маршрута', 'Планируйте закончить путь до 16, иначе канатной дорогой не вернуться', 'Заранее проверяйте прогноз погоды',emergencyContacts: [{ label: 'МЧС', number: '112' }], tips: ['Возьмите воду и термос', 'Не спускайтесь в одиночку'] }, photos: [], category: 'traverse', traversePeaks: ['furmanova', 'panorama', 'bashuta', 'chimbulaka'] },
+    { id: 'mak', name: 'Траверс Малая Алматинская Кругосветка (МАК)', nameKz: 'Кіші Алматы айналма жорығы (МАҚ)', nameEn: 'Small Almaty Round-the-World Traverse (MAK)', altNames: ['МАК', 'Малая Кругосветка', 'MAK', 'Malaya Almatinskaya Krugosvetka'], elevation: 3450, coordinates: { lat: 43.1375, lng: 76.9975 }, mapPosition: { top: '33%', left: '38%' }, difficulty: 'Лёгкий', difficultyLevel: 1, description: 'Кольцевой траверс хребта над Шымбулаком: Пик Фурманова (3053 м) → Пик Панорама (3053 м) → Пик Башута (3355 м) → Пик Чимбулачка (3458 м). Длинный живописный маршрут с постоянной сменой видов на город, Кунгей и ледники.', routeStats: { distance: '17 км', elevationGain: '1377 м', duration: '9 ч' }, routes: [{ name: 'Кольцо: Фурманова → Панорама → Башута → Чимбулачка', duration: '9 ч', distance: '17 км', elevationGain: '1377 м', difficulty: 'Лёгкий', terrain: 'Тропа, Осыпь, Траверс склонов, Гребень', description: 'Старт от Шымбулака, подъём на Фурманова, далее по хребту через Панораму и Башуту на Чимбулачку и спуск к курорту по канатной дороге. Ранний старт обязателен — маршрут на полный день.', highlights: ['Четыре вершины за один день', 'Виды на Кунгей-Алатау и Талгар'] }], equipment: [{ category: 'Одежда', items: [{ name: 'Термобелье', essential: true }, { name: 'Ветровка', essential: true }, { name: 'Штаны', essential: true }, { name: 'Трекинговые ботинки', essential: true }] }, { category: 'Снаряжение', items: [{ name: 'Рюкзак 30-40 л', essential: true }, { name: 'Трекинговые палки', essential: true }] }, { category: 'Навигация', items: [ { name: 'GPS-навигатор', essential: true }, { name: 'Power bank', essential: true } ] },{ category: 'Продукты', items: [{ name: 'Вода(минимум 2л)', essential: true }, { name: 'Углеводные закуски', essential: true }] }, { category: 'Безопасность', items: [{ name: 'Аптечка', essential: true },{name: 'Солнцезащитный крем SPF 50+', essential: true }] }], safety: { rules: ['Изучите маршрут заранее', 'Следуйте лишь по тропе и не сходите с маршрута', 'Планируйте закончить путь до 16, иначе канатной дорогой не вернуться', 'Заранее проверяйте прогноз погоды'], emergencyContacts: [{ label: 'МЧС', number: '112' }], tips: ['Возьмите воду и термос', 'Не спускайтесь в одиночку'] }, photos: [], category: 'traverse', traversePeaks: ['furmanova', 'panorama', 'bashuta', 'chimbulaka'] },
     { id: 'bap', hiddenOnMap: true, name: 'Большой Алматинский Пик (БАП)', nameKz: 'Үлкен Алматы шыңы', nameEn: 'Big Almaty Peak (BAP)', altNames: ['БАП', 'Большой Алматинский', 'Big Almaty Peak', 'BAP'], elevation: 3681, coordinates: { lat: 43.0551623, lng: 76.9335866 }, mapPosition: { top: '64%', left: '14%' }, difficulty: 'Средний', difficultyLevel: 2, description: 'Большой Алматинский Пик (3681 м) — классическое восхождение над Большим Алматинским озером. Крутая тропа и осыпи выводят на вершину с одной из лучших панорам района.', routeStats: { distance: '20 км', elevationGain: '2400 м', duration: '12 ч' }, routes: [{ name: 'От БАО через обсерваторию', duration: '12 ч', distance: '20 км', elevationGain: '2400 м', difficulty: 'Средний', terrain: 'Тропа, крутая осыпь, скалы', description: 'Старт от Большого Алматинского озера, подъём мимо обсерватории по крутым тропам и осыпям на вершину. Ранний выход обязателен.', highlights: ['Вид на БАО сверху', 'Панорама Заилийского Алатау', 'Классический маршрут района'] }], equipment: [{ category: 'ОДЕЖДА', items: [{ name: 'Тренировочные ботинки', essential: true }, { name: 'Штаны', essential: true }, { name: 'Куртка', essential: true }, { name: 'Утеплённая куртка', essential: true }] }, { category: 'СНАРЯЖЕНИЕ', items: [{ name: 'Рюкзак 40-50 л', essential: true }, { name: 'Палки', essential: true }, { name: 'Навигатор', essential: true }, { name: 'Фонарик', essential: true }] }, { category: 'ПРОДУКТЫ', items: [{ name: 'Вода 2 л', essential: true }, { name: 'Батончики и сухарики', essential: true }] }, { category: 'МЕДИЦИНА', items: [{ name: 'Аптечка', essential: true }] }], safety: { rules: ['Изучите маршрут', 'Возьмите телефон', 'Начинайте рано', 'Следите за погодой'], emergencyContacts: [{ label: 'МЧС', number: '112' }], tips: ['Возьмите воду и термос', 'Не спускайтесь в одиночку'] }, photos: [], signPhoto: '/alataupeaks/photos/bap/sign.jpg', category: 'peak' },
     { id: 'qotyrbulaq', name: 'Пик Котырбулак', nameKz: 'Қотырбұлақ шыңы', nameEn: 'Kotyrbulak Peak', altNames: ['Котырбулак', 'Kotyrbulak', 'Горный Садовод'], elevation: 3030, coordinates: { lat: 43.0765, lng: 76.9853 }, mapPosition: { top: '36.17%', left: '24.86%' }, difficulty: 'Средний', difficultyLevel: 2, description: 'Пик Котырбулак (3030 м) возвышается над ущельем Котырбулак (бывший «Горный Садовод»). Живописный маршрут через поляну Энтузиастов и Бутаковский перевал.', routeStats: { distance: '14 км', elevationGain: '1400 м', duration: '7 ч' }, routes: [{ name: 'Через Бутаковский перевал', duration: '7 ч', distance: '14 км', elevationGain: '1400 м', difficulty: 'Средний', terrain: 'Тропа, травянистые склоны, осыпь', description: 'Подъём через поляну Энтузиастов и Бутаковский перевал к вершине с открытыми видами на город и хребет.', highlights: ['Поляна Энтузиастов', 'Бутаковский перевал', 'Вид на Кумбель'] }], equipment: [{ category: 'ОДЕЖДА', items: [{ name: 'Ветровка', essential: true }, { name: 'Куртка', essential: true }, { name: 'Штаны', essential: true }, { name: 'Ботинки', essential: true }] }, { category: 'СНАРЯЖЕНИЕ', items: [{ name: 'Рюкзак 30-40 л', essential: true }, { name: 'Палки', essential: true }, { name: 'Навигатор', essential: true }] }, { category: 'ПРОДУКТЫ', items: [{ name: 'Вода 1.5 л', essential: true }, { name: 'Перекусы', essential: true }] }, { category: 'МЕДИЦИНА', items: [{ name: 'Аптечка', essential: true }] }], safety: { rules: ['Изучите маршрут', 'Возьмите телефон', 'Начинайте рано'], emergencyContacts: [{ label: 'МЧС', number: '112' }], tips: ['Возьмите воду'] }, photos: [], signPhoto: '/alataupeaks/photos/qotyrbulaq/sign.jpg', category: 'peak' },
     { id: 'skai', name: 'Пик Скай (СКАИ)', nameKz: 'Скай шыңы', nameEn: 'Sky Peak (SKAI)', altNames: ['СКАИ', 'Скай', 'Sky', 'Sky Peak'], elevation: 3137, coordinates: { lat: 43.1456555, lng: 77.1291979 }, mapPosition: { top: '37.13%', left: '34.4%' }, difficulty: 'Лёгкий', difficultyLevel: 1, description: 'Пик Скай (3137 м) над Бутаковкой — популярная вершина с панорамой Медеу и Кимасара. Маршрут идёт через поляну Энтузиастов и Бутаковский перевал.', routeStats: { distance: '16 км', elevationGain: '1300 м', duration: '8 ч' }, routes: [{ name: 'Медеу → Бутаковский перевал', duration: '8 ч', distance: '16 км', elevationGain: '1300 м', difficulty: 'Лёгкий', terrain: 'Тропа, лес, осыпь', description: 'От Медеу через поляну Энтузиастов на Бутаковский перевал и далее на вершину Скай. Живописно и умеренно нагрузочно.', highlights: ['Вид на Медеу', 'Бутаковский перевал', 'Панорама города'] }], equipment: [{ category: 'ОДЕЖДА', items: [{ name: 'Ветровка', essential: true }, { name: 'Куртка', essential: true }, { name: 'Штаны', essential: true }, { name: 'Ботинки', essential: true }] }, { category: 'СНАРЯЖЕНИЕ', items: [{ name: 'Рюкзак 30-40 л', essential: true }, { name: 'Палки', essential: true }, { name: 'Навигатор', essential: true }] }, { category: 'ПРОДУКТЫ', items: [{ name: 'Вода 1.5 л', essential: true }, { name: 'Перекусы', essential: true }] }, { category: 'МЕДИЦИНА', items: [{ name: 'Аптечка', essential: true }] }], safety: { rules: ['Изучите маршрут', 'Возьмите телефон', 'Начинайте рано'], emergencyContacts: [{ label: 'МЧС', number: '112' }], tips: ['Возьмите воду'] }, photos: [], signPhoto: '/alataupeaks/photos/skai/sign.jpg', category: 'peak' },
