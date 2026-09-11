@@ -54,7 +54,7 @@ export default function Landing() {
         >
           {/* Panorama image */}
           <img
-            src="/alataupeaks/map-panorama.jpg"
+            src={`${import.meta.env.BASE_URL}map-panorama.jpg`}
             alt={t.mapTitle}
             className="w-full h-full object-cover"
             style={{ display: 'block' }}

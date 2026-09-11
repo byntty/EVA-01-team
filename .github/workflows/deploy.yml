@@ -33,8 +33,16 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Verify Pages artifact
+        run: |
+          test -f dist/index.html
+          grep -q 'assets/index-' dist/index.html
+          test ! -e dist/src
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
+        with:
+          enablement: true
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
