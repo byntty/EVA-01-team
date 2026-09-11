@@ -32,6 +32,11 @@ import { trData } from '../lib/dataTranslations'
 import { getWeather, windDirection, type CurrentWeather, type HourlyPoint, type WeatherView } from '../lib/weather'
 import { difficultyGuidance, getPeakById, peakTimings, routeDurationOverrides, type Peak, type PeakTiming } from '../data/peaksData'
 
+function assetPath(path: string): string {
+  if (/^(?:https?:)?\/\//.test(path)) return path
+  return `${import.meta.env.BASE_URL}${path.replace(/^\/(?:alataupeaks\/)?/, '')}`
+}
+
 export default function PeakDetail() {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
@@ -193,7 +198,7 @@ export default function PeakDetail() {
                   <div className="sm:w-1/3 flex items-center justify-center">
                     {peak.signPhoto ? (
                       <img
-                        src={peak.signPhoto}
+                        src={assetPath(peak.signPhoto)}
                         alt={t.signPhotoTitle + ' — ' + displayName(peak)}
                         className="object-cover self-stretch"
                         style={{
@@ -986,7 +991,7 @@ function PhotoGalleryBlock({ peak, t, lang }: { peak: Peak; t: any; lang: Lang }
               }}
             >
               <img
-                src={photo}
+                src={assetPath(photo)}
                 alt={`${displayName(peak)} — ${t.photosTitle} ${idx + 1}`}
                 loading="lazy"
                 onLoad={recheckOverflow}
@@ -1055,7 +1060,7 @@ function PhotoGalleryBlock({ peak, t, lang }: { peak: Peak; t: any; lang: Lang }
         >
           <div className="relative max-w-4xl max-h-[80vh] w-full mx-4">
             <img
-              src={peak.photos[selectedPhoto]}
+              src={assetPath(peak.photos[selectedPhoto])}
               alt={`${displayName(peak)} — ${t.photosTitle} ${selectedPhoto + 1}/${peak.photos.length}`}
               className="w-full h-full object-contain"
               style={{ border: '4px solid #f5e6c8', borderRadius: '4px', boxShadow: '4px 4px 0px #3d2b1f' }}
